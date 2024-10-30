@@ -5,7 +5,7 @@ return (object) array(
     // App Data
     'SITE_NAME'     => "7amada's Majestic E-Shop",
     'APP_ROOT'      => dirname(dirname(__FILE__)),
-    'URL_ROOT'      => 'http://localhost:3000',
+    'URL_ROOT'      => 'http://localhost:8000',
     'URL_SUBFOLDER' => '',
 
     // DB Data
@@ -22,9 +22,10 @@ return (object) array(
 
     // Routes
     'ROUTES' => [
-        // ''               => 'HomeController@index',
+        // ' '               => 'HomeController@index',
          '/'              => 'HomeController@index',
         '/test'          => 'HomeController@test',
+        '/contacts'         => 'ContactsController@index',
         // '/test/{arg}'    => 'TestController@show',
         // '/login'         => 'LoginController@show',
         // '/shop/{userId}' => 'ShopController@show',

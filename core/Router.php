@@ -1,8 +1,15 @@
 <?php
+
+// $configs = require_once "config/config.php";
+// require_once "app/controllers/HomeController.php";
+
+require_once __DIR__ . '/../app/controllers/ContactsController.php';
+require_once __DIR__ . '/../app/controllers/HomeController.php';
+
 class Router {
     public function route($url) {
+        
         global $configs;
-
         foreach ($configs->ROUTES as $route => $handler) {
             $pattern = $this->buildPattern($route);
             if (preg_match($pattern, $url, $matches)) {

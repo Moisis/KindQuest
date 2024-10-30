@@ -17,7 +17,7 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 ## Usage
 ```
 cd .\public\
-php -S localhost:3000
+php -S localhost:8000
 
 ```
 
