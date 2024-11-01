@@ -14,7 +14,7 @@
 		isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
 		windowReady = false,
 		isNoviBuilder = false,
-		livedemo = true,
+		// livedemo = true,
 
 		plugins = {
 			bootstrapTooltip: $("[data-toggle='tooltip']"),
@@ -48,6 +48,7 @@
 					}, options.duration * .75 );
 				},
 				onReady: function () {
+					plugins.preloader.removeClass('loaded');
 					plugins.preloader.addClass('loaded');
 					windowReady = true;
 				}
@@ -456,7 +457,7 @@
 						setTimeout(function () {
 							output.removeClass("active error success");
 							form.removeClass('success');
-						}, 3500);
+						}, 300);
 					}
 				});
 			}

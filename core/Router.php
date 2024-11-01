@@ -1,10 +1,12 @@
 <?php
 
-// $configs = require_once "config/config.php";
-// require_once "app/controllers/HomeController.php";
 
-require_once __DIR__ . '/../app/controllers/ContactsController.php';
+
+require_once __DIR__ . '/../app/controllers/AboutController.php';
 require_once __DIR__ . '/../app/controllers/HomeController.php';
+
+//Auth
+require_once __DIR__ . '/../app/controllers/Auth/RegisterController.php';
 
 class Router {
     public function route($url) {

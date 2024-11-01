@@ -2,7 +2,7 @@
 require_once '../config/config.php';
 require_once '../core/Router.php';
 require_once '../core/Database.php';
-require_once '../app/controllers/HomeController.php';
+
 
 // Populate the database with some data
 require_once '../core/db-populate.php';
