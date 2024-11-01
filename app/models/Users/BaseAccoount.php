@@ -6,7 +6,7 @@ abstract class BaseAccount{
     private string $userName;
     private string $password;    
 
-    abstract function login(string $userName, string $password);
+    abstract static function login(string $userName, string $password);
 
 }
 

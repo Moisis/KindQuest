@@ -1,11 +1,11 @@
 <?
-
+require "../Events/Event.php";
 declare(strict_types=1);
 
-interface Client extends BaseAccount{
+abstract class Client extends BaseAccount{
 
-    
+
     //event class will be implemented later
-    abstract function donate(float $amount, Event event);
+    abstract function donate(float $amount, Event $event);
 
 }
