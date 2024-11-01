@@ -3,7 +3,7 @@
 return (object) array(
 
     // App Data
-    'SITE_NAME'     => "7amada's Majestic E-Shop",
+    'SITE_NAME'     => "Kind Quest",
     'APP_ROOT'      => dirname(dirname(__FILE__)),
     'URL_ROOT'      => 'http://localhost:8000',
     'URL_SUBFOLDER' => '',
@@ -12,13 +12,13 @@ return (object) array(
     'DB_HOST' => 'localhost',
     'DB_USER' => 'root',
     'DB_PASS' => '',
-    'DB_NAME' => 'eshop',
+    'DB_NAME' => 'kindquest',
 
     // DB Tables
-    'DB_USERS_TABLE'      => 'user',
-    'DB_ITEMS_TABLE'      => 'shirt',
-    'DB_CARTS_TABLE'      => 'cart',
-    'DB_CART_ITEMS_TABLE' => 'cart_item',
+    // 'DB_USERS_TABLE'      => 'user',
+    // 'DB_ITEMS_TABLE'      => 'shirt',
+    // 'DB_CARTS_TABLE'      => 'cart',
+    // 'DB_CART_ITEMS_TABLE' => 'cart_item',
 
     // Routes
     'ROUTES' => [

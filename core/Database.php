@@ -1,6 +1,6 @@
 <?php
-$configs = require "../config/config.php";
-$conn = new mysqli($configs->DB_HOST, $configs->DB_USER);
+$configs = require "./config/config.php";
+$conn = new mysqli($configs->DB_HOST, $configs->DB_USER, $configs->DB_PASS, $configs->DB_NAME);
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
