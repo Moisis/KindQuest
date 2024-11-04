@@ -2,45 +2,22 @@
 require("Database.php");
 
 run_queries([
-"CREATE TABLE `Donation`(
-    `donation_id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `account_id` INT NOT NULL,
-    `event_id` INT NOT NULL,
-    `amount` FLOAT(53) NOT NULL,
-    `donation_method` ENUM('') NOT NULL COMMENT 'enum?'
-);",
-    "CREATE TABLE `Fundraising`(
-    `event_id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `goal` INT NOT NULL
-);",
-"CREATE TABLE `Charity`(
-    `event_id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `charity_type` VARCHAR(255) NOT NULL
-);",
 
-"CREATE TABLE `Event_Registration`(
-    `event_id` BIGINT UNSIGNED NOT NULL,
-    `user_id` BIGINT NOT NULL,
-    `role` BOOLEAN NOT NULL,
-    PRIMARY KEY(`user_id`, `event_id`)
-);",
+// Drop the database if it already exists, do nothing otherwise
+"DROP DATABASE IF EXISTS $configs->DB_NAME",
+
+// Create the database from scratch
+"CREATE DATABASE $configs->DB_NAME",
+
+"USE $configs->DB_NAME",
 "CREATE TABLE `Account`(
-    `account_id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    account_id INT  NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `username` VARCHAR(255) NOT NULL,
     `password` VARCHAR(255) NOT NULL,
     `account_type` ENUM('') NOT NULL COMMENT 'enum?'
 );",
-"CREATE TABLE `Workshop`(
-    `event_id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `activity` VARCHAR(255) NOT NULL
-);",
-"CREATE TABLE `Non_Virtual_Events`(
-    `event_id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `location` VARCHAR(255) NOT NULL COMMENT 'change to composite attr',
-    `vol_required` INT NOT NULL,
-    `org_required` INT NOT NULL COMMENT 'wtf'
-);",
-"CREATE TABLE `Events`(
+
+"CREATE TABLE `Event`(
     `event_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `event_name` VARCHAR(255) NOT NULL,
     `desc` VARCHAR(255) NULL,
@@ -49,6 +26,66 @@ run_queries([
     `registration_date` DATETIME NOT NULL,
     `sponsored` BOOLEAN NOT NULL DEFAULT '0'
 );",
+"CREATE TABLE `Donation`(
+    `donation_id` INT  NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `account_id` INT  NOT NULL,
+    `event_id` INT  NOT NULL,
+    `amount` FLOAT(53) NOT NULL,
+    `donation_method` ENUM('Visa') NOT NULL COMMENT 'enum?',
+    FOREIGN KEY (account_id) REFERENCES Account(account_id),
+    FOREIGN KEY (event_id) REFERENCES Event(event_id)
+);",
+    "CREATE TABLE `Fundraising`(
+    `event_id` INT  NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `goal` INT NOT NULL,
+    FOREIGN KEY (event_id) REFERENCES Event(event_id)
+);",
+"CREATE TABLE `Charity`(
+    `event_id` INT  NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `charity_type` VARCHAR(255) NOT NULL,
+    FOREIGN KEY (event_id) REFERENCES Event(event_id)
+);",
+
+"CREATE TABLE `Event_Registration`(
+    `event_id` INT NOT NULL,
+    `account_id` INT NOT NULL,
+    `role` BOOLEAN NOT NULL,
+    PRIMARY KEY(`account_id`, `event_id`),
+    FOREIGN KEY (event_id) REFERENCES Event(event_id),
+    FOREIGN KEY (account_id) REFERENCES Account(account_id)
+);",
+
+"CREATE TABLE `Workshop`(
+    `event_id` INT  NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `activity` VARCHAR(255) NOT NULL,
+    FOREIGN KEY (event_id) REFERENCES Event(event_id)
+);",
+"CREATE TABLE `Non_Virtual_Events`(
+    `event_id` INT  NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `location` VARCHAR(255) NOT NULL COMMENT 'change to composite attr',
+    `vol_required` INT NOT NULL,
+    `org_required` INT NOT NULL COMMENT 'wtf',
+    FOREIGN KEY (event_id) REFERENCES Event(event_id)
+);",
+
+"CREATE TABLE Badge(
+    badge_id INT NOT NULL PRIMARY KEY,
+    badge_name VARCHAR(255)    
+);",
+
+"CREATE TABLE Account_Badges(
+    account_id INT NOT NULL,
+    badge_id INT NOT NULL,
+    badge_count INT NOT NULL DEFAULT 0,
+    PRIMARY KEY(account_id, badge_id),
+    FOREIGN KEY (badge_id) REFERENCES Badge(badge_id),
+    FOREIGN KEY (account_id) REFERENCES Account(account_id)    
+
+);"
+
+]);
+
+/*
 "ALTER TABLE
     `Non_Virtual_Events` ADD CONSTRAINT `non_virtual_events_event_id_foreign` FOREIGN KEY(`event_id`) REFERENCES `Workshop`(`event_id`);",
     "ALTER TABLE
@@ -75,5 +112,5 @@ run_queries([
 
 
 
-
+*/
 
