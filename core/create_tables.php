@@ -31,7 +31,7 @@ run_queries([
     `account_id` INT  NOT NULL,
     `event_id` INT  NOT NULL,
     `amount` FLOAT(53) NOT NULL,
-    `donation_method` ENUM('Visa') NOT NULL COMMENT 'enum?',
+    `donation_method` ENUM('Visa','Fawry','Cash') NOT NULL COMMENT 'enum?',
     FOREIGN KEY (account_id) REFERENCES Account(account_id),
     FOREIGN KEY (event_id) REFERENCES Event(event_id)
 );",

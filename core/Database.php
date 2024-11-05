@@ -1,5 +1,5 @@
 <?php
-$configs = require "../config/config.php";
+$configs = require __DIR__."/../config/config.php";
 $conn = new mysqli($configs->DB_HOST, $configs->DB_USER, $configs->DB_PASS, $configs->DB_NAME);
 
 if ($conn->connect_error) {
