@@ -35,13 +35,12 @@ function run_select_query($query, $echo = false): mysqli_result|bool
     if ($echo) {
         echo '<pre>' . $query . '</pre>';
         if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc())
-                {
-                    foreach($row as $columnName => $columnData){
-                        echo "$columnName: $columnData<br>";
-                    }
-                    echo"<br><br>";
+            while ($row = $result->fetch_assoc()) {
+                foreach ($row as $columnName => $columnData) {
+                    echo "$columnName: $columnData<br>";
                 }
+                echo "<br><br>";
+            }
         } else {
             echo "0 results";
         }
@@ -49,6 +48,7 @@ function run_select_query($query, $echo = false): mysqli_result|bool
     }
     return $result;
 }
+
 function run_insert_query($query, $params = [], $echo = false): bool
 {
     global $conn;
@@ -80,5 +80,66 @@ function run_insert_query($query, $params = [], $echo = false): bool
     return $success;
 }
 
+function run_update_query($query, $params = [], $echo = false): bool
+{
+    global $conn;
+
+    // Prepare the statement
+    $stmt = $conn->prepare($query);
+    if ($stmt === false) {
+        if ($echo) echo "Error preparing query: " . $conn->error . "<br><hr/>";
+        return false;
+    }
+
+    // Bind parameters if provided
+    if ($params) {
+        $types = str_repeat("s", count($params));  // Adjust types as needed
+        $stmt->bind_param($types, ...$params);
+    }
+
+    // Execute and check result
+    $success = $stmt->execute();
+
+    if ($echo) {
+        echo '<pre>' . $query . '</pre>';
+        echo $success ? "Update successful<br>" : "Error: " . $conn->error . "<br>";
+        echo "<hr/>";
+    }
+
+    // Clean up and return
+    $stmt->close();
+    return $success;
+}
+
+function run_delete_query($query, $params = [], $echo = false): bool
+{
+    global $conn;
+
+    // Prepare the statement
+    $stmt = $conn->prepare($query);
+    if ($stmt === false) {
+        if ($echo) echo "Error preparing query: " . $conn->error . "<br><hr/>";
+        return false;
+    }
+
+    // Bind parameters if provided
+    if ($params) {
+        $types = str_repeat("s", count($params));  // Adjust types as needed
+        $stmt->bind_param($types, ...$params);
+    }
+
+    // Execute and check result
+    $success = $stmt->execute();
+
+    if ($echo) {
+        echo '<pre>' . $query . '</pre>';
+        echo $success ? "Delete successful<br>" : "Error: " . $conn->error . "<br>";
+        echo "<hr/>";
+    }
+
+    // Clean up and return
+    $stmt->close();
+    return $success;
+}
 
 // $conn->close();

@@ -4,42 +4,70 @@ require_once __DIR__ . '/../../../core/Database.php';
 
 
 
-class Event{
+abstract class Event{
 
     private string $event_name;
-    private int $event_id;
+    public int $event_id;
     private string $description;
     private string $start_date;
     private string $end_date;
     private string $registration_time;
     private bool $sponsored;
     
-    public function __construct(string $event_name, int $event_id, string $description, string $start_date, string $end_date, string $registration_time, bool $sponsored){
+
+    public function __construct(string $event_name, int $event_id, string $description, string $start_date, string $end_date, bool $sponsored){
         $this->event_name = $event_name;
-        $this->event_id = $event_id;
+        $this->event_id = rand(1, 999);
         $this->description = $description;
         $this->start_date = $start_date;
         $this->end_date = $end_date;
-        $this->registration_time = $registration_time;
+        $this->registration_time = date('Y-m-d H:i:s');
         $this->sponsored = $sponsored;
 
     }
     public function insertEvent(): bool {
-        // Prepare the SQL query with placeholders for the values
+
         $query = "INSERT INTO event (event_id, event_name, `desc`, `start_date`, end_date, registration_date, sponsored) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        
-        // Use a prepared statement with `run_insert_query` or a similar function
         return run_insert_query($query, [$this->event_id, $this->event_name, $this->description, $this->start_date, $this->end_date, $this->registration_time, $this->sponsored]);
     }
     
     public function getEventName(): string{
-        return $this->event_name;
+        $query = "SELECT event_name From event Where event_id = ?";
+        $result = run_select_query($query, [$this->event_id]);
+        return $result !== null ? $result : '';;
     }
-    public function setEventName(string $event_name): void{
-        $this->event_name = $event_name;
+    public function modifyEventName($n): bool {
+        $query = "UPDATE event SET event_name = ? WHERE (event_id = ?)";
+        $result = run_update_query($query, [$n, $this->event_id]);
+        return $result !== null ? $result : false;
+    }
+    public function modifyEnd_Date($d, $event_id): bool {
+        $query = "UPDATE event SET end_date = ? WHERE (event_id = ?)";
+        $result = run_update_query($query, [$d, $event_id]);
+        return $result !== null ? $result : false;
+    }
+    public function getOrganiser($event_id): string {
+        $query = "SELECT username FROM account WHERE ((account_id = (SELECT account_id FROM event_registration WHERE event_id = ?))";
+        $result = run_select_query($query, [$event_id]);
+        return $result !== null ? $result :"";
+    }
+    public function getVolunteers($event_id): array {
+        $query = "SELECT username FROM account WHERE account_id = (SELECT account_id FROM event_registration WHERE (event_id = ? AND `role` = ? ))";
+        $result = run_select_query($query, [$event_id, 'Volunteer']);
+        $volunteers = [];
+        foreach ($result as $row) {
+            $volunteers[] = $row['username'];
+        }
+        return $volunteers;
+    }
+    
+    public function modifySponsored($d, $event_id): bool {
+        $query = "UPDATE event SET sponsored = ? WHERE (event_id = ?)";
+        $result = run_update_query($query, [$d, $event_id]);
+        return $result !== null ? $result : false;
     }
     public function searchEventName($name): array {
-        $query = "SELECT event_name FROM EVENTS WHERE event_name = ?";   
+        $query = "SELECT event_name FROM event WHERE event_name = ?";   
         $result = run_select_query($query, [$name]);
         $eventNames = [];
         foreach ($result as $row) {
