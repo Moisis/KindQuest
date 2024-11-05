@@ -36,7 +36,12 @@ function run_select_query($query, $echo = false): mysqli_result|bool
         echo '<pre>' . $query . '</pre>';
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc())
-                echo $row;
+                {
+                    foreach($row as $columnName => $columnData){
+                        echo "$columnName: $columnData<br>";
+                    }
+                    echo"<br><br>";
+                }
         } else {
             echo "0 results";
         }
