@@ -49,5 +49,36 @@ function run_select_query($query, $echo = false): mysqli_result|bool
     }
     return $result;
 }
+function run_insert_query($query, $params = [], $echo = false): bool
+{
+    global $conn;
+
+    // Prepare the statement
+    $stmt = $conn->prepare($query);
+    if ($stmt === false) {
+        if ($echo) echo "Error preparing query: " . $conn->error . "<br><hr/>";
+        return false;
+    }
+
+    // Bind parameters if provided
+    if ($params) {
+        $types = str_repeat("s", count($params));  // Adjust types as needed
+        $stmt->bind_param($types, ...$params);
+    }
+
+    // Execute and check result
+    $success = $stmt->execute();
+
+    if ($echo) {
+        echo '<pre>' . $query . '</pre>';
+        echo $success ? "Insert successful<br>" : "Error: " . $conn->error . "<br>";
+        echo "<hr/>";
+    }
+
+    // Clean up and return
+    $stmt->close();
+    return $success;
+}
+
 
 // $conn->close();
