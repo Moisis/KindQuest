@@ -26,7 +26,7 @@
       <?php require_once dirname(__DIR__) . "/views/commonParts/navbar.php"; ?>
 
 <!--        Parallax Container-->
-      <section class="parallax-container" data-parallax-img="images/bg-breadcrumbs-about.jpg">
+      <section class="parallax-container" data-parallax-img="images/about/bg-breadcrumbs-about.jpg">
         <div class="parallax-content breadcrumbs-custom context-dark">
           <div class="container">
             <div class="row justify-content-center">
@@ -47,7 +47,7 @@
       <section class="section section-lg bg-gray-1 bg-gray-1-decor">
         <div class="container">
           <div class="row row-50">
-            <div class="col-lg-6 pr-xl-5"><img src="images/about-us-1-518x430.jpg" alt="" width="518" height="430"/>
+            <div class="col-lg-6 pr-xl-5"><img src="images/about/about-us-1-518x430.jpg" alt="" width="518" height="430"/>
             </div>
             <div class="col-lg-6">
               <h3>About Helper</h3>
@@ -128,7 +128,7 @@
           <div class="row no-gutters">
             <div class="col-md-6 col-lg-4">
               <div class="team-classic">
-                <div class="team-classic-figure"><img src="images/team/team-classic-1-390x252.jpg" alt="" width="390" height="252"/>
+                <div class="team-classic-figure"><img src="images/about/team/team-classic-1-390x252.jpg" alt="" width="390" height="252"/>
                   <ul class="team-classic-soc-list">
                     <li><a class="icon icon-md fa-facebook" href="#"></a></li>
                     <li><a class="icon icon-md fa-instagram" href="#"></a></li>
@@ -143,7 +143,7 @@
             </div>
             <div class="col-md-6 col-lg-4">
               <div class="team-classic">
-                    <div class="team-classic-figure"><img src="images/team/team-classic-2-390x252.jpg" alt="" width="390" height="252"/>
+                    <div class="team-classic-figure"><img src="images/about/team/team-classic-2-390x252.jpg" alt="" width="390" height="252"/>
                         <ul class="team-classic-soc-list">
                             <li><a class="icon icon-md fa-facebook" href="#"></a></li>
                             <li><a class="icon icon-md fa-instagram" href="#"></a></li>
@@ -160,7 +160,7 @@
 
             <div class="col-md-6 col-lg-4">
               <div class="team-classic">
-                <div class="team-classic-figure"><img src="images/team/team-classic-3-390x252.jpg" alt="" width="390" height="252"/>
+                <div class="team-classic-figure"><img src="images/about/team/team-classic-3-390x252.jpg" alt="" width="390" height="252"/>
                   <ul class="team-classic-soc-list">
                     <li><a class="icon icon-md fa-facebook" href="#"></a></li>
                     <li><a class="icon icon-md fa-instagram" href="#"></a></li>
@@ -175,7 +175,7 @@
             </div>
             <div class="col-md-6 col-lg-4">
               <div class="team-classic">
-                <div class="team-classic-figure"><img src="images/team/team-classic-4-390x252.jpg" alt="" width="390" height="252"/>
+                <div class="team-classic-figure"><img src="images/about/team/team-classic-4-390x252.jpg" alt="" width="390" height="252"/>
                   <ul class="team-classic-soc-list">
                     <li><a class="icon icon-md fa-facebook" href="#"></a></li>
                     <li><a class="icon icon-md fa-instagram" href="#"></a></li>
@@ -190,7 +190,7 @@
             </div>
             <div class="col-md-6 col-lg-4">
                 <div class="team-classic">
-                    <div class="team-classic-figure"><img src="images/team/team-classic-5-390x252.jpg" alt="" width="390" height="252"/>
+                    <div class="team-classic-figure"><img src="images/about/team/team-classic-5-390x252.jpg" alt="" width="390" height="252"/>
                         <ul class="team-classic-soc-list">
                             <li><a class="icon icon-md fa-facebook" href="#"></a></li>
                             <li><a class="icon icon-md fa-instagram" href="#"></a></li>
@@ -205,7 +205,7 @@
             </div>
             <div class="col-md-6 col-lg-4">
               <div class="team-classic">
-                <div class="team-classic-figure"><img src="images/team/team-classic-6-390x252.jpg" alt="" width="390" height="252"/>
+                <div class="team-classic-figure"><img src="images/about/team/team-classic-6-390x252.jpg" alt="" width="390" height="252"/>
                   <ul class="team-classic-soc-list">
                     <li><a class="icon icon-md fa-facebook" href="#"></a></li>
                     <li><a class="icon icon-md fa-instagram" href="#"></a></li>

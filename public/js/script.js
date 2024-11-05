@@ -33,7 +33,7 @@
 		// Page loader & Page transition
 		if (plugins.preloader.length && !isNoviBuilder) {
 			pageTransition({
-				target: document.querySelector( '.page' ),
+				target: document.querySelector('.page'),
 				delay: 0,
 				duration: 500,
 				classIn: 'fadeIn',
@@ -42,10 +42,10 @@
 				conditions: function (event, link) {
 					return !/(\#|callto:|tel:|mailto:|:\/\/)/.test(link) && !event.currentTarget.hasAttribute('data-lightgallery');
 				},
-				onTransitionStart: function ( options ) {
-					setTimeout( function () {
+				onTransitionStart: function (options) {
+					setTimeout(function () {
 						plugins.preloader.removeClass('loaded');
-					}, options.duration * .75 );
+					}, options.duration * .75);
 				},
 				onReady: function () {
 					plugins.preloader.removeClass('loaded');
@@ -56,15 +56,15 @@
 		}
 
 		// Material Parallax
-		if ( plugins.materialParallax.length ) {
-			if ( !isNoviBuilder && !isIE && !isMobile) {
+		if (plugins.materialParallax.length) {
+			if (!isNoviBuilder && !isIE && !isMobile) {
 				plugins.materialParallax.parallax();
 			} else {
-				for ( var i = 0; i < plugins.materialParallax.length; i++ ) {
+				for (var i = 0; i < plugins.materialParallax.length; i++) {
 					var $parallax = $(plugins.materialParallax[i]);
 
-					$parallax.addClass( 'parallax-disabled' );
-					$parallax.css({ "background-image": 'url('+ $parallax.data("parallax-img") +')' });
+					$parallax.addClass('parallax-disabled');
+					$parallax.css({"background-image": 'url(' + $parallax.data("parallax-img") + ')'});
 				}
 			}
 		}
@@ -83,9 +83,9 @@
 			regula.custom({
 				name: 'PhoneNumber',
 				defaultMessage: 'Invalid phone number format',
-				validator: function() {
-					if ( this.value === '' ) return true;
-					else return /^(\+\d)?[0-9\-\(\) ]{5,}$/i.test( this.value );
+				validator: function () {
+					if (this.value === '') return true;
+					else return /^(\+\d)?[0-9\-\(\) ]{5,}$/i.test(this.value);
 				}
 			});
 
@@ -102,7 +102,7 @@
 				if (e.type !== "blur") if (!$this.parent().hasClass("has-error")) return;
 				if ($this.parents('.rd-mailform').hasClass('success')) return;
 
-				if (( results = $this.regula('validate') ).length) {
+				if ((results = $this.regula('validate')).length) {
 					for (i = 0; i < results.length; i++) {
 						$this.siblings(".form-validation").text(results[i].message).parent().addClass("has-error");
 					}
@@ -464,9 +464,40 @@
 		}
 
 		// parallax scroll
-		if($('[data-parallax-scroll]').length && !isNoviBuilder && !isMobile){
+		if ($('[data-parallax-scroll]').length && !isNoviBuilder && !isMobile) {
 			ParallaxScroll.init();
 		}
 
 	});
 }());
+
+
+
+	document.addEventListener("DOMContentLoaded", function() {
+	var preloader = document.querySelector('.preloader');
+	if (preloader) {
+	preloader.style.display = 'none';
+}
+});
+
+	window.addEventListener('load', function() {
+	var preloader = document.querySelector('.preloader');
+	if (preloader) {
+	preloader.style.display = 'none';
+}
+});
+
+	// Fallback to hide preloader after 5 seconds
+	setTimeout(function() {
+	var preloader = document.querySelector('.preloader');
+	if (preloader) {
+	preloader.style.display = 'none';
+}
+}, 5000);
+
+
+
+// Todo
+document.getElementById('add-event-button').addEventListener('click', function() {
+	$('#addEventModal').modal('show');
+});

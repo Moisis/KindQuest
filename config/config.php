@@ -27,6 +27,8 @@ return (object) array(
         '/test'          => 'HomeController@test',
         '/about'         => 'AboutController@index',
         '/register'    => 'RegisterController@index',
+        '/login'    => 'LoginController@index',
+        '/events'    => 'EventController@index',
         // '/test/{arg}'    => 'TestController@show',
         // '/login'         => 'LoginController@show',
         // '/shop/{userId}' => 'ShopController@show',
