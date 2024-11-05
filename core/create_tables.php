@@ -26,14 +26,21 @@ run_queries([
     `registration_date` DATETIME NOT NULL,
     `sponsored` BOOLEAN NOT NULL DEFAULT '0'
 );",
+
+"CREATE TABLE Donation_Types(
+    donation_type_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    donation_type_name VARCHAR(255)
+)",
+
 "CREATE TABLE `Donation`(
     `donation_id` INT  NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `account_id` INT  NOT NULL,
     `event_id` INT  NOT NULL,
     `amount` FLOAT(53) NOT NULL,
-    `donation_method` ENUM('Visa','Fawry','Cash') NOT NULL COMMENT 'enum?',
+    `donation_method` INT NOT NULL,
     FOREIGN KEY (account_id) REFERENCES Account(account_id),
-    FOREIGN KEY (event_id) REFERENCES Event(event_id)
+    FOREIGN KEY (event_id) REFERENCES Event(event_id),
+    FOREIGN KEY (donation_method) REFERENCES Donation_Types(donation_type_id)
 );",
     "CREATE TABLE `Fundraising`(
     `event_id` INT  NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -81,7 +88,13 @@ run_queries([
     FOREIGN KEY (badge_id) REFERENCES Badge(badge_id),
     FOREIGN KEY (account_id) REFERENCES Account(account_id)    
 
-);"
+);",
+"INSERT INTO Donation_Types(donation_type_name)
+VALUES ('VISA')",
+"INSERT INTO Donation_Types(donation_type_name)
+VALUES ('FAWRY')",
+"INSERT INTO Donation_Types(donation_type_name)
+VALUES ('CASH')",
 
 ]);
 
