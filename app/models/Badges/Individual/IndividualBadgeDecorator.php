@@ -1,13 +1,14 @@
 <?php
-require "../../Users/Individual.php";
-declare(strict_types=1);
-abstract class IndividualBadgeDecorator extends Individual{
+require_once "IndividualBadge.php";
+//require __DIR__."/../../../../core/Database.php";
+
+abstract class IndividualBadgeDecorator extends IndividualBadge{
     
-    private Individual $individual;
+    protected IndividualBadge $individualBadge;
 
-    public function setIndividual(Individual $newIndividual){
-        $individual = $newIndividual;
+
+    public function setIndividual(IndividualBadge $newIndividualBadge){
+        $this->individualBadge = $newIndividualBadge;
     }
-
 
 }

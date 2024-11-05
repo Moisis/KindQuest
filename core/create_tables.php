@@ -78,7 +78,8 @@ run_queries([
 
 "CREATE TABLE Badge(
     badge_id INT NOT NULL PRIMARY KEY,
-    badge_name VARCHAR(255)    
+    badge_name VARCHAR(255),
+    badge_points INT NOT NULL DEFAULT 0    
 );",
 
 "CREATE TABLE Account_Badges(
