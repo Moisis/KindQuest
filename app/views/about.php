@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="icon" href="images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="../../public/images/favicon.png" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Poppins:300,300i,400,500,600,700,800,900,900i%7CRoboto:400%7CRubik:100,400,700">
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/fonts.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../../public/css/bootstrap.css">
+    <link rel="stylesheet" href="../../public/css/fonts.css">
+    <link rel="stylesheet" href="../../public/css/style.css">
     <style>.ie-panel{display: none;background: #212121;padding: 10px 0;box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3);clear: both;text-align:center;position: relative;z-index: 1;} html.ie-10 .ie-panel, html.lt-ie-10 .ie-panel {display: block;}</style>
   </head>
   <body>
@@ -47,7 +47,7 @@
       <section class="section section-lg bg-gray-1 bg-gray-1-decor">
         <div class="container">
           <div class="row row-50">
-            <div class="col-lg-6 pr-xl-5"><img src="images/about/about-us-1-518x430.jpg" alt="" width="518" height="430"/>
+            <div class="col-lg-6 pr-xl-5"><img src="../../public/images/about/about-us-1-518x430.jpg" alt="" width="518" height="430"/>
             </div>
             <div class="col-lg-6">
               <h3>About Helper</h3>
@@ -128,7 +128,7 @@
           <div class="row no-gutters">
             <div class="col-md-6 col-lg-4">
               <div class="team-classic">
-                <div class="team-classic-figure"><img src="images/about/team/team-classic-1-390x252.jpg" alt="" width="390" height="252"/>
+                <div class="team-classic-figure"><img src="../../public/images/about/team/team-classic-1-390x252.jpg" alt="" width="390" height="252"/>
                   <ul class="team-classic-soc-list">
                     <li><a class="icon icon-md fa-facebook" href="#"></a></li>
                     <li><a class="icon icon-md fa-instagram" href="#"></a></li>
@@ -143,7 +143,7 @@
             </div>
             <div class="col-md-6 col-lg-4">
               <div class="team-classic">
-                    <div class="team-classic-figure"><img src="images/about/team/team-classic-2-390x252.jpg" alt="" width="390" height="252"/>
+                    <div class="team-classic-figure"><img src="../../public/images/about/team/team-classic-2-390x252.jpg" alt="" width="390" height="252"/>
                         <ul class="team-classic-soc-list">
                             <li><a class="icon icon-md fa-facebook" href="#"></a></li>
                             <li><a class="icon icon-md fa-instagram" href="#"></a></li>
@@ -160,7 +160,7 @@
 
             <div class="col-md-6 col-lg-4">
               <div class="team-classic">
-                <div class="team-classic-figure"><img src="images/about/team/team-classic-3-390x252.jpg" alt="" width="390" height="252"/>
+                <div class="team-classic-figure"><img src="../../public/images/about/team/team-classic-3-390x252.jpg" alt="" width="390" height="252"/>
                   <ul class="team-classic-soc-list">
                     <li><a class="icon icon-md fa-facebook" href="#"></a></li>
                     <li><a class="icon icon-md fa-instagram" href="#"></a></li>
@@ -175,7 +175,7 @@
             </div>
             <div class="col-md-6 col-lg-4">
               <div class="team-classic">
-                <div class="team-classic-figure"><img src="images/about/team/team-classic-4-390x252.jpg" alt="" width="390" height="252"/>
+                <div class="team-classic-figure"><img src="../../public/images/about/team/team-classic-4-390x252.jpg" alt="" width="390" height="252"/>
                   <ul class="team-classic-soc-list">
                     <li><a class="icon icon-md fa-facebook" href="#"></a></li>
                     <li><a class="icon icon-md fa-instagram" href="#"></a></li>
@@ -190,7 +190,7 @@
             </div>
             <div class="col-md-6 col-lg-4">
                 <div class="team-classic">
-                    <div class="team-classic-figure"><img src="images/about/team/team-classic-5-390x252.jpg" alt="" width="390" height="252"/>
+                    <div class="team-classic-figure"><img src="../../public/images/about/team/team-classic-5-390x252.jpg" alt="" width="390" height="252"/>
                         <ul class="team-classic-soc-list">
                             <li><a class="icon icon-md fa-facebook" href="#"></a></li>
                             <li><a class="icon icon-md fa-instagram" href="#"></a></li>
@@ -205,7 +205,7 @@
             </div>
             <div class="col-md-6 col-lg-4">
               <div class="team-classic">
-                <div class="team-classic-figure"><img src="images/about/team/team-classic-6-390x252.jpg" alt="" width="390" height="252"/>
+                <div class="team-classic-figure"><img src="../../public/images/about/team/team-classic-6-390x252.jpg" alt="" width="390" height="252"/>
                   <ul class="team-classic-soc-list">
                     <li><a class="icon icon-md fa-facebook" href="#"></a></li>
                     <li><a class="icon icon-md fa-instagram" href="#"></a></li>
@@ -228,7 +228,7 @@
 
     </div>
     <div class="snackbars" id="form-output-global"></div>
-    <script src="js/core.min.js"></script>
-    <script src="js/script.js"></script>
+    <script src="../../public/js/core.min.js"></script>
+    <script src="../../public/js/script.js"></script>
   </body>
 </html>

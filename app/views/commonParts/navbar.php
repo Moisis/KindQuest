@@ -11,7 +11,7 @@
                         <!-- RD Navbar Toggle-->
                         <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
                         <!-- RD Navbar Brand-->
-                        <div class="rd-navbar-brand"><a href="/"><img class="brand-logo-light" src="images/logo/logo-inverse-415x103.png" alt="" width="207" height="51"/></a></div>
+                        <div class="rd-navbar-brand"><a href="/"><img class="brand-logo-light" src="../../public/images/logo/logo-inverse-415x103.png" alt="" width="207" height="51"/></a></div>
                     </div>
                     <div class="rd-navbar-main-element">
                         <div class="rd-navbar-nav-wrap">
@@ -21,10 +21,10 @@
                                     <a class="rd-nav-link" href="/">Home</a>
                                 </li>
                                 <li class="rd-nav-item">
-                                    <a class="rd-nav-link" href="/events">Events </a>
+                                    <a class="rd-nav-link" href="events.php">Events </a>
                                 </li>
                                 <li class="rd-nav-item">
-                                    <a class="rd-nav-link" href="/about">About Us</a>
+                                    <a class="rd-nav-link" href="about.php">About Us</a>
                                 </li>
                                 <li class="rd-nav-item">
                                     <a class="rd-nav-link" href="/contacts">Contacts</a>

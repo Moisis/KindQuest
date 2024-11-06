@@ -13,7 +13,7 @@
     <style>.ie-panel{display: none;background: #212121;padding: 10px 0;box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3);clear: both;text-align:center;position: relative;z-index: 1;} html.ie-10 .ie-panel, html.lt-ie-10 .ie-panel {display: block;}</style>
 </head>
 <body>
-<div class="ie-panel"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
+<div class="ie-panel"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="../../public/images/ie8-panel/warning_bar_0000_us.jpg" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
 <div class="preloader">
     <div class="preloader-body">
         <div class="cssload-container">
@@ -75,7 +75,7 @@
     <?php include_once __DIR__ . '/../commonParts/footer.php'; ?>
 </div>
 <div class="snackbars" id="form-output-global"></div>
-<script src="js/core.min.js"></script>
-<script src="js/script.js"></script>
+<script src="../../public/js/core.min.js"></script>
+<script src="../../public/js/script.js"></script>
 </body>
 </html>
