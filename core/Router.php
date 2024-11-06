@@ -4,10 +4,11 @@
 
 require_once __DIR__ . '/../app/controllers/AboutController.php';
 require_once __DIR__ . '/../app/controllers/HomeController.php';
+require_once __DIR__ . '/../app/controllers/EventController.php';
 
 //Auth
 require_once __DIR__ . '/../app/controllers/Auth/RegisterController.php';
-
+require_once __DIR__ . '/../app/controllers/Auth/LoginController.php';
 class Router {
     public function route($url) {
         

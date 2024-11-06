@@ -11,19 +11,23 @@
                         <!-- RD Navbar Toggle-->
                         <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
                         <!-- RD Navbar Brand-->
-                        <div class="rd-navbar-brand"><a href="/"><img class="brand-logo-light" src="images/logo-inverse-415x103.png" alt="" width="207" height="51"/></a></div>
+                        <div class="rd-navbar-brand"><a href="/"><img class="brand-logo-light" src="images/logo/logo-inverse-415x103.png" alt="" width="207" height="51"/></a></div>
                     </div>
                     <div class="rd-navbar-main-element">
                         <div class="rd-navbar-nav-wrap">
                             <!-- RD Navbar Nav-->
                             <ul class="rd-navbar-nav">
-                                <li class="rd-nav-item"><a class="rd-nav-link" href="/">Home</a>
+                                <li class="rd-nav-item">
+                                    <a class="rd-nav-link" href="/">Home</a>
                                 </li>
-                                <li class="rd-nav-item"><a class="rd-nav-link" href="about">About Us</a>
+                                <li class="rd-nav-item">
+                                    <a class="rd-nav-link" href="/events">Events </a>
                                 </li>
-                                <li class="rd-nav-item"><a class="rd-nav-link" href="typography.html">Typography</a>
+                                <li class="rd-nav-item">
+                                    <a class="rd-nav-link" href="/about">About Us</a>
                                 </li>
-                                <li class="rd-nav-item"><a class="rd-nav-link" href="contacts.html">Contacts</a>
+                                <li class="rd-nav-item">
+                                    <a class="rd-nav-link" href="/contacts">Contacts</a>
                                 </li>
                             </ul>
                         </div>
