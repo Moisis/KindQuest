@@ -5,7 +5,7 @@ require_once '../core/Database.php';
 
 
 // Populate the database with some data
-require_once '../core/db-populate.php';
+// require_once '../core/db-populate.php';
 
 $configs = require '../config/config.php';
 
