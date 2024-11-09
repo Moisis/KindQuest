@@ -17,7 +17,7 @@ abstract class Event{
 
     public function __construct(string $event_name, int $event_id, string $description, string $start_date, string $end_date, bool $sponsored){
         $this->event_name = $event_name;
-        $this->event_id = rand(1, 999);
+        $this->event_id = $event_id;
         $this->description = $description;
         $this->start_date = $start_date;
         $this->end_date = $end_date;
@@ -51,15 +51,7 @@ abstract class Event{
         $result = run_select_query($query, [$event_id]);
         return $result !== null ? $result :"";
     }
-    public function getVolunteers($event_id): array {
-        $query = "SELECT username FROM account WHERE account_id = (SELECT account_id FROM event_registration WHERE (event_id = ? AND `role` = ? ))";
-        $result = run_select_query($query, [$event_id, 'Volunteer']);
-        $volunteers = [];
-        foreach ($result as $row) {
-            $volunteers[] = $row['username'];
-        }
-        return $volunteers;
-    }
+    
     
     public function modifySponsored($d, $event_id): bool {
         $query = "UPDATE event SET sponsored = ? WHERE (event_id = ?)";

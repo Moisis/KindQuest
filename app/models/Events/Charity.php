@@ -6,4 +6,3 @@ class Charity extends Event {
     private string $charity_type;
 }
 
-?>
