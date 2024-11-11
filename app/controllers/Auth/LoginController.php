@@ -1,5 +1,13 @@
 <?php
 
+// require_once(dirname(__FILE__) ."/../../../core/Router.php");
+require_once(__DIR__ . "/../../models/Auth/AuthStrategy.php");
+require_once(__DIR__ . "/../../models/Auth/IndividualAuth.php");
+require_once(__DIR__ . "/../../models/Auth/OrganizationAuth.php");
+require_once(__DIR__ . "/../../models/Auth/AdminAuth.php");
+
+require_once(__DIR__ . "/../Auth/RegisterController.php");
+
 
 class LoginController
 {
@@ -8,14 +16,28 @@ class LoginController
     // Method to load the default registration view
     public function index()
     {
-        require_once dirname(__DIR__, 2) . '/views/Auth/login.php';
+        if($_SERVER['REQUEST_METHOD'] === 'GET'){
+            require_once dirname(__DIR__, 2) . '/views/Auth/login.php';
+        }
+        if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+            // user-type, contact-email, contact-password
+            $userCredentials = [
+                'username' => $_POST['username'],
+                'password' => $_POST['password'],
+                'user_type' => $_POST['user_type'],
+            ];
+
+            $this->login($userCredentials);
+
+        }
     }
 
 
 
     // Method to handle login based on user type
-    public function login(array $credentials)
+    private function login(array $credentials)
     {
+        echo "logging in...";
         // Set the appropriate auth strategy based on user type
         if ($credentials['user_type'] === 'individual') {
             $this->authStrategy = new IndividualAuth();
@@ -23,12 +45,19 @@ class LoginController
             $this->authStrategy = new OrganizationAuth();
         }
 
-        // Login using the selected strategy
-        if (isset($this->authStrategy) && $this->authStrategy->login($credentials)) {
-            echo "Login successful.";
-        } else {
-            echo "Login failed.";
+        $res = $this->authStrategy->login($credentials);
+        if ($res === false) {
+            echo 'failed';
+        } else if($res === true){
+            echo 'success';
         }
+
+        // // Login using the selected strategy
+        // if (isset($this->authStrategy) && $this->authStrategy->login($credentials)) {
+        //     echo "Login successful.";
+        // } else {
+        //     echo "Login failed.";
+        // }
     }
 
 

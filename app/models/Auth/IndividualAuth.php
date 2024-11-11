@@ -13,7 +13,7 @@ class IndividualAuth implements AuthStrategy
         $password = password_hash($data['password'], PASSWORD_BCRYPT);
 
 
-        $checkQuery = "SELECT * FROM Account WHERE username = '$username' AND account_type = 'user' ";
+        $checkQuery = "SELECT * FROM Account WHERE username = '$username' AND account_type_id = 2";
         $checkResult = run_select_query($checkQuery);
 
 
@@ -22,7 +22,7 @@ class IndividualAuth implements AuthStrategy
             return false;
         }
 
-        $insertQuery = "INSERT INTO Account (username, password, account_type) VALUES ('$username', '$password', 'user')";
+        $insertQuery = "INSERT INTO Account (username, password, account_type_id) VALUES ('$username', '$password', 2)";
         $insertResult = run_insert_query($insertQuery);
 
         return $insertResult; 
@@ -36,7 +36,7 @@ class IndividualAuth implements AuthStrategy
         $password = $credentials['password'];
 
         // Directly use variables in the SQL statement
-        $query = "SELECT * FROM Account WHERE username = '$username' AND account_type = 'user'";
+        $query = "SELECT * FROM Account WHERE username = '$username' AND account_type_id = 2";
         $result = run_select_query($query);
 
         if ($result && mysqli_num_rows($result) > 0) {

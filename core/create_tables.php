@@ -10,11 +10,18 @@ run_queries([
 "CREATE DATABASE $configs->DB_NAME",
 
 "USE $configs->DB_NAME",
-"CREATE TABLE `Account`(
-    account_id INT  NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `username` VARCHAR(255) NOT NULL,
-    `password` VARCHAR(255) NOT NULL,
-    `account_type` ENUM('') NOT NULL COMMENT 'enum?'
+"CREATE TABLE Account_Types(
+    account_type_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    account_type_name VARCHAR(255)
+
+);",
+"CREATE TABLE Account(
+    account_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    account_type_id INT NOT NULL,
+    FOREIGN KEY (account_type_id) REFERENCES Account_types(account_type_id)
+
 );",
 
 "CREATE TABLE `Event`(
@@ -100,7 +107,13 @@ VALUES ('CASH')",
 "INSERT INTO Badge(badge_id,badge_name,badge_points)
 VALUES (1,'NewComer', 0)",
 "INSERT INTO Badge(badge_id,badge_name,badge_points)
-VALUES (2,'VolunChamp', 20)"
+VALUES (2,'VolunChamp', 20)",
+"INSERT INTO Account_Types(account_type_name)
+VALUES('Admin')",
+"INSERT INTO Account_Types(account_type_name)
+VALUES('Individual')",
+"INSERT INTO Account_Types(account_type_name)
+VALUES('Organization')",
 
 ]);
 
