@@ -37,9 +37,13 @@ class RegisterController {
 
         $res = $this->authStrategy->register($data);
         if ($res === false) {
-         echo "Register Failed";
+            //  echo "Register Failed";
+            header('Location: http://localhost:8000/register');
         }else if($res === true){
-            echo "Register success";
+            // echo "Register success";
+            session_start();
+            $_SESSION["username"] = $data["username"];
+            header('Location: http://localhost:8000/');
         }
 
         // // Register using the selected strategy

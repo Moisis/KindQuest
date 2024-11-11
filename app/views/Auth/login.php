@@ -37,7 +37,7 @@
 
                         <div class="form-wrap">
                             <input class="form-input" id="contact-email" type="text" name="username" data-constraints="@Required">
-                            <label class="form-label" for="contact-email">E-mail</label>
+                            <label class="form-label" for="contact-email">Username</label>
                         </div>
                         <div class="form-wrap">
                             <input class="form-input" id="contact-password" type="password" name="password" data-constraints="@Required">

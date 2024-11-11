@@ -48,8 +48,10 @@ class LoginController
         $res = $this->authStrategy->login($credentials);
         if ($res === false) {
             echo 'failed';
+            header('Location: http://localhost:8000/login');
         } else if($res === true){
-            echo 'success';
+            // echo 'success';
+            header("Location: http://localhost:8000/");
         }
 
         // // Login using the selected strategy
