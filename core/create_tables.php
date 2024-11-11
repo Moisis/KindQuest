@@ -97,6 +97,10 @@ VALUES ('VISA')",
 VALUES ('FAWRY')",
 "INSERT INTO Donation_Types(donation_type_name)
 VALUES ('CASH')",
+"INSERT INTO Badge(badge_id,badge_name,badge_points)
+VALUES (1,'NewComer', 0)",
+"INSERT INTO Badge(badge_id,badge_name,badge_points)
+VALUES (2,'VolunChamp', 20)"
 
 ]);
 
