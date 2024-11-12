@@ -32,6 +32,30 @@ class Fundraising extends Event {
         $this->goal -= $amount;
     }
 
+    public function getGoal(): int {
+    
+        return $this->goal;
+    }
+    public static function getAllFundraising(){
+        $query = "SELECT * from fundraising inner join event on fundraising.event_id = event.event_id";
+        $result = run_select_query($query);
+        // return $result;
+
+        $fundraising_events = [];
+
+        foreach ($result as $row) {
+            $fundraising_events[] = new Fundraising(
+                $row["event_name"],
+                $row["desc"],
+                $row["start_date"],
+                $row["end_date"],
+                $row["event_type_id"],
+                $row["goal"],
+            );
+        }
+
+        return $fundraising_events;
+    }
 }
 
 

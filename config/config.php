@@ -31,7 +31,9 @@ return (object) array(
         '/events'    => 'EventController@index',
         '/donate' => "DonationProcess@donationProcess",
         '/donate/{user_id}' => "DonationController@getUserDonations",
-        '/event/create' => "EventController@createEvent",
+        '/event/create' => "EventCreationController@index",
+        '/event/{id}' => 'EventDetailsController@index',
+        '/event/join/{event_id}' => "EventDetailsController@join_event"
         // '/test/{arg}'    => 'TestController@show',
         // '/login'         => 'LoginController@show',
         // '/shop/{userId}' => 'ShopController@show',
