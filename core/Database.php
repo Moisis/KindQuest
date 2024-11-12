@@ -1,16 +1,39 @@
 <?php
-$configs = require __DIR__."/../config/config.php";
-$conn = new mysqli($configs->DB_HOST, $configs->DB_USER, $configs->DB_PASS, $configs->DB_NAME);
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+// $conn = new mysqli($configs->DB_HOST, $configs->DB_USER, $configs->DB_PASS, $configs->DB_NAME);
+
+
+class DatabaseManager{
+    private static $instance;
+    private $conn;
+
+    private function __construct(){
+        $configs = require __DIR__."/../config/config.php";
+        $this->conn = new mysqli($configs->DB_HOST, $configs->DB_USER, $configs->DB_PASS, $configs->DB_NAME);
+    }
+
+    public static function getInstance(){
+        if(self::$instance == null){
+            self::$instance = new DatabaseManager();
+        }
+        return self::$instance;
+    }
+
+    public function get_connection(){
+        return $this->conn;
+    }
 }
+
+// if ($conn->connect_error) {
+//     die("Connection failed: " . $conn->connect_error);
+// }
 
 // echo "Connected successfully<br/><hr/>";
 
 function run_queries($queries, $echo = false): array
 {
-    global $conn;
+    // global $conn;
+    $conn = DatabaseManager::getInstance()->get_connection();
     $ret = [];
     foreach ($queries as $query) {
         $ret += [$conn->query($query)];
@@ -30,7 +53,7 @@ function run_query($query, $echo = false): bool
 
 function run_select_query($query, $params = [], $echo = false): mysqli_result|bool
 {
-    global $conn;
+    $conn = DatabaseManager::getInstance()->get_connection();
 
     // Prepare the statement
     $stmt = $conn->prepare($query);
@@ -71,7 +94,7 @@ function run_select_query($query, $params = [], $echo = false): mysqli_result|bo
 
 function run_insert_query($query, $params = [], $echo = false): bool
 {
-    global $conn;
+    $conn = DatabaseManager::getInstance()->get_connection();
 
     // Prepare the statement
     $stmt = $conn->prepare($query);
@@ -102,7 +125,7 @@ function run_insert_query($query, $params = [], $echo = false): bool
 
 function run_update_query($query, $params = [], $echo = false): bool
 {
-    global $conn;
+    $conn = DatabaseManager::getInstance()->get_connection();
 
     // Prepare the statement
     $stmt = $conn->prepare($query);
@@ -133,7 +156,7 @@ function run_update_query($query, $params = [], $echo = false): bool
 
 function run_delete_query($query, $params = [], $echo = false): bool
 {
-    global $conn;
+    $conn = DatabaseManager::getInstance()->get_connection();
 
     // Prepare the statement
     $stmt = $conn->prepare($query);
