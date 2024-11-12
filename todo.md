@@ -1,8 +1,12 @@
 ### TODO:
 
+- Class Diagram
+
 - User model
   getAllUsers()
   deleteUser()
-  modifyUser()
+  updateUser()
   getUserIDbyName()
   getUserByID()
+
+-
