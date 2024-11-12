@@ -10,22 +10,39 @@ run_queries([
 "CREATE DATABASE $configs->DB_NAME",
 
 "USE $configs->DB_NAME",
-"CREATE TABLE `Account`(
-    account_id INT  NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `username` VARCHAR(255) NOT NULL,
-    `password` VARCHAR(255) NOT NULL,
-    `account_type` ENUM('') NOT NULL COMMENT 'enum?'
+"CREATE TABLE Account_Types(
+    account_type_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    account_type_name VARCHAR(255)
+
 );",
+"CREATE TABLE Account(
+    account_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    account_type_id INT NOT NULL,
+    FOREIGN KEY (account_type_id) REFERENCES Account_types(account_type_id)
+
+);",
+
+
+"CREATE TABLE Event_Types(
+    event_type_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    event_type_name VARCHAR(255)
+)",
 
 "CREATE TABLE `Event`(
     `event_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    creator_id INT NOT NULL,
     `event_name` VARCHAR(255) NOT NULL,
     `desc` VARCHAR(255) NULL,
     `start_date` DATETIME NOT NULL,
     `end_date` DATETIME NOT NULL,
     `registration_date` DATETIME NOT NULL,
-    `sponsored` BOOLEAN NOT NULL DEFAULT '0'
+    event_type_id INT NOT NULL,
+    FOREIGN KEY(creator_id) REFERENCES Account(account_id),
+    FOREIGN KEY(event_type_id) REFERENCES Event_Types(event_type_id)
 );",
+
 
 "CREATE TABLE Donation_Types(
     donation_type_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -44,12 +61,12 @@ run_queries([
     FOREIGN KEY (donation_method) REFERENCES Donation_Types(donation_type_id)
 );",
     "CREATE TABLE `Fundraising`(
-    `event_id` INT  NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `event_id` INT  NOT NULL PRIMARY KEY,
     `goal` INT NOT NULL,
     FOREIGN KEY (event_id) REFERENCES Event(event_id)
 );",
 "CREATE TABLE `Charity`(
-    `event_id` INT  NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `event_id` INT  NOT NULL PRIMARY KEY,
     `charity_type` VARCHAR(255) NOT NULL,
     FOREIGN KEY (event_id) REFERENCES Event(event_id)
 );",
@@ -57,19 +74,19 @@ run_queries([
 "CREATE TABLE `Event_Registration`(
     `event_id` INT NOT NULL,
     `account_id` INT NOT NULL,
-    `role` BOOLEAN NOT NULL,
+    `role` INT NOT NULL,
     PRIMARY KEY(`account_id`, `event_id`),
     FOREIGN KEY (event_id) REFERENCES Event(event_id),
     FOREIGN KEY (account_id) REFERENCES Account(account_id)
 );",
 
 "CREATE TABLE `Workshop`(
-    `event_id` INT  NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `event_id` INT  NOT NULL PRIMARY KEY,
     `activity` VARCHAR(255) NOT NULL,
     FOREIGN KEY (event_id) REFERENCES Event(event_id)
 );",
 "CREATE TABLE `Non_Virtual_Events`(
-    `event_id` INT  NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `event_id` INT  NOT NULL PRIMARY KEY,
     `location` VARCHAR(255) NOT NULL COMMENT 'change to composite attr',
     `vol_required` INT NOT NULL,
     `org_required` INT NOT NULL COMMENT 'wtf',
@@ -97,6 +114,26 @@ VALUES ('VISA')",
 VALUES ('FAWRY')",
 "INSERT INTO Donation_Types(donation_type_name)
 VALUES ('CASH')",
+"INSERT INTO Badge(badge_id,badge_name,badge_points)
+VALUES (1,'NewComer', 0)",
+"INSERT INTO Badge(badge_id,badge_name,badge_points)
+VALUES (2,'VolunChamp', 20)",
+"INSERT INTO Badge(badge_id,badge_name,badge_points)
+VALUES (3,'DonoChamp', 50)",
+"INSERT INTO Account_Types(account_type_name)
+VALUES('Admin')",
+"INSERT INTO Account_Types(account_type_name)
+VALUES('Individual')",
+"INSERT INTO Account_Types(account_type_name)
+VALUES('Organization')",
+
+
+"INSERT INTO Event_Types(event_type_name)
+VALUES('Fundraiser')",
+"INSERT INTO Event_Types(event_type_name)
+VALUES('Charity')",
+"INSERT INTO Event_Types(event_type_name)
+VALUES('Workshop')"
 
 ]);
 

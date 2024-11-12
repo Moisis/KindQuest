@@ -5,10 +5,11 @@ class IndividualBaseBadge extends IndividualBadge{
 
     public function __construct(){
         $this->badgeID = 1;
-        $badgeData = run_select_query("SELECT badge_points from Badge where badge_id = $this->badgeID")->fetch_assoc();
+        $badgeData = run_select_query("SELECT * from Badge where badge_id = $this->badgeID")->fetch_assoc();
+        //echo $badgeData;
         $this->badgePoints = $badgeData['badge_points'];
         $this->badgeName = $badgeData['badge_name'];
-        $this->badgeCount = $badgeData['badge_count'];
+        $this->badgeCount = 1;
     }
 
     public function getPoints(){

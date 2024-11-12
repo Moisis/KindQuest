@@ -5,24 +5,53 @@ class RegisterController {
 
     // Method to load the default registration view
     public function index() {
-        require_once dirname(__DIR__, 2) . '/views/Auth/register.php';
+        if($_SERVER['REQUEST_METHOD'] === 'GET'){
+            require_once dirname(__DIR__, 2) . '/views/Auth/register.php';
+        }
+
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        
+            // username, email, password, user_type
+
+            $userCredentials = [
+                'username'=> $_POST['username'],
+                'password'=> $_POST['password'],
+                'email'=> $_POST['email'],
+                'user_type'=> $_POST['user_type'],
+            ];
+
+            $this->register($userCredentials);
+
+        }
     }
 
     // Method to handle registration based on user type
-    public function register(array $data) {
+    private function register(array $data) {
         // Set the appropriate auth strategy based on user type
         if ($data['user_type'] === 'individual') {
             $this->authStrategy = new IndividualAuth();
+
         } elseif ($data['user_type'] === 'organization') {
             $this->authStrategy = new OrganizationAuth();
         }
 
-        // Register using the selected strategy
-        if (isset($this->authStrategy) && $this->authStrategy->register($data)) {
-            echo "Registration successful.";
-        } else {
-            echo "Registration failed.";
+        $res = $this->authStrategy->register($data);
+        if ($res === false) {
+            //  echo "Register Failed";
+            header('Location: http://localhost:8000/register');
+        }else if($res === true){
+            // echo "Register success";
+            session_start();
+            $_SESSION["username"] = $data["username"];
+            header('Location: http://localhost:8000/');
         }
+
+        // // Register using the selected strategy
+        // if (isset($this->authStrategy) && $this->authStrategy->register($data)) {
+        //     echo "Registration successful.";
+        // } else {
+        //     echo "Registration failed.";
+        // }
     }
 
 

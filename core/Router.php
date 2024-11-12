@@ -5,7 +5,8 @@
 require_once __DIR__ . '/../app/controllers/AboutController.php';
 require_once __DIR__ . '/../app/controllers/HomeController.php';
 require_once __DIR__ . '/../app/controllers/EventController.php';
-require_once __DIR__ . '/../app/controllers/DonationController.php';
+require_once __DIR__ . '/../app/controllers/EventCreationController.php';
+require_once __DIR__ . '/../app/controllers/EventDetailsController.php';
 
 //Auth
 require_once __DIR__ . '/../app/controllers/Auth/RegisterController.php';

@@ -33,7 +33,7 @@
                 <div class="col-md-9 col-lg-7 mt-5">
                     <h3>Sign Up</h3>
                     <!-- RD Mailform-->
-                    <form class="rd-form rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="register_route.php">
+                    <form class="rd-form rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="/register">
                         <div class="form-wrap">
                             <input class="form-input" id="contact-username" type="text" name="username" data-constraints="@Required">
                             <label class="form-label" for="contact-username">Username</label>
@@ -54,7 +54,8 @@
                         <div class="form-wrap">
                             <label class="form-label" for="user-type">I am signing up as:</label>
                             <select class="form-input" id="user-type" name="user_type" data-constraints="@Required">
-                                <option value="individual">Individual</option>
+                            <option value="select-here">Select Here</option>    
+                            <option value="individual">Individual</option>
                                 <option value="organization">Organization</option>
                             </select>
                         </div>

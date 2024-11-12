@@ -4,12 +4,20 @@ declare(strict_types=1);
 class Organization extends Client{
 
 
-    public function login(string $username, string $password){
-        //authenticate with database
+    public function __construct() {
+
+        $this->auth = new OrganizationAuth();
+
+    }
+
+
+    public function donate(float $amount, Event $event){
+        
+
     }
 
     public function createEvent(){
-        //should create event
+        
     }
 
     public function sponsorEvent(){

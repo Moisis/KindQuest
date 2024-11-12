@@ -33,11 +33,11 @@
                 <div class="col-md-9 col-lg-7 mt-5">
                     <h3>Login</h3>
                     <!-- RD Mailform-->
-                    <form class="rd-form rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="register_route.php">
+                    <form class="rd-form rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="/login">
 
                         <div class="form-wrap">
-                            <input class="form-input" id="contact-email" type="email" name="email" data-constraints="@Email @Required">
-                            <label class="form-label" for="contact-email">E-mail</label>
+                            <input class="form-input" id="contact-email" type="text" name="username" data-constraints="@Required">
+                            <label class="form-label" for="contact-email">Username</label>
                         </div>
                         <div class="form-wrap">
                             <input class="form-input" id="contact-password" type="password" name="password" data-constraints="@Required">

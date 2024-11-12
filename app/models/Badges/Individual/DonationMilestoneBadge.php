@@ -1,13 +1,12 @@
 <?php
-require_once "IndividualBadgeDecorator.php";
 
+//when user donates a single 100 pounds donation he gets this badge
+class DonationMilestoneBadge extends IndividualBadgeDecorator{
 
-//When User Joins 2 Events, he gats this badge
-class JoinMilestoneBadge extends IndividualBadgeDecorator{
-
+    
     public function __construct(IndividualBadge $badgeToDecorate, int $userID){
         $this->individualBadge = $badgeToDecorate;
-        $this->badgeID = 2;
+        $this->badgeID = 3;
         $badgeData = run_select_query("SELECT * from Badge where badge_id = $this->badgeID")->fetch_assoc();
         $this->badgePoints = $badgeData['badge_points'];
         $this->badgeName = $badgeData['badge_name'];
@@ -19,5 +18,4 @@ class JoinMilestoneBadge extends IndividualBadgeDecorator{
     public function getPoints(){
         return $this->individualBadge->getPoints() + $this->badgePoints * $this->badgeCount;
     }
-
 }

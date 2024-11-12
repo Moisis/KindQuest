@@ -2,15 +2,16 @@
 
 declare(strict_types=1);
 
-class Admin{
+class Admin extends BaseAccount{
 
-    public function login(string $userName, string $password){
-        //authenticate with db
-        //returns boolean
+
+    public function __construct(string $userName, string $password){
+
+        $this->userID = rand(1,999);
+        $this->userName = $userName;
+        $this->password = $password;
+
     }
-
-    
-
 
 }
 
