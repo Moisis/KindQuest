@@ -24,7 +24,8 @@
                         </ul>
                     </div>
                 </div>
-                <p class="rights"><span>&copy;&nbsp;</span><span class="copyright-year"></span><span>&nbsp;</span><span>Helper</span><span>.&nbsp;</span><span>All Rights Reserved.</span><span>&nbsp;</span>Design&nbsp;by&nbsp;<a href="https://www.templatemonster.com/">Templatemonster</a></p>
+                <p class="rights"><span>&copy;&nbsp;</span><span class="copyright-year"></span><span>&nbsp;</span><span>KindQuest</span><span>.&nbsp;</span>
+                    <span>All Rights Reserved.</span><span>&nbsp;</span>Design&nbsp;by&nbsp;Skill@IssueTeam</p>
             </div>
         </div>
     </footer>

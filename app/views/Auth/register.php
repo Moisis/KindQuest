@@ -75,7 +75,7 @@
     <?php include_once __DIR__ . '/../commonParts/footer.php'; ?>
 </div>
 <div class="snackbars" id="form-output-global"></div>
-<script src="../../public/js/core.min.js"></script>
-<script src="../../public/js/script.js"></script>
+<script src="js/core.min.js"></script>
+<script src="js/script.js"></script>
 </body>
 </html>

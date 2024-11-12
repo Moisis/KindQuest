@@ -29,6 +29,8 @@ return (object) array(
         '/register'    => 'RegisterController@index',
         '/login'    => 'LoginController@index',
         '/events'    => 'EventController@index',
+
+        '/donatepage'    => 'DonationController@index',
         // '/test/{arg}'    => 'TestController@show',
         // '/login'         => 'LoginController@show',
         // '/shop/{userId}' => 'ShopController@show',

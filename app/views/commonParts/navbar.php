@@ -21,10 +21,10 @@
                                     <a class="rd-nav-link" href="/">Home</a>
                                 </li>
                                 <li class="rd-nav-item">
-                                    <a class="rd-nav-link" href="events">Events </a>
+                                    <a class="rd-nav-link" href="/events">Events </a>
                                 </li>
                                 <li class="rd-nav-item">
-                                    <a class="rd-nav-link" href="about">About Us</a>
+                                    <a class="rd-nav-link" href="/about">About Us</a>
                                 </li>
                                 <li class="rd-nav-item">
                                     <a class="rd-nav-link" href="/contacts">Contacts</a>
@@ -33,8 +33,8 @@
                         </div>
                     </div>
                     <div class="button-group">
-                        <a class="button button-primary button-sm" href="/">Donate</a>
-                        <a class="button button-secondary button-sm" href="register">Volunteer</a>
+                        <a class="button button-primary button-sm" href="/donatepage">Donate</a>
+                        <a class="button button-secondary button-sm" href="/register">Volunteer</a>
                     </div>
                 </div>
             </div>
