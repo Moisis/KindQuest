@@ -118,6 +118,8 @@ VALUES ('CASH')",
 VALUES (1,'NewComer', 0)",
 "INSERT INTO Badge(badge_id,badge_name,badge_points)
 VALUES (2,'VolunChamp', 20)",
+"INSERT INTO Badge(badge_id,badge_name,badge_points)
+VALUES (3,'DonoChamp', 50)",
 "INSERT INTO Account_Types(account_type_name)
 VALUES('Admin')",
 "INSERT INTO Account_Types(account_type_name)
