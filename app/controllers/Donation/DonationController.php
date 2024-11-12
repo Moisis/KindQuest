@@ -5,6 +5,7 @@ require_once  dirname(__DIR__, 2).'/models/Donation/DonationByCash.php';
 require_once  dirname(__DIR__, 2).'/models/Donation/DonationByFawry.php';
 require_once  dirname(__DIR__, 2).'/models/Donation/DonationByVisa.php';
 
+require_once  dirname(__DIR__, 2).'/enums/DonationMethodTypes.php';
 class DonationController
 {
     public function index() {
@@ -16,11 +17,11 @@ class DonationController
         $donationStrategy = null;
 
         // Set the appropriate auth strategy based on user type
-        if ($donationData['donation_method'] == 1) {
+        if ($donationData['donation_method'] == DonationMethodTypes::Visa->value) {
             $donationStrategy = new DonationByVisa();
-        } elseif ($donationData['donation_method'] == 2) {
+        } elseif ($donationData['donation_method'] == DonationMethodTypes::Fawry->value) {
             $donationStrategy = new DonationByFawry();
-        } elseif ($donationData['donation_method'] == 3) {
+        } elseif ($donationData['donation_method'] == DonationMethodTypes::Cash->value) {
             $donationStrategy = new DonationByCash();
         }
 
