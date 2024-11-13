@@ -1,3 +1,7 @@
+<?php
+require_once dirname(__DIR__) . "/enums/DonationMethodTypes.php";
+?>
+
 <!DOCTYPE html>
 <html class="wide wow-animation" lang="en">
 <head>
@@ -45,25 +49,32 @@
     <!-- Donation Events Section -->
     <section class="section section-lg bg-default">
         <div class="container">
-            <h3 class="text-center">Choose an Event to Donate To</h3>
+            <h3 class="text-center">Choose a Fundraising Event to Donate To</h3>
             <div class="row row-50">
+                <?php
+                // Loop through each event and display it dynamically
+                $fundraising_events = $fundraising_events ?? [];
+                foreach ($fundraising_events as $event) {
+                ?>
                 <!-- Event 1 -->
                 <div class="col-md-6 col-lg-4">
                     <div class="box-icon-modern">
                         <div class="box-icon-inner decorate-triangle"><span class="icon-xl linearicons-umbrella2 icon-primary"></span></div>
                         <div class="box-icon-caption">
-                            <h4>Event One - Support Local Schools</h4>
-                            <p>Your donation will help provide educational supplies for underprivileged children.</p>
+                            <h4>Event #<?php echo htmlspecialchars($event ->getEventId()) ;  echo " ". htmlspecialchars($event -> getEventName())?> </h4>
+                            <p> <?php echo htmlspecialchars($event ->getDescription()) ?>.</p>
                             <form action="/donate" method="post">
-                                <input type="hidden" name="event" value="support-local-schools">
-                                <label for="amount1">Amount:</label>
-                                <input type="number" id="amount1" name="amount" min="5" placeholder="USD" required>
+                                <input type="hidden" name="event_id" value="<?php echo htmlspecialchars($event ->getEventId()) ;?>" id="event_id">
+                                <input type="hidden" name="account_id" value="1" id="account_id">
+
+                                <label for="amount">Amount:</label>
+                                <input type="number" id="amount" name="amount" min="5" placeholder="USD" required>
 
                                 <label for="payment1">Payment Method:</label>
-                                <select id="payment1" name="payment_method" required>
-                                    <option value="credit_card">Credit Card</option>
-                                    <option value="paypal">PayPal</option>
-                                    <option value="bank_transfer">Bank Transfer</option>
+                                <select id="payment1" name="donation_method" required>
+                                    <option value="<?php echo DonationMethodTypes::Visa ->value  ?>">Visa</option>
+                                    <option value="<?php echo DonationMethodTypes::Fawry -> value ?> ">Fawry</option>
+                                    <option value="<?php echo DonationMethodTypes::Cash -> value ?>">Cash</option>
                                 </select>
 
                                 <button type="submit" class="btn btn-primary mt-2">Donate</button>
@@ -72,55 +83,10 @@
                     </div>
                 </div>
 
-                <!-- Event 2 -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="box-icon-modern">
-                        <div class="box-icon-inner decorate-circle"><span class="icon-xl linearicons-heart icon-primary"></span></div>
-                        <div class="box-icon-caption">
-                            <h4>Event Two - Medical Aid for Children</h4>
-                            <p>Help us provide essential medical treatment to children in need.</p>
-                            <form action="/donate" method="post">
-                                <input type="hidden" name="event" value="medical-aid-for-children">
-                                <label for="amount2">Amount:</label>
-                                <input type="number" id="amount2" name="amount" min="5" placeholder="USD" required>
+                    <?php
+                }
+                ?>
 
-                                <label for="payment2">Payment Method:</label>
-                                <select id="payment2" name="payment_method" required>
-                                    <option value="credit_card">Credit Card</option>
-                                    <option value="paypal">PayPal</option>
-                                    <option value="bank_transfer">Bank Transfer</option>
-                                </select>
-
-                                <button type="submit" class="btn btn-primary mt-2">Donate</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Event 3 -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="box-icon-modern">
-                        <div class="box-icon-inner decorate-rectangle"><span class="icon-xl linearicons-earth icon-primary"></span></div>
-                        <div class="box-icon-caption">
-                            <h4>Event Three - Community Food Drive</h4>
-                            <p>Contribute to our efforts in distributing food to low-income families in need.</p>
-                            <form action="/donate" method="post">
-                                <input type="hidden" name="event" value="community-food-drive">
-                                <label for="amount3">Amount:</label>
-                                <input type="number" id="amount3" name="amount" min="5" placeholder="USD" required>
-
-                                <label for="payment3">Payment Method:</label>
-                                <select id="payment3" name="payment_method" required>
-                                    <option value="credit_card">Credit Card</option>
-                                    <option value="paypal">PayPal</option>
-                                    <option value="bank_transfer">Bank Transfer</option>
-                                </select>
-
-                                <button type="submit" class="btn btn-primary mt-2">Donate</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>

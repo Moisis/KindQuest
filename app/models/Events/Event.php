@@ -13,7 +13,7 @@ abstract class Event{
     protected string $start_date;
     protected string $end_date;
     protected string $registration_time;
-    protected bool $event_type_id;
+    protected int $event_type_id;
     
     public static function get_event($id){
         $query = "select * from event where event_id = $id";
@@ -23,8 +23,8 @@ abstract class Event{
             return 0;
         }else if($first_row["event_type_id"] == 1){
             //fundraising
-            echo "hi";
-            echo $first_row['event_name'];
+//            echo "hi";
+//            echo $first_row['event_name'];
             $query = "select * from fundraising where event_id = $id";
             $result1 = run_select_query($query);
             $result1_first_row = mysqli_fetch_assoc($result1);
@@ -42,7 +42,7 @@ abstract class Event{
         }
     }
 
-    public function __construct(int $eventID, string $event_name, string $description,string $reg_time, string $start_date, string $end_date, bool $event_type_id){
+    public function __construct(int $eventID, string $event_name, string $description,string $reg_time, string $start_date, string $end_date, int $event_type_id){
         $this->event_id = $eventID;
         $this->event_name = $event_name;
         $this->description = $description;
@@ -52,7 +52,7 @@ abstract class Event{
         $this->event_type_id = $event_type_id;
 
     }
-    public static function insertEvent($user_id, string $event_name, string $description,string $registration_time, string $start_date, string $end_date, bool $event_type_id){
+    public static function insertEvent($user_id, string $event_name, string $description,string $registration_time, string $start_date, string $end_date, int $event_type_id){
 
         $query = "INSERT INTO event (creator_id, event_name, `desc`, `start_date`, end_date, registration_date, event_type_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
         run_insert_query($query, [$user_id,$event_name, $description, $start_date, $end_date, $registration_time, $event_type_id]);
@@ -127,7 +127,7 @@ abstract class Event{
         return $this->registration_time;
     }
 
-    public function getEventTypeId(): bool
+    public function getEventTypeId(): int
     {
         return $this->event_type_id;
     }

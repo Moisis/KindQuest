@@ -5,12 +5,12 @@ require_once "Event.php";
 class Fundraising extends Event {
 
     private int $goal;
-    public function __construct(int $event_id, string $event_name, string $description,string $registration_time, string $start_date, string $end_date, bool $event_type_id, int $goal) {
+    public function __construct(int $event_id, string $event_name, string $description,string $registration_time, string $start_date, string $end_date, int $event_type_id, int $goal) {
         parent::__construct($event_id ,$event_name, $description, $registration_time, $start_date, $end_date, $event_type_id);
         $this->goal = $goal;
     }
 
-    public static function insertFundraiser($user_id, string $event_name, string $description,string $registration_time, string $start_date, string $end_date, bool $event_type_id, float $goal): bool {
+    public static function insertFundraiser($user_id, string $event_name, string $description,string $registration_time, string $start_date, string $end_date, int $event_type_id, float $goal): bool {
         $event_id = run_select_query("SHOW TABLE STATUS LIKE 'Event'")->fetch_assoc()["Auto_increment"];
         //echo ($this->event_id);
         parent::insertEvent($user_id, $event_name, $description, $registration_time, $start_date, $end_date, $event_type_id);
@@ -21,7 +21,7 @@ class Fundraising extends Event {
     public function getCurrDonations(): int {
         $currDonations = 0;
         $query = "SELECT amount FROM donation WHERE (event_id = ?)";
-        $result = run_select_query($query, $this->event_id);
+        $result = run_select_query($query, [$this->event_id]);
         foreach ($result as $row) {
             $currDonations += $row['amount'];
         }
@@ -48,7 +48,7 @@ class Fundraising extends Event {
                 $row["event_id"],
                 $row["event_name"],
                 $row["desc"],
-                $row["registartion_date"],
+                $row["registration_date"],
                 $row["start_date"],
                 $row["end_date"],
                 $row["event_type_id"],
