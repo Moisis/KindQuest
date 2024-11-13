@@ -8,7 +8,12 @@ require_once  dirname(__DIR__, 2).'/models/Donation/DonationByVisa.php';
 require_once  dirname(__DIR__, 2).'/enums/DonationMethodTypes.php';
 class DonationController
 {
+    private static DonoData $donation_observer;
     public function index() {
+        $donation_observer = new DonoData();
+        $emailListener = new EmailListener($donation_observer);
+        
+
         // TODO: add the view path
         require_once dirname(__DIR__, 2) . '';
     }
@@ -27,6 +32,11 @@ class DonationController
 
         $donation = new Donation($donationStrategy);
         $donation->makeDonation($donationData['amount'], $donationData['event_id'], $donationData['account_id']);
+        if($donationData['amount'] > 100){
+            Badge::addBadgeToUser($donationData['account_id'], BadgesTypes::DonoChamp->value);
+        }
+
+        self::$donation_observer->notify($donation);
     }
 
     public function getUserDonations(int $user_id) {

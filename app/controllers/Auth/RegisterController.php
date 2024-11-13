@@ -42,6 +42,7 @@ class RegisterController {
         }else if($res === true){
             // echo "Register success";
             session_start();
+            Badge::addBadgeToUser(1, BadgesTypes::NewComer->value);
             $_SESSION["username"] = $data["username"];
             header('Location: http://localhost:8000/');
         }
