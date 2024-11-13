@@ -1,5 +1,8 @@
 <?php
 
+require_once dirname(__DIR__, 2) . '/models/Badges/Badge.php';
+require_once dirname(__DIR__, 2) . '/enums/BadgesTypes.php';
+
 class RegisterController {
     private AuthStrategy $authStrategy;
 
@@ -10,7 +13,7 @@ class RegisterController {
         }
 
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
-        
+
             // username, email, password, user_type
 
             $userCredentials = [
@@ -39,12 +42,20 @@ class RegisterController {
         if ($res === false) {
             //  echo "Register Failed";
             header('Location: http://localhost:8000/register');
-        }else if($res === true){
+            exit();
+
+        } else if($res === true){
             // echo "Register success";
-            session_start();
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
             Badge::addBadgeToUser(1, BadgesTypes::NewComer->value);
             $_SESSION["username"] = $data["username"];
+            $_SESSION['loggedin'] = true;
             header('Location: http://localhost:8000/');
+            session_destroy();
+            exit();
+
         }
 
         // // Register using the selected strategy
@@ -54,6 +65,4 @@ class RegisterController {
         //     echo "Registration failed.";
         // }
     }
-
-
 }

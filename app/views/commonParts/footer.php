@@ -7,9 +7,9 @@
                     <div class="col-12"><a href="index.html"><img src="images/logo/logo-inverse-415x103.png" alt="" width="207" height="51"/></a></div>
                     <div class="col-12">
                         <ul class="footer-minimal-nav">
-                            <li><a href="about">About Us</a></li>
-                            <li><a href="#">Causes</a></li>
-                            <li><a href="#">Gallery</a></li>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/events">Events</a></li>
+                            <li><a href="/about">About Us</a></li>
 <!--                            <li><a href="#">Team</a></li>-->
 <!--                            <li><a href="contacts.html">Contacts</a></li>-->
                         </ul>
