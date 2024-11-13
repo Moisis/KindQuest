@@ -5,17 +5,17 @@ require_once "Event.php";
 class Fundraising extends Event {
 
     private int $goal;
-    public function __construct(string $event_name, string $description, string $start_date, string $end_date, int $event_type_id, int $goal) {
-        parent::__construct($event_name, $description, $start_date, $end_date, $event_type_id);
+    public function __construct(int $event_id, string $event_name, string $description,string $registration_time, string $start_date, string $end_date, bool $event_type_id, int $goal) {
+        parent::__construct($event_id ,$event_name, $description, $registration_time, $start_date, $end_date, $event_type_id);
         $this->goal = $goal;
     }
 
-    public function insertEvent($userID): bool {
-        $this->event_id = run_select_query("SHOW TABLE STATUS LIKE 'Event'")->fetch_assoc()["Auto_increment"];
+    public static function insertFundraiser($user_id, string $event_name, string $description,string $registration_time, string $start_date, string $end_date, bool $event_type_id, float $goal): bool {
+        $event_id = run_select_query("SHOW TABLE STATUS LIKE 'Event'")->fetch_assoc()["Auto_increment"];
         //echo ($this->event_id);
-        parent::insertEvent($userID);
+        parent::insertEvent($user_id, $event_name, $description, $registration_time, $start_date, $end_date, $event_type_id);
         $query = "INSERT INTO fundraising (event_id, goal) VALUES (?, ?)";
-        return run_insert_query($query, [$this->event_id, $this->goal]);
+        return run_insert_query($query, [$event_id, $goal]);
     }
 
     public function getCurrDonations(): int {
@@ -45,8 +45,10 @@ class Fundraising extends Event {
 
         foreach ($result as $row) {
             $fundraising_events[] = new Fundraising(
+                $row["event_id"],
                 $row["event_name"],
                 $row["desc"],
+                $row["registartion_date"],
                 $row["start_date"],
                 $row["end_date"],
                 $row["event_type_id"],

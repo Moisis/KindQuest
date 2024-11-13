@@ -28,9 +28,10 @@ abstract class Event{
             $query = "select * from fundraising where event_id = $id";
             $result1 = run_select_query($query);
             $result1_first_row = mysqli_fetch_assoc($result1);
-            $event = new Fundraising(
-                $first_row["event_name"], $first_row["desc"], $first_row["start_date"],
-                $first_row["end_date"], $first_row["event_type_id"], $result1_first_row["goal"]
+            $event = new Fundraising($id,
+                $first_row["event_name"], $first_row["desc"], $first_row["registration_date"],
+                $first_row["start_date"],$first_row["end_date"], $first_row["event_type_id"], 
+                $result1_first_row["goal"]
             );
             return $event;
                 // string $event_name, string $description, string $start_date, string $end_date, int $event_type_id, int $goal
@@ -41,19 +42,20 @@ abstract class Event{
         }
     }
 
-    public function __construct(string $event_name, string $description, string $start_date, string $end_date, bool $event_type_id){
+    public function __construct(int $eventID, string $event_name, string $description,string $reg_time, string $start_date, string $end_date, bool $event_type_id){
+        $this->event_id = $eventID;
         $this->event_name = $event_name;
         $this->description = $description;
         $this->start_date = $start_date;
         $this->end_date = $end_date;
-        $this->registration_time = date('Y-m-d H:i:s');
+        $this->registration_time = $reg_time;
         $this->event_type_id = $event_type_id;
 
     }
-    public function insertEvent($user_id){
+    public static function insertEvent($user_id, string $event_name, string $description,string $registration_time, string $start_date, string $end_date, bool $event_type_id){
 
         $query = "INSERT INTO event (creator_id, event_name, `desc`, `start_date`, end_date, registration_date, event_type_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        run_insert_query($query, [$user_id, $this->event_name, $this->description, $this->start_date, $this->end_date, $this->registration_time, $this->event_type_id]);
+        run_insert_query($query, [$user_id,$event_name, $description, $start_date, $end_date, $registration_time, $event_type_id]);
     }
     
     // public function getEventName(): string{

@@ -28,15 +28,16 @@ class EventCreationController{
     private function createFundraisingEvent($event, $event_type_id, $event_name, $event_description, $start_date, $end_date, $event_goal){
        
 
-        $event = new Fundraising(
+        Fundraising::insertFundraiser(
+            1, // $_SESSION['user_id']
             $event_name,
             $event_description,
+            "0", //should be removed for fundraisers
             $start_date,
             $end_date,
             $event_type_id,
             $event_goal);
             
-        $event->insertEvent(1); // $_SESSION['user_id']
         echo "Done";
         header("Location: http://localhost:8000/");
         }
