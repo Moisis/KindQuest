@@ -37,7 +37,7 @@ class LoginController
     // Method to handle login based on user type
     private function login(array $credentials)
     {
-        echo "logging in...";
+//        echo "logging in...";
         // Set the appropriate auth strategy based on user type
         if ($credentials['user_type'] === 'individual') {
             $this->authStrategy = new IndividualAuth();
@@ -49,11 +49,18 @@ class LoginController
         if ($res === false) {
             echo 'failed';
             header('Location: http://localhost:8000/login');
+            exit();
+
+
         } else if($res === true){
             // echo 'success';
-            session_start();
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
             $_SESSION["username"] = $credentials["username"];
             header("Location: http://localhost:8000/");
+            $_SESSION['loggedin'] = true;
+            exit();
         }
 
         // // Login using the selected strategy

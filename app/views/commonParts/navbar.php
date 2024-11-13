@@ -36,7 +36,7 @@
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="profileDropdown">
                                     <a class="dropdown-item" href="/profile">View Profile</a>
-                                    <a class="dropdown-item" href="/" onclick=" <?php  $_SESSION['loggedin'] = false ; session_destroy();  ?>">Logout</a>
+                                    <a class="dropdown-item" href="/" onclick=" <?php  $_SESSION['loggedin'] = false ; ?>">Logout</a>
                                 </div>
                             </div>
                         <?php else: ?>

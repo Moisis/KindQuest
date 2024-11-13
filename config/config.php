@@ -29,11 +29,13 @@ return (object) array(
         '/register'    => 'RegisterController@index',
         '/login'    => 'LoginController@index',
         '/events'    => 'EventController@index',
+        '/donatepage' => 'DonationController@index',
         '/donate' => "DonationProcess@donationProcess",
         '/donate/{user_id}' => "DonationController@getUserDonations",
         '/event/create' => "EventCreationController@index",
         '/event/{id}' => 'EventDetailsController@index',
-        '/event/join/{event_id}' => "EventDetailsController@join_event"
+        '/event/join/{event_id}' => "EventDetailsController@join_event",
+
         // '/test/{arg}'    => 'TestController@show',
         // '/login'         => 'LoginController@show',
         // '/shop/{userId}' => 'ShopController@show',

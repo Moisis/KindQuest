@@ -1,5 +1,6 @@
 <?php
 
+require_once 'IListener.php';
 class EmailListener implements IListener{
 
     public function __construct($subject){

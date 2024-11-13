@@ -1,5 +1,6 @@
 <?php
 
+require_once 'Subject.php';
 class DonoData implements Subject{
 
     private $listeners;

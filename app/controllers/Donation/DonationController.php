@@ -6,6 +6,12 @@ require_once  dirname(__DIR__, 2).'/models/Donation/DonationByFawry.php';
 require_once  dirname(__DIR__, 2).'/models/Donation/DonationByVisa.php';
 
 require_once  dirname(__DIR__, 2).'/enums/DonationMethodTypes.php';
+
+require_once dirname(__DIR__, 2).'/models/DonoData.php';
+require_once dirname(__DIR__, 2).'/models/Subject.php';
+require_once dirname(__DIR__, 2).'/models/EmailListener.php';
+
+
 class DonationController
 {
     private static DonoData $donation_observer;
@@ -14,8 +20,7 @@ class DonationController
         $emailListener = new EmailListener($donation_observer);
         
 
-        // TODO: add the view path
-        require_once dirname(__DIR__, 2) . '';
+        require_once dirname(__DIR__, 2) . '/views/donation.php';
     }
 
     public static function donate(array $donationData) {

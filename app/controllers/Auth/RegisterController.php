@@ -42,7 +42,7 @@ class RegisterController {
         if ($res === false) {
             //  echo "Register Failed";
             header('Location: http://localhost:8000/register');
-            exit();
+
 
         } else if($res === true){
             // echo "Register success";
@@ -53,7 +53,6 @@ class RegisterController {
             $_SESSION["username"] = $data["username"];
             $_SESSION['loggedin'] = true;
             header('Location: http://localhost:8000/');
-            session_destroy();
             exit();
 
         }
