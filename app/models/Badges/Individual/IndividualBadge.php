@@ -11,5 +11,9 @@ abstract class IndividualBadge{
 
     public abstract function getPoints();
 
+    public function getName(){
+        return $this->badgeName;
+    }
+
 
 }

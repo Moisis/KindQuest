@@ -9,6 +9,7 @@ class Badge{
 
     public static function getBadgesByUserID($userID){
         $badgeData = run_select_query("SELECT * from Account_Badges WHERE account_id = $userID");
+        $names = array();
         $badge = new IndividualBaseBadge();
         if ($badgeData->num_rows > 0) {
             while ($singleBadgeData = $badgeData->fetch_assoc()) {
@@ -20,10 +21,18 @@ class Badge{
                         $badge = new DonationMilestoneBadge($badge, $userID);
                         break;                        
                 }
+                $names[] = $badge->getName();
             }
         }
-        return $badge;
+        $returnedBadgeData = [
+            "names" => $names,
+            "points" => $badge->getPoints()
+        ];
+        return $returnedBadgeData;
     }
+
+
+    //Badge::getBadgesByUserID(_SESSION['id'])->getPoints()
     public static function addBadgeToUser($userID, $badgeID){
         $userBadgeCount = run_select_query("SELECT badge_count FROM Account_Badges where account_id = $userID AND badge_id = $badgeID");
 
