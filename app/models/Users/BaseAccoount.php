@@ -36,26 +36,21 @@ abstract class BaseAccount{
 
 
 
-    public static function getUserByEmail(string $email): ?self {
+    public static function getUserByEmail(string $email): ?array {
         
-        $query = "SELECT a.account_id, a.username, a.password, at.account_type_name
+        $query = "SELECT a.account_id, a.username, at.account_type_name AS account_type
                   FROM Account a
                   JOIN Account_Types at ON a.account_type_id = at.account_type_id
                   WHERE a.email = ?";
         
         $result = run_select_query($query, [$email]);
     
+        
         if ($result !== null && !empty($result)) {
-            $user = new self();
-            $user->userID = (int)$result[0]['account_id'];
-            $user->userName = $result[0]['username'];
-            $user->password = $result[0]['password'];
-            $user->accountType = $result[0]['account_type_name'];
-            return $user;
+            return $result[0]; 
+        } else {
+            return null; 
         }
-    
-        // Return null if no user is found
-        return null;
     }
     
 
