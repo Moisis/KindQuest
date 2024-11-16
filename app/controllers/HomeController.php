@@ -1,8 +1,10 @@
 <?php
-// require_once "app/models/ContextAuthenticator.php"; // Adjust the path as necessary
 
 class HomeController {
     public function index() {
+
+        session_regenerate_id();
+
         $msg = '';
         if (isset($_POST['login'])) {
             if (!empty($_POST['email']) && !empty($_POST['password'])) {

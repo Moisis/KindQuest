@@ -12,6 +12,5 @@ $configs = require '../config/config.php';
 session_start(); // Start the session
 $router = new Router();
 $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-
 $router->route($url);
 ?>

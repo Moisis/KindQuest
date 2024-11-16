@@ -8,6 +8,9 @@ require_once __DIR__ . '/../app/controllers/EventController.php';
 require_once __DIR__ . '/../app/controllers/EventCreationController.php';
 require_once __DIR__ . '/../app/controllers/EventDetailsController.php';
 
+require_once __DIR__ . '/../app/controllers/ProfileController.php';
+require_once __DIR__ . '/../app/controllers/ErrorController.php';
+//Donation
 require_once __DIR__ . '/../app/controllers/Donation/DonationController.php';
 require_once __DIR__ . '/../app/controllers/Donation/DonationProcess.php';
 
@@ -27,7 +30,7 @@ class Router {
             }
         }
 
-        echo "404 Not Found";
+        $this->invokeControllerAction('ErrorController@index', []);
     }
 
     private function buildPattern($route) {

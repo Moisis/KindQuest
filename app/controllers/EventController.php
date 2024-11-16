@@ -7,6 +7,8 @@ require_once dirname(__DIR__, 1).'/enums/EventTypes.php';
 
 class EventController {
     public function index() {
+        session_regenerate_id();
+
         $fundraising_events = $this->getAllEvents();
         require_once dirname(__DIR__, 1)."/views/events.php";
     }

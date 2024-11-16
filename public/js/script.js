@@ -147,33 +147,33 @@
 		 * @param {object} captcha - captcha object for validation
 		 * @return {boolean}
 		 */
-		function isValidated(elements, captcha) {
-			var results, errors = 0;
-
-			if (elements.length) {
-				for (var j = 0; j < elements.length; j++) {
-
-					var $input = $(elements[j]);
-					if ((results = $input.regula('validate')).length) {
-						for (k = 0; k < results.length; k++) {
-							errors++;
-							$input.siblings(".form-validation").text(results[k].message).parent().addClass("has-error");
-						}
-					} else {
-						$input.siblings(".form-validation").text("").parent().removeClass("has-error")
-					}
-				}
-
-				if (captcha) {
-					if (captcha.length) {
-						return validateReCaptcha(captcha) && errors === 0
-					}
-				}
-
-				return errors === 0;
-			}
-			return true;
-		}
+		// function isValidated(elements, captcha) {
+		// 	var results, errors = 0;
+		//
+		// 	if (elements.length) {
+		// 		for (var j = 0; j < elements.length; j++) {
+		//
+		// 			var $input = $(elements[j]);
+		// 			if ((results = $input.regula('validate')).length) {
+		// 				for (k = 0; k < results.length; k++) {
+		// 					errors++;
+		// 					$input.siblings(".form-validation").text(results[k].message).parent().addClass("has-error");
+		// 				}
+		// 			} else {
+		// 				$input.siblings(".form-validation").text("").parent().removeClass("has-error")
+		// 			}
+		// 		}
+		//
+		// 		if (captcha) {
+		// 			if (captcha.length) {
+		// 				return validateReCaptcha(captcha) && errors === 0
+		// 			}
+		// 		}
+		//
+		// 		return errors === 0;
+		// 	}
+		// 	return true;
+		// }
 
 		/**
 		 * @desc Initialize Bootstrap tooltip with required placement
@@ -190,17 +190,17 @@
 		}
 
 		// Additional class on html if mac os.
-		if (navigator.platform.match(/(Mac)/i)) {
-			$html.addClass("mac-os");
-		}
+		// if (navigator.platform.match(/(Mac)/i)) {
+		// 	$html.addClass("mac-os");
+		// }
 
 		// Adds some loosing functionality to IE browsers (IE Polyfills)
-		if (isIE) {
-			if (isIE === 12) $html.addClass("ie-edge");
-			if (isIE === 11) $html.addClass("ie-11");
-			if (isIE < 10) $html.addClass("lt-ie-10");
-			if (isIE < 11) $html.addClass("ie-10");
-		}
+		// if (isIE) {
+		// 	if (isIE === 12) $html.addClass("ie-edge");
+		// 	if (isIE === 11) $html.addClass("ie-11");
+		// 	if (isIE < 10) $html.addClass("lt-ie-10");
+		// 	if (isIE < 11) $html.addClass("ie-10");
+		// }
 
 		// Bootstrap Tooltips
 		if (plugins.bootstrapTooltip.length) {
@@ -498,6 +498,6 @@
 
 
 // Todo
-document.getElementById('add-event-button').addEventListener('click', function() {
-	$('#addEventModal').modal('show');
-});
+// document.getElementById('add-event-button').addEventListener('click', function() {
+// 	$('#addEventModal').modal('show');
+// });

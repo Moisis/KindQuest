@@ -36,6 +36,11 @@ return (object) array(
         '/event/{id}' => 'EventDetailsController@index',
         '/event/join/{event_id}' => "EventDetailsController@join_event",
 
+
+
+        '/profile' => 'ProfileController@index',
+        '/logout'  => 'ProfileController@logout',
+
         // '/test/{arg}'    => 'TestController@show',
         // '/login'         => 'LoginController@show',
         // '/shop/{userId}' => 'ShopController@show',

@@ -1,5 +1,6 @@
 <?php
 
+
 // require_once(dirname(__FILE__) ."/../../../core/Router.php");
 require_once(__DIR__ . "/../../models/Auth/AuthStrategy.php");
 require_once(__DIR__ . "/../../models/Auth/IndividualAuth.php");
@@ -7,6 +8,8 @@ require_once(__DIR__ . "/../../models/Auth/OrganizationAuth.php");
 require_once(__DIR__ . "/../../models/Auth/AdminAuth.php");
 
 require_once(__DIR__ . "/../Auth/RegisterController.php");
+
+
 
 
 class LoginController
@@ -47,28 +50,22 @@ class LoginController
 
         $res = $this->authStrategy->login($credentials);
         if ($res === false) {
-            echo 'failed';
-            header('Location: http://localhost:8000/login');
+//            echo 'failed';
+            header('Location: /login');
             exit();
-
-
         } else if($res === true){
             // echo 'success';
-            if (session_status() === PHP_SESSION_NONE) {
-                session_start();
-            }
             $_SESSION["username"] = $credentials["username"];
-            header("Location: http://localhost:8000/");
-            $_SESSION['loggedin'] = true;
+            $_SESSION['logged'] = true;
+
+
+//            session_write_close();
+//            var_dump($_SESSION);
+
+            header("Location: /");
             exit();
         }
 
-        // // Login using the selected strategy
-        // if (isset($this->authStrategy) && $this->authStrategy->login($credentials)) {
-        //     echo "Login successful.";
-        // } else {
-        //     echo "Login failed.";
-        // }
     }
 
 

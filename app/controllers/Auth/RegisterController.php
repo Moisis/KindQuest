@@ -1,7 +1,10 @@
 <?php
 
+
 require_once dirname(__DIR__, 2) . '/models/Badges/Badge.php';
 require_once dirname(__DIR__, 2) . '/enums/BadgesTypes.php';
+
+
 
 class RegisterController {
     private AuthStrategy $authStrategy;
@@ -41,18 +44,16 @@ class RegisterController {
         $res = $this->authStrategy->register($data);
         if ($res === false) {
             //  echo "Register Failed";
-            header('Location: http://localhost:8000/register');
+            header('Location: /register');
 
 
         } else if($res === true){
             // echo "Register success";
-            if (session_status() === PHP_SESSION_NONE) {
-                session_start();
-            }
+
             Badge::addBadgeToUser(1, BadgesTypes::NewComer->value);
             $_SESSION["username"] = $data["username"];
-            $_SESSION['loggedin'] = true;
-            header('Location: http://localhost:8000/');
+            $_SESSION['logged'] = true;
+            header('Location: /');
             exit();
 
         }
