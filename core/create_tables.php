@@ -18,6 +18,7 @@ run_queries([
 "CREATE TABLE Account(
     account_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) NOT NULL,
+    email VARCHAR(254) NOT NULL,
     password VARCHAR(255) NOT NULL,
     account_type_id INT NOT NULL,
     FOREIGN KEY (account_type_id) REFERENCES Account_types(account_type_id)
