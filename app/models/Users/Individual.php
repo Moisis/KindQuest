@@ -7,8 +7,8 @@ require_once __DIR__. "Client.php";
 class Individual extends Client{
 
     public function __construct(int $accountId) {
-        // Query to get account details and account type name from the Account_Types table
-        $query = "SELECT a.account_id, a.username, a.password, at.account_type_name 
+        
+        $query = "SELECT a.account_id, a.username, a.password, a.email, at.account_type_name 
                   FROM Account a 
                   JOIN Account_Types at ON a.account_type_id = at.account_type_id 
                   WHERE a.account_id = ?";
@@ -16,15 +16,16 @@ class Individual extends Client{
 
         // If account exists, set the attributes, else do not create the object
         if ($result !== null && !empty($result)) {
-            $this->userID = $result[0]['account_id'];  // Set the user ID
-            $this->userName = $result[0]['username'];  // Set the user name
-            $this->password = $result[0]['password'];  // Set the password
-            $this->accountType = $result[0]['account_type_name'];  // Set the account type name
+            $this->userID = $result[0]['account_id'];  
+            $this->userName = $result[0]['username'];  
+            $this->password = $result[0]['password'];  
+            $this->email = $result[0]['email'];        
+            $this->accountType = $result[0]['account_type_name'];  
 
-            // Initialize the auth strategy for the Individual class
+            
             $this->auth = new IndividualAuth();
         } else {
-            // If the account does not exist, return null or handle accordingly
+            
             return null;
         }
     }
