@@ -62,4 +62,37 @@ class Individual extends Client{
     }
 
 
+    public function joinEventAsVolunteer(NonVirtualEvent $event): string {
+        // Check if the user is already registered for the event
+        $checkQuery = "
+            SELECT 1 
+            FROM Event_Registration 
+            WHERE event_id = :event_id AND account_id = :account_id
+        ";
+        $existingEntry = run_select_query($checkQuery, [
+            ':event_id' => $event->getEventId(),
+            ':account_id' => $this->userID
+        ]);
+    
+        if (!empty($existingEntry)) {
+            return "User is already registered for the event."; 
+        }
+    
+        
+        try {
+            $result = $event->add_Volunteer($this->userID);
+    
+            if ($result === "maximum_reached") {
+                return "Maximum number of volunteers has been reached."; 
+            }
+    
+            return "Successfully registered for the event."; 
+        } catch (Exception $e) {
+            
+            return "Failed to join event: " . $e->getMessage();
+        }
+    }
+    
+
+
 }

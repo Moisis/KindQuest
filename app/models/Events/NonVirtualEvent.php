@@ -12,35 +12,103 @@ class NonVirtualEvent extends Event{
     private int $current_volunteers=0;
     private int $current_organizers=0;
 
-    public function __construct(string $event_name, int $event_id, string $description, string $start_date, string $end_date, bool $sponsored,string $location, int $volunteers_required, int $organizers_required) {
-        parent::__construct($event_name, $event_id, $description, $start_date, $end_date, $sponsored);
-        $this->insertEvent();
+    public function __construct(
+        int $event_id,
+        string $event_name,
+        string $description,
+        string $registration_time,
+        string $start_date,
+        string $end_date,
+        int $event_type_id,
+        string $location,
+        int $volunteers_required,
+        int $organizers_required
+    ) {
+        parent::__construct($event_id, $event_name, $description, $registration_time, $start_date, $end_date, $event_type_id);
         $this->location = $location;
         $this->volunteers_required = $volunteers_required;
         $this->organizers_required = $organizers_required;
     }
-    public function insertNonVirtualEvent(): bool{
-        $query = "INSERT INTO non_virtual_events(event_id, `location`, vol_required,
-                                                 org_required) 
-                                                 VALUES (?, ?, ?, ?)";
-        return run_insert_query($query,[$this->event_id, $this->location,
-                                                       $this->volunteers_required, 
-                                                       $this->organizers_required]);
+
+
+
+     public static function insertNonVirtualEvent(
+        int $user_id,
+        string $event_name,
+        string $description,
+        string $registration_time,
+        string $start_date,
+        string $end_date,
+        int $event_type_id,
+        string $location,
+        int $volunteers_required,
+        int $organizers_required
+    ): bool {
+        // Get the next auto-incremented ID for the event
+        $event_id = run_select_query("SHOW TABLE STATUS LIKE 'Event'")->fetch_assoc()["Auto_increment"];
+        
+        // Insert into the parent Event table
+        parent::insertEvent($user_id, $event_name, $description, $registration_time, $start_date, $end_date, $event_type_id);
+        
+        // Insert into the NonVirtualEvents table
+        $query = "
+            INSERT INTO non_virtual_events (event_id, location, vol_required, org_required)
+            VALUES (?, ?, ?, ?)
+        ";
+        return run_insert_query($query, [$event_id, $location, $volunteers_required, $organizers_required]);
     }
 
-    public function set_Volunteers_required(int $volunteers_required): void{
+
+    public function set_Volunteers_required(int $volunteers_required): void {
         $this->volunteers_required = $volunteers_required;
+    
+        $query = "
+            UPDATE Non_Virtual_Events 
+            SET vol_required = :vol_required 
+            WHERE event_id = :event_id
+        ";
+        $result = run_update_query($query, [
+            ':vol_required' => $volunteers_required,
+            ':event_id' => $this->event_id
+        ]);
+    
+        if (!$result) {
+            throw new Exception("Failed to update volunteers required in the database.");
+        }
     }
     
-    public function set_organizers_required(int $organizers_required): void{
+    public function set_organizers_required(int $organizers_required): void {
         $this->organizers_required = $organizers_required;
+    
+        // Update the organizers_required property in the database
+        $query = "
+            UPDATE Non_Virtual_Events 
+            SET org_required = :org_required 
+            WHERE event_id = :event_id
+        ";
+        $result = run_update_query($query, [
+            ':org_required' => $organizers_required,
+            ':event_id' => $this->event_id
+        ]);
+    
+        if (!$result) {
+            throw new Exception("Failed to update organizers required in the database.");
+        }
     }
+
+
     public function set_currentVolunteers(int $v): void{
         $this->current_volunteers = $v;
     }
     public function get_currentVolunteers(): int{
         return $this->current_volunteers;
     }
+
+    public function set_current_organizers(int $o): void{
+        $this->current_organizers = $o;
+    }
+
+
     public function get_current_organizers(): int{
         return $this->current_organizers;
     }
@@ -63,25 +131,36 @@ class NonVirtualEvent extends Event{
     }
     
     
-    public function add_Volunteer($account_id): void {
+    public function add_Volunteer($account_id): string {
         if ($this->current_volunteers >= $this->volunteers_required) {
-            echo "Cannot add more volunteers. Maximum reached.";
-            return;
+            return "maximum_reached"; 
         }
     
-        $query = "INSERT INTO event_registration (event_id, account_id, `role`) VALUES(?, ?, ?)";
-        $result = run_insert_query($query, [$this->event_id, $account_id, 'Volunteer']);
+        // Prepare the query with named parameters
+        $query = "
+            INSERT INTO Event_Registration (event_id, account_id, role) 
+            VALUES (:event_id, :account_id, :role)
+        ";
+        $result = run_insert_query($query, [
+            ':event_id' => $this->event_id,
+            ':account_id' => $account_id,
+            ':role' => 'Volunteer'
+        ]);
+    
         
         if (!$result) {
-            echo "Failed to add volunteer.";
-            return;
+            throw new Exception("Failed to add volunteer.");
         }
     
-        $req = $this->volunteers_required--;
-        $curr = $this->current_volunteers++;
-        $this->set_currentVolunteers($curr);
-        $this->set_Volunteers_required($req);
+        // Update the internal counts
+        $this->current_volunteers++;
+        $this->volunteers_required--;
+        $this->set_currentVolunteers($this->current_volunteers);
+        $this->set_Volunteers_required($this->volunteers_required);
+    
+        return "success"; 
     }
+    
     
     public function remove_Volunteer($account_id): void {
         if ($this->current_volunteers <= 0) {
@@ -103,6 +182,40 @@ class NonVirtualEvent extends Event{
         $this->set_currentVolunteers($curr);
         $this->set_Volunteers_required($req);
     }
+
+
+
+    public function add_Organizer($account_id): string {
+        // Check if the maximum number of organizers has been reached
+        if ($this->current_organizers >= $this->organizers_required) {
+            return "maximum_reached"; 
+        }
+    
+        // Prepare the query with named parameters
+        $query = "
+            INSERT INTO Event_Registration (event_id, account_id, role) 
+            VALUES (:event_id, :account_id, :role)
+        ";
+        $result = run_insert_query($query, [
+            ':event_id' => $this->event_id,
+            ':account_id' => $account_id,
+            ':role' => 'Organizer'
+        ]);
+    
+        // Handle query failure
+        if (!$result) {
+            throw new Exception("Failed to add organizer.");
+        }
+    
+        // Update the internal counts
+        $this->current_organizers++;
+        $this->organizers_required--;
+        $this->set_current_organizers($this->current_organizers);
+        $this->set_organizers_required($this->organizers_required);
+    
+        return "success"; 
+    }
+    
     
     
     
