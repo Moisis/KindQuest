@@ -1,6 +1,8 @@
 <?php
 require_once("Database.php");
 
+$configs = require_once("../config/config.php");
+
 run_queries([
 
 // Drop the database if it already exists, do nothing otherwise
@@ -25,6 +27,12 @@ run_queries([
 
 );",
 
+"CREATE TABLE Preferences(
+    account_id INT NOT NULL,
+    notification_for INT NOT NULL,
+    preference INT NOT NULL,
+    FOREIGN KEY (account_id) REFERENCES Account(account_id)
+);",
 
 "CREATE TABLE Event_Types(
     event_type_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,

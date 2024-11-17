@@ -5,6 +5,9 @@ require_once  dirname(__DIR__, 2).'/models/Donation/DonationByCash.php';
 require_once  dirname(__DIR__, 2).'/models/Donation/DonationByFawry.php';
 require_once  dirname(__DIR__, 2).'/models/Donation/DonationByVisa.php';
 
+require_once  dirname(__DIR__, 2).'/models/Users/BaseAccoount.php';
+require_once dirname(__DIR__, 2).'/enums/NotificationFor.php';
+
 require_once  dirname(__DIR__, 2).'/enums/DonationMethodTypes.php';
 
 require_once dirname(__DIR__, 2).'/models/DonoData.php';
@@ -50,8 +53,11 @@ class DonationController
         }
 
         // TODO : we need to notify the observer (#null exception)
-//        self::$donation_observer->notify($donation);
-
+    //    self::$donation_observer->notify($donation);
+    
+        $observer = BaseAccount::getPreferencesObserver(NotificationFor::Donation->value, $_SESSION['username']);
+        $observer->notify($donation);
+        // sleep(3);
         header('Location: /');
         exit();
     }
