@@ -61,4 +61,39 @@ class Organization extends Client{
         $this->auth = $auth;
 
 }
+
+
+public function joinEventAsOrganizer(NonVirtualEvent $event): string {
+    // Check if the user is already registered for the event
+    $checkQuery = "
+        SELECT 1 
+        FROM Event_Registration 
+        WHERE event_id = :event_id AND account_id = :account_id
+    ";
+    $existingEntry = run_select_query($checkQuery, [
+        ':event_id' => $event->getEventId(),
+        ':account_id' => $this->userID
+    ]);
+
+    if (!empty($existingEntry)) {
+        return "User is already registered for the event."; 
+    }
+
+    try {
+        // Attempt to add the user as an organizer
+        $result = $event->add_Organizer($this->userID);
+
+        if ($result === "maximum_reached") {
+            return "Maximum number of organizers has been reached."; 
+        }
+
+        return "Successfully registered as an organizer for the event."; 
+    } catch (Exception $e) {
+        // Handle exceptions
+        return "Failed to join event as organizer: " . $e->getMessage();
+    }
+}
+
+
+
 }
