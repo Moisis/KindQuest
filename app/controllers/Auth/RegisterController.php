@@ -63,7 +63,6 @@ class RegisterController {
             if ($data['user_type'] === 'admin') {
                 header('Location: /admin');
                 exit();
-
             }
 
 
