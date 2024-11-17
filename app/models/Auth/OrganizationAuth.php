@@ -1,5 +1,9 @@
 <?php
 
+require_once dirname(__DIR__,2) . "/models/Users/BaseAccoount.php";
+require_once dirname(__DIR__,2) ."/enums/NotificationFor.php";
+require_once dirname(__DIR__,2) ."/enums/Preference.php";
+
 class OrganizationAuth implements AuthStrategy
 {
 
@@ -22,6 +26,10 @@ class OrganizationAuth implements AuthStrategy
 
         $insertQuery = "INSERT INTO Account (username,email , password, account_type_id) VALUES ('$username','$email', '$password', 3)";
         $insertResult = run_insert_query($insertQuery);
+
+        $query = "INSERT INTO Preferences (account_id, notification_for, preference) VALUES (?, ?, ?)";
+        $account_id = BaseAccount::getAccountId($username);
+        run_insert_query($query, [$account_id, NotificationFor::Donation->value,Preference::Email->value]);
 
 
         return $insertResult;

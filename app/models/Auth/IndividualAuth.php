@@ -2,6 +2,9 @@
 
 
 require_once "AuthStrategy.php";
+require_once dirname(__DIR__,2) . "/models/Users/BaseAccoount.php";
+require_once dirname(__DIR__,2) ."/enums/NotificationFor.php";
+require_once dirname(__DIR__,2) ."/enums/Preference.php";
 
 
 class IndividualAuth implements AuthStrategy
@@ -17,14 +20,16 @@ class IndividualAuth implements AuthStrategy
         $checkQuery = "SELECT * FROM Account WHERE username = '$username' AND account_type_id = 2";
         $checkResult = run_select_query($checkQuery);
 
-
-
         if ($checkResult && mysqli_num_rows($checkResult) > 0) {
             return false;
         }
 
         $insertQuery = "INSERT INTO Account (username, email ,password, account_type_id) VALUES ('$username','$email', '$password', 2)";
         $insertResult = run_insert_query($insertQuery);
+
+        $query = "INSERT INTO Preferences (account_id, notification_for, preference) VALUES (?, ?, ?)";
+        $account_id = BaseAccount::getAccountId($username);
+        run_insert_query($query, [$account_id, NotificationFor::Donation->value,Preference::Email->value]);
 
         return $insertResult; 
     }

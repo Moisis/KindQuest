@@ -58,7 +58,7 @@ class DonationController
         $observer = BaseAccount::getPreferencesObserver(NotificationFor::Donation->value, $_SESSION['username']);
         $observer->notify($donation);
         // sleep(3);
-        header('Location: /');
+        // header('Location: /');
         exit();
     }
 

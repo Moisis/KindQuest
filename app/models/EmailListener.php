@@ -11,6 +11,8 @@ class EmailListener implements IListener{
 
     public function update($data){
         //Email the person with data
+        echo "<script>alert(\"Email Sent Successfuly\")</script>";
+
     }
 
 }
