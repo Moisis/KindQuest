@@ -18,17 +18,16 @@ abstract class BaseAccount{
 
 
     public static function getUserById(int $accountId): ?array {
-        
-        $query = "SELECT account_id, username, email, account_type 
-                  FROM Account 
-                  WHERE account_id = ?";
+        $query = "SELECT a.account_id, a.username, a.email, at.account_type_name  AS account_type
+              FROM Account a
+              JOIN Account_Types at ON a.account_type_id = at.account_type_id
+              WHERE a.account_id = ?";
         $result = run_select_query($query, [$accountId]);
-    
-        
-        if ($result !== null && !empty($result)) {
-            return $result[0];
+
+        if ($result !== null && $result->num_rows > 0) {
+            return $result->fetch_assoc();
         } else {
-            return null; 
+            return null;
         }
     }
     
@@ -51,7 +50,19 @@ abstract class BaseAccount{
             return null; 
         }
     }
-    
+
+    public static function getAccountId(string $username): ?int
+    {
+        $query = "SELECT account_id FROM Account WHERE username = ?";
+        $result = run_select_query($query, [$username]);
+
+        if ($result !== null && $result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return $row['account_id'];
+        } else {
+            return null;
+        }
+    }
 
 
     

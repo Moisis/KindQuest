@@ -65,14 +65,19 @@
 
     <section class="section section-lg bg-default">
         <div class="container">
+
+            <?php if (isset($user_data) && $user_data['account_type'] === 'Organization')  : ?>
             <div class="row mb-4">
                 <div class="col-md-8">
                     <input type="text" class="form-control" id="search-bar" placeholder="Search events...">
                 </div>
                 <div class="col-md-4 text-right">
-                    <button class="btn btn-primary" id="add-event-button">Add Event</button>
+                    <a class="button button-secondary button-sm" href="/event/create">Create Event </a>
                 </div>
             </div>
+            <?php endif; ?>
+
+
             <div class="row justify-content-center text-center">
                 <div class="col-md-9 col-lg-7 wow-outer">
                     <div class="wow slideInDown">

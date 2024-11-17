@@ -52,9 +52,11 @@
                         <div class="form-wrap">
                             <label class="form-label" for="user-type">I am signing up as:</label>
                             <select class="form-input" id="user-type" name="user_type" data-constraints="@Required">
-                            <option value="select-here">Select Here</option>    
-                            <option value="individual">Individual</option>
+                                <option value="select-here" selected disabled>Select Here</option>
+                                <option value="admin">Admin</option>
+                                <option value="individual">Individual</option>
                                 <option value="organization">Organization</option>
+
                             </select>
                         </div>
                         <div class="row justify-content-center">

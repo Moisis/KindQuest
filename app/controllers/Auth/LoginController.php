@@ -10,8 +10,6 @@ require_once(__DIR__ . "/../../models/Auth/AdminAuth.php");
 require_once(__DIR__ . "/../Auth/RegisterController.php");
 
 
-
-
 class LoginController
 {
     private AuthStrategy $authStrategy;
@@ -35,10 +33,8 @@ class LoginController
         }
     }
 
-
-
     // Method to handle login based on user type
-    private function login(array $credentials)
+    public function login(array $credentials)
     {
 //        echo "logging in...";
         // Set the appropriate auth strategy based on user type
@@ -46,6 +42,8 @@ class LoginController
             $this->authStrategy = new IndividualAuth();
         } elseif ($credentials['user_type'] === 'organization') {
             $this->authStrategy = new OrganizationAuth();
+        }elseif ($credentials['user_type'] === 'admin') {
+            $this->authStrategy = new AdminAuth();
         }
 
         $res = $this->authStrategy->login($credentials);
@@ -58,9 +56,10 @@ class LoginController
             $_SESSION["username"] = $credentials["username"];
             $_SESSION['logged'] = true;
 
-
-//            session_write_close();
-//            var_dump($_SESSION);
+            if ($credentials['user_type'] === 'admin') {
+                header('Location: /admin');
+                exit();
+            }
 
             header("Location: /");
             exit();

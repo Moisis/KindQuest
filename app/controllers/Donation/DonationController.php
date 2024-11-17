@@ -49,7 +49,11 @@ class DonationController
             Badge::addBadgeToUser($donationData['account_id'], BadgesTypes::DonoChamp->value);
         }
 
+        // TODO : we need to notify the observer (#null exception)
 //        self::$donation_observer->notify($donation);
+
+        header('Location: /');
+        exit();
     }
 
     public function getUserDonations(int $user_id) {

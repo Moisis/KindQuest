@@ -7,6 +7,8 @@ class OrganizationAuth implements AuthStrategy
     {
         $username = $data['username'];
         $password = password_hash($data['password'], PASSWORD_BCRYPT);
+        $email = $data['email'];
+
 
 
         $checkQuery = "SELECT * FROM Account WHERE username = '$username' AND account_type_id = 2";
@@ -18,10 +20,12 @@ class OrganizationAuth implements AuthStrategy
             return false;
         }
 
-        $insertQuery = "INSERT INTO Account (username, password, account_type_id) VALUES ('$username', '$password', 3)";
+        $insertQuery = "INSERT INTO Account (username,email , password, account_type_id) VALUES ('$username','$email', '$password', 3)";
         $insertResult = run_insert_query($insertQuery);
 
-        return $insertResult; 
+
+        return $insertResult;
+
     }
 
     public function login(array $credentials): bool
@@ -53,5 +57,31 @@ class OrganizationAuth implements AuthStrategy
     public function logout(): void
     {
         // TODO: Implement logout() method.
+    }
+
+
+
+
+    public function update(array $data): bool
+    {
+        $username = $data['username'];
+        $password = password_hash($data['password'], PASSWORD_BCRYPT);
+        $email = $data['email'];
+
+
+
+        $checkQuery = "SELECT * FROM Account WHERE username = '$username' AND account_type_id = 3";
+        $checkResult = run_select_query($checkQuery);
+
+
+        if (!$checkResult && mysqli_num_rows($checkResult) > 0) {
+            return false;
+        }
+
+        $insertQuery = "UPDATE Account SET username = '$username', email = '$email', password = '$password', account_type_id = 3 WHERE account_id = {$data['account_id']}";
+
+        $insertResult = run_update_query($insertQuery);
+
+        return $insertResult;
     }
 }

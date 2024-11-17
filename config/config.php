@@ -35,11 +35,12 @@ return (object) array(
         '/event/create' => "EventCreationController@index",
         '/event/{id}' => 'EventDetailsController@index',
         '/event/join/{event_id}' => "EventDetailsController@join_event",
-
-
-
         '/profile' => 'ProfileController@index',
+        '/update_profile' => 'ProfileController@updateProfile',
         '/logout'  => 'ProfileController@logout',
+        '/admin'   => 'AdminController@index',
+        '/admin/users'   => 'AdminUsersController@index',
+        '/admin/events'   => 'AdminEventsController@index',
 
         // '/test/{arg}'    => 'TestController@show',
         // '/login'         => 'LoginController@show',

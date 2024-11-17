@@ -38,8 +38,8 @@ class EventCreationController{
             $event_type_id,
             $event_goal);
             
-        echo "Done";
-        header("Location: http://localhost:8000/");
+//        echo "Done";
+        header("Location: /");
         }
 
     }

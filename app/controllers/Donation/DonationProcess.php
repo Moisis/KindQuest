@@ -5,12 +5,16 @@ class DonationProcess
 {
     function donationProcess()
     {
+        $user_id = $this->getUserId();
+        $user_data = $this->getUserDetails($user_id);
+
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $eventID = $_POST['event_id'];
-            $accountID = $_POST['account_id'];
+            $accountID = $user_data['account_id'];
             $amount = $_POST['amount'];
             $donationMethod = $_POST['donation_method'];
-            echo ($_POST['donation_method']);
+//            echo ($_POST['donation_method']);
 
 
             $donationData = [
@@ -24,4 +28,19 @@ class DonationProcess
             DonationController::donate($donationData);
         }
     }
+
+    public static function getUserDetails($user_id): ?array
+    {
+        return BaseAccount::getUserById($user_id);
+    }
+
+    public static function getUserId(): ?int
+    {
+        if (isset($_SESSION['username'])) {
+            $username = $_SESSION['username'];
+            return BaseAccount::getAccountId($username);
+        }
+        return null;
+    }
+
 }

@@ -11,6 +11,7 @@ class IndividualAuth implements AuthStrategy
     {
         $username = $data['username'];
         $password = password_hash($data['password'], PASSWORD_BCRYPT);
+        $email = $data['email'];
 
 
         $checkQuery = "SELECT * FROM Account WHERE username = '$username' AND account_type_id = 2";
@@ -22,7 +23,7 @@ class IndividualAuth implements AuthStrategy
             return false;
         }
 
-        $insertQuery = "INSERT INTO Account (username, password, account_type_id) VALUES ('$username', '$password', 2)";
+        $insertQuery = "INSERT INTO Account (username, email ,password, account_type_id) VALUES ('$username','$email', '$password', 2)";
         $insertResult = run_insert_query($insertQuery);
 
         return $insertResult; 
@@ -60,5 +61,28 @@ class IndividualAuth implements AuthStrategy
     public function logout(): void
     {
         // TODO: Implement logout() method.
+    }
+
+    public function update(array $data): bool
+    {
+        $username = $data['username'];
+        $password = password_hash($data['password'], PASSWORD_BCRYPT);
+        $email = $data['email'];
+
+
+
+        $checkQuery = "SELECT * FROM Account WHERE username = '$username' AND account_type_id = 2";
+        $checkResult = run_select_query($checkQuery);
+
+
+        if (!$checkResult && mysqli_num_rows($checkResult) > 0) {
+            return false;
+        }
+
+        $insertQuery = "UPDATE Account SET username = '$username', email = '$email', password = '$password', account_type_id = 2 WHERE account_id = {$data['account_id']}";
+
+        $insertResult = run_update_query($insertQuery);
+
+        return $insertResult;
     }
 }
