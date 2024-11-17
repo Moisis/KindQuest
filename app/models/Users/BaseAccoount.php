@@ -1,6 +1,9 @@
 <?php
 
 declare(strict_types=1);
+require_once __DIR__ . "/../../../core/Database.php";
+require __DIR__ ."/../DonoData.php";
+require __DIR__ ."/../EmailListener.php";
 abstract class BaseAccount{
 
     protected AuthStrategy $auth;
@@ -15,6 +18,44 @@ abstract class BaseAccount{
     public abstract function login(array $credentials): bool;
 
     public abstract function register(array $data): bool;
+
+
+    /*
+        DB Table(account_id, notification_for, preference)
+        NotificationFor:
+            donation
+            joined event
+            gained badge
+
+        preference:
+            email
+            sms
+    */
+
+    public static function getPreferencesObserver(int $notification_for, String $username){
+        $id = BaseAccount::getAccountId($username);
+        $res = null;
+        $subject = null;
+        switch($notification_for){
+            case 1:
+                $query = "select preference from preferences where account_id = ? and notification_for = ?";
+                $res = run_select_query($query, [$id, $notification_for]);
+                $subject = new DonoData(); 
+                break;
+        }
+
+        while($row = $res->fetch_assoc()){
+            $preferences[] = $row['preference'];
+            switch($row['preference']){
+                case 1:
+                    $listener = new EmailListener($subject);
+                    break;
+
+            }
+        }
+
+        return $subject;
+    }
 
 
     public static function getUserById(int $accountId): ?array {
