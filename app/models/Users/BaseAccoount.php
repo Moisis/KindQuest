@@ -12,7 +12,7 @@ abstract class BaseAccount{
     protected string $password;
     protected string $accountType;
     protected string $email;  
-    
+    protected bool $suspended;
     public abstract function setAuthStrategy (AuthStrategy $auth) : void;
 
     public abstract function login(array $credentials): bool;

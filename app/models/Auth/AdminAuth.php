@@ -66,18 +66,22 @@ class AdminAuth implements AuthStrategy
 
 
 
-        $checkQuery = "SELECT * FROM Account WHERE username = '$username' AND account_type_id = 1";
+        $checkQuery = "SELECT * FROM Account WHERE username = '$username' AND account_type_id = 3";
         $checkResult = run_select_query($checkQuery);
 
 
-        if (!$checkResult && mysqli_num_rows($checkResult) > 0) {
-            return false;
+        if ($checkResult && mysqli_num_rows($checkResult) > 0) {
+
+            $insertQuery = "UPDATE Account SET username = '$username', email = '$email', password = '$password', account_type_id = 3 WHERE account_id = {$data['account_id']}";
+
+            $insertResult = run_update_query($insertQuery);
+    
+            return $insertResult;
+
+            
         }
-
-        $insertQuery = "UPDATE Account SET username = '$username', email = '$email', password = '$password', account_type_id = 1 WHERE account_id = {$data['account_id']}";
-
-        $insertResult = run_update_query($insertQuery);
-
-        return $insertResult;
+        
+        return false;
+       
     }
 }

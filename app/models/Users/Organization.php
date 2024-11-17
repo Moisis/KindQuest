@@ -21,7 +21,8 @@ class Organization extends Client{
             $this->accountType = $result[0]['account_type_name'];  
 
             
-            $this->auth = new IndividualAuth();
+            $this->auth = new OrganizationAuth();
+            $this->suspended = false;
         } else {
             
             return null;

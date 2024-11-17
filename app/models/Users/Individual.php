@@ -24,6 +24,7 @@ class Individual extends Client{
 
             
             $this->auth = new IndividualAuth();
+            $this->suspended = false;
         } else {
             
             return null;
