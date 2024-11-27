@@ -42,6 +42,10 @@ return (object) array(
         '/admin/users'   => 'AdminUsersController@index',
         '/admin/events'   => 'AdminEventsController@index',
 
+
+        '/testmail'          => 'Mailtest@sendMail',
+
+
         // '/test/{arg}'    => 'TestController@show',
         // '/login'         => 'LoginController@show',
         // '/shop/{userId}' => 'ShopController@show',
