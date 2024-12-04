@@ -92,6 +92,22 @@ abstract class BaseAccount{
         }
     }
 
+    public static function getUserIDByUsername(string $username){
+        
+        $query = "SELECT a.account_id, a.username, at.account_type_name AS account_type
+                  FROM Account a
+                  JOIN Account_Types at ON a.account_type_id = at.account_type_id
+                  WHERE a.username = ?";
+        
+        $result = run_select_query($query, [$username]);
+    
+        
+        if ($result !== null && !empty($result)) {
+            return $result->fetch_assoc()["account_id"]; 
+        } else {
+            return null; 
+        }
+    }
     public static function getAccountId(string $username): ?int
     {
         $query = "SELECT account_id FROM Account WHERE username = ?";

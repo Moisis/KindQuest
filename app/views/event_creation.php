@@ -11,9 +11,44 @@
     <link rel="stylesheet" href="/css/bootstrap.css">
     <link rel="stylesheet" href="/css/fonts.css">
     <link rel="stylesheet" href="/css/style.css">
+    <script>
+        function controlInputs(){
+            const event_type = document.getElementById("event_type_id");
+            const event_goal_field = document.getElementById("event_goal");
+            const event_location_field = document.getElementById("event_location");
+            const event_vol_req_field = document.getElementById("vol_req");
+            const event_org_req_field = document.getElementById("org_req");            
+            console.log("Event type is ",event_type.value);
+            if(event_type.value == "1"){
+                //show Fundraiser Stuff
+                event_goal_field.style.display = "block";
+                event_location_field.style.display = "none";
+                event_vol_req_field.style.display = "none";                
+                event_org_req_field.style.display = "none";
+            }
+            else if(event_type.value == "2"){
+                //show Non-Virtual Stuff
+                event_goal_field.style.display = "none";
+                event_location_field.style.display = "block";
+                event_vol_req_field.style.display = "block";                
+                event_org_req_field.style.display = "block";                
+            }
+        }
+
+        function hideSpecificInputs(){
+            const event_goal_field = document.getElementById("event_goal");
+            const event_location_field = document.getElementById("event_location");
+            const event_vol_req_field = document.getElementById("vol_req");
+            const event_org_req_field = document.getElementById("org_req");      
+            event_goal_field.style.display = "none";
+            event_location_field.style.display = "none";
+            event_vol_req_field.style.display = "none";                
+            event_org_req_field.style.display = "none";        
+        }
+    </script>
 </head>
 
-<body>
+<body onload = "hideSpecificInputs()">
 <div class="preloader">
     <div class="preloader-body">
         <div class="cssload-container">
@@ -51,7 +86,7 @@
 
             <div class="form-wrap">
                 <label class="form-label" for="user-event_type_id" hidden>I want to create a :</label>
-                <select class="form-input" id="event_type_id" name="event_type_id" data-constraints="@Required">
+                <select class="form-input" id="event_type_id" name="event_type_id" data-constraints="@Required" onchange="controlInputs()">
                     <option value="" selected disabled>Select event type</option>
                     <option value="1">Fundraising</option>
                     <option value="2">Non-Virtual Event</option>
@@ -85,7 +120,25 @@
             <!-- Event Goal -->
             <div class="mb-3">
                 <label for="event_goal" class="form-label">Event Goal</label>
-                <input type="number" class="form-control" id="event_goal" name="event_goal" placeholder="Enter event goal amount" required>
+                <input type="number" class="form-control" id="event_goal" name="event_goal" placeholder="Enter event goal amount">
+            </div>
+
+            <!-- Event Location -->
+            <div class="mb-3">
+                <label for="event_location" class="form-label">Location</label>
+                <input type="text" class="form-control" id="event_location" name="event_location" placeholder="Enter event location" required>
+            </div>
+
+            <!-- Volunteers Required -->
+            <div class="mb-3">
+                <label for="vol_req" class="form-label">Volunteers Required</label>
+                <input type="number" class="form-control" id="vol_req" name="vol_req" placeholder="Volunteers Required" required>
+            </div>
+
+            <!-- Organizers Required -->
+            <div class="mb-3">
+                <label for="org_req" class="form-label">Organizers Required</label>
+                <input type="number" class="form-control" id="org_req" name="org_req" placeholder="Organizers" required>
             </div>
 
             <!-- Submit Button -->

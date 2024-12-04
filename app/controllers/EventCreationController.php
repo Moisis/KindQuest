@@ -15,11 +15,26 @@ class EventCreationController{
         }
 
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
-             $event = null;
             if ($_POST['event_type_id'] == EventTypes::Fundraising->value){
                 $this->createFundraisingEvent($event, $_POST['event_type_id'], $_POST['event_name'], 
                 $_POST['event_description'], $_POST['start_date'], 
                 $_POST['end_date'], $_POST['event_goal']);
+            }
+            else if ($_POST['event_type_id'] == EventTypes::NonVirtual->value){
+                //echo "UserID is $userID";
+                NonVirtualEvent::insertNonVirtualEvent(
+                    $_SESSION["ID"],
+                    $_POST["event_name"],
+                    $_POST["event_description"],
+                    "10/10/2002",
+                    $_POST["start_date"],
+                    $_POST["end_date"],
+                    $_POST["event_type_id"],
+                    $_POST["event_location"],
+                    $_POST["vol_req"],
+                    $_POST["org_req"]
+                );
+                header("Location: /");
             }
         }
     }

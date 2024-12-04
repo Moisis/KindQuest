@@ -54,6 +54,7 @@ class LoginController
         } else if($res === true){
             // echo 'success';
             $_SESSION["username"] = $credentials["username"];
+            $_SESSION["ID"] = BaseAccount::getUserIDByUsername($credentials["username"]);
             $_SESSION['logged'] = true;
 
             if ($credentials['user_type'] === 'admin') {
