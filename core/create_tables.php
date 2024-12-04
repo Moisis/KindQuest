@@ -23,6 +23,7 @@ run_queries([
     email VARCHAR(254) NOT NULL,
     password VARCHAR(255) NOT NULL,
     account_type_id INT NOT NULL,
+    suspended INT NOT NULL,
     FOREIGN KEY (account_type_id) REFERENCES Account_types(account_type_id)
 
 );",

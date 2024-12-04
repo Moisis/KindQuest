@@ -20,9 +20,13 @@ require_once __DIR__ . '/../app/controllers/Donation/DonationProcess.php';
 require_once __DIR__ . '/../app/controllers/Auth/RegisterController.php';
 require_once __DIR__ . '/../app/controllers/Auth/LoginController.php';
 
+require_once __DIR__ . '/../app/controllers/AdminUsersController.php';
+
 //Email
 
 require_once __DIR__ . '/../app/models/Email/mailtest.php';
+
+
 
 class Router {
     public function route($url) {

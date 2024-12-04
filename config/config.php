@@ -39,8 +39,11 @@ return (object) array(
         '/update_profile' => 'ProfileController@updateProfile',
         '/logout'  => 'ProfileController@logout',
         '/admin'   => 'AdminController@index',
+        '/admin/users/suspend' => 'AdminUsersController@suspend',
+        '/admin/users/unsuspend' => 'AdminUsersController@unsuspend',
         '/admin/users'   => 'AdminUsersController@index',
         '/admin/events'   => 'AdminEventsController@index',
+        
 
 
         '/testmail'          => 'Mailtest@sendMail',

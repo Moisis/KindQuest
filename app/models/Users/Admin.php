@@ -52,44 +52,51 @@ class Admin extends BaseAccount{
 }
 
 
-public function listAllUsers(): array
+public static function listAllUsers(): array
 {
     $query = "
-        SELECT a.account_id, a.username, a.email 
+        SELECT a.account_id, a.username, a.email, a.suspended 
         FROM Account a
         JOIN Account_Types at ON a.account_type_id = at.account_type_id
-        WHERE a.account_type_id = :account_type_id
+        WHERE a.account_type_id = ?
     ";
-    $result = run_select_query($query, ['account_type_id' => 2]); // 2 for user account type
+
+//     $query = "SELECT a.account_id, a.username, a.email 
+// FROM Account a
+// WHERE a.account_type_id = :account_type_id;
+// ";
+    $result = run_select_query($query, [2]); // 2 for user account type
     $users = [];
     
     foreach ($result as $row) {
         $users[] = [
             'account_id' => $row['account_id'],
             'username' => $row['username'],
-            'email' => $row['email']
+            'email' => $row['email'],
+            'suspended' => $row['suspended']
         ];
     }
     
     return $users;
 }
 
-public function listAllOrganizers(): array
+public static function listAllOrganizers(): array
 {
     $query = "
-        SELECT a.account_id, a.username, a.email 
+        SELECT a.account_id, a.username, a.email, a.suspended
         FROM Account a
         JOIN Account_Types at ON a.account_type_id = at.account_type_id
-        WHERE a.account_type_id = :account_type_id
+        WHERE a.account_type_id = ?
     ";
-    $result = run_select_query($query, ['account_type_id' => 3]); 
+    $result = run_select_query($query, [3]); 
     $organizers = [];
     
     foreach ($result as $row) {
         $organizers[] = [
             'account_id' => $row['account_id'],
             'username' => $row['username'],
-            'email' => $row['email']
+            'email' => $row['email'],
+            'suspended' => $row['suspended']
         ];
     }
     
@@ -99,22 +106,22 @@ public function listAllOrganizers(): array
 
 
 
-public function suspendUser(int $accountId): string
+public static function suspendUser(int $accountId): string
 {
     // Check the account type and suspended status
     $query = "
         SELECT at.account_type_name, a.suspended 
         FROM Account a
         JOIN Account_Types at ON a.account_type_id = at.account_type_id
-        WHERE a.account_id = :account_id
+        WHERE a.account_id = ?
     ";
-    $result = run_select_query($query, ['account_id' => $accountId]);
+    $result = run_select_query($query, [$accountId]);
 
     if (empty($result)) {
         return "Account not found.";
     }
 
-    $account = $result[0];
+    $account = $result->fetch_assoc();
 
     if ($account['account_type_name'] === 'admin') {
         return "Can't be suspended.";
@@ -125,29 +132,29 @@ public function suspendUser(int $accountId): string
     }
 
     
-    $updateQuery = "UPDATE Account SET suspended = 1 WHERE account_id = :account_id";
-    run_update_query($updateQuery, ['account_id' => $accountId]); 
+    $updateQuery = "UPDATE Account SET suspended = 1 WHERE account_id = ?";
+    run_update_query($updateQuery, [$accountId]); 
 
     return "Account suspended successfully.";
 }
 
 
 
-public function unsuspendUser(int $accountId): string
+public static function unsuspendUser(int $accountId): string
 {
     $query = "
         SELECT at.account_type_name, a.suspended 
         FROM Account a
         JOIN Account_Types at ON a.account_type_id = at.account_type_id
-        WHERE a.account_id = :account_id
+        WHERE a.account_id = ?
     ";
-    $result = run_select_query($query, ['account_id' => $accountId]);
+    $result = run_select_query($query, [$accountId]);
 
     if (empty($result)) {
         return "Account not found.";
     }
 
-    $account = $result[0];
+    $account = $result->fetch_assoc();
 
     if ($account['account_type_name'] === 'admin') {
         return "Admin accounts cannot be unsuspended.";
@@ -158,8 +165,8 @@ public function unsuspendUser(int $accountId): string
     }
 
     
-    $updateQuery = "UPDATE Account SET suspended = 0 WHERE account_id = :account_id";
-    run_update_query($updateQuery, ['account_id' => $accountId]);
+    $updateQuery = "UPDATE Account SET suspended = 0 WHERE account_id = ?";
+    run_update_query($updateQuery, [$accountId]);
 
     return "Account unsuspended successfully.";
 }

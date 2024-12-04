@@ -24,7 +24,7 @@ class OrganizationAuth implements AuthStrategy
             return false;
         }
 
-        $insertQuery = "INSERT INTO Account (username,email , password, account_type_id) VALUES ('$username','$email', '$password', 3)";
+        $insertQuery = "INSERT INTO Account (username,email , password, account_type_id, suspended) VALUES ('$username','$email', '$password', 3, 0)";
         $insertResult = run_insert_query($insertQuery);
 
         $query = "INSERT INTO Preferences (account_id, notification_for, preference) VALUES (?, ?, ?)";
