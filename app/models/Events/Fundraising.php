@@ -18,6 +18,14 @@ class Fundraising extends Event {
         return run_insert_query($query, [$event_id, $goal]);
     }
 
+    public function insertFundToDB($user_id){
+        $event_id = run_select_query("SHOW TABLE STATUS LIKE 'Event'")->fetch_assoc()["Auto_increment"];
+        //echo ($this->event_id);
+        parent::insertEvent($user_id, $this->event_name, $this->description, $this->registration_time, $this->start_date, $this->end_date, $this->event_type_id);
+        $query = "INSERT INTO fundraising (event_id, goal) VALUES (?, ?)";
+        return run_insert_query($query, [$event_id, $this->goal]);        
+    }
+
     public function getCurrDonations(): int {
         $currDonations = 0;
         $query = "SELECT amount FROM donation WHERE (event_id = ?)";

@@ -58,6 +58,20 @@ class NonVirtualEvent extends Event{
         return run_insert_query($query, [$event_id, $location, $volunteers_required, $organizers_required]);
     }
 
+    public function insertIntoDB($user_id){
+        $event_id = run_select_query("SHOW TABLE STATUS LIKE 'Event'")->fetch_assoc()["Auto_increment"];
+        
+        // Insert into the parent Event table
+        parent::insertEvent($user_id, $this->event_name, $this->description, $this->registration_time, $this->start_date, $this->end_date, $this->event_type_id);
+        
+        // Insert into the NonVirtualEvents table
+        $query = "
+            INSERT INTO non_virtual_events (event_id, location, vol_required, org_required)
+            VALUES (?, ?, ?, ?)
+        ";
+        return run_insert_query($query, [$event_id, $this->location, $this->volunteers_required, $this->organizers_required]);        
+    }
+
 
     public function set_Volunteers_required(int $volunteers_required): void {
         $this->volunteers_required = $volunteers_required;
@@ -111,6 +125,14 @@ class NonVirtualEvent extends Event{
 
     public function get_current_organizers(): int{
         return $this->current_organizers;
+    }
+
+    public function get_required_volunteers(){
+        return $this->volunteers_required;
+    }
+
+    public function get_required_organizers(){
+        return $this->organizers_required;
     }
     public function searchVolunteers($name): bool{
         $query = "SELECT username FROM account WHERE account_id = (SELECT account_id FROM event_registration WHERE event_id = ? AND `role` = ?) ";

@@ -126,19 +126,19 @@
             <!-- Event Location -->
             <div class="mb-3">
                 <label for="event_location" class="form-label">Location</label>
-                <input type="text" class="form-control" id="event_location" name="event_location" placeholder="Enter event location" required>
+                <input type="text" class="form-control" id="event_location" name="event_location" placeholder="Enter event location">
             </div>
 
             <!-- Volunteers Required -->
             <div class="mb-3">
                 <label for="vol_req" class="form-label">Volunteers Required</label>
-                <input type="number" class="form-control" id="vol_req" name="vol_req" placeholder="Volunteers Required" required>
+                <input type="number" class="form-control" id="vol_req" name="vol_req" placeholder="Volunteers Required">
             </div>
 
             <!-- Organizers Required -->
             <div class="mb-3">
                 <label for="org_req" class="form-label">Organizers Required</label>
-                <input type="number" class="form-control" id="org_req" name="org_req" placeholder="Organizers" required>
+                <input type="number" class="form-control" id="org_req" name="org_req" placeholder="Organizers">
             </div>
 
             <!-- Submit Button -->
