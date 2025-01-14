@@ -6,12 +6,16 @@ require_once  dirname(__DIR__, 1).'/models/Events/NonVirtualEvent.php';
 
 require_once  dirname(__DIR__, 1).'/enums/EventTypes.php';
 
-require_once __DIR__."EventCreation/FundraiserCreation.php";
-require_once __DIR__."EventCreation/NonVirtualCreation.php";
+require_once __DIR__. "/EventCreation/FundraiserCreation.php";
+require_once __DIR__. "/EventCreation/NonVirtualCreation.php";
 
 class EventCreationController{
 
+
     public function index(){
+
+        $user_id  = $this->getUserID();
+
         if($_SERVER['REQUEST_METHOD'] === 'GET'){
             require_once dirname(__DIR__,1).'/views/event_creation.php';
         }
@@ -37,7 +41,8 @@ class EventCreationController{
                     $_POST["org_req"]
                 );
 
-                $nonVirtTemplate = new NonVirtualCreation($nonVirtEvent, $_SESSION["ID"]);
+                $user_id = $this->getUserID();
+                $nonVirtTemplate = new NonVirtualCreation($nonVirtEvent, $user_id);
 
                 $nonVirtTemplate->createEvent();
                 header("Location: /");
@@ -47,7 +52,6 @@ class EventCreationController{
 
 
     private function createFundraisingEvent($event_type_id, $event_name, $event_description, $start_date, $end_date, $event_goal){
-       
 
 
         $fundraising = new Fundraising(
@@ -60,13 +64,28 @@ class EventCreationController{
             $event_type_id,
             $event_goal);
 
-        $fundCreateTemplate = new FundraiserCreation($fundraising, $_SESSION["ID"]);
+        $user_id = $this->getUserID();
+        $fundCreateTemplate = new FundraiserCreation($fundraising, $user_id);
 
         $fundCreateTemplate->createEvent();
 
 
 //        echo "Done";
         header("Location: /");
+    }
+
+
+
+    private function getUserID(): ?int
+    {
+
+        if (isset($_SESSION['username'])){
+            $username = $_SESSION['username'];
+            return BaseAccount::getAccountId($username);
         }
 
+        return null;
     }
+
+}
+

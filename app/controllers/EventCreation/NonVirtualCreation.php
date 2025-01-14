@@ -1,7 +1,7 @@
 <?php
 
 
-require_once __DIR__."../../models/Events/NonVirtualEvent.php";
+require_once  dirname(__DIR__, 2).'/models/Events/NonVirtualEvent.php';
 
 
 class NonVirtualCreation extends EventCreationTemplate{

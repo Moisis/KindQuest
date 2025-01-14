@@ -1,6 +1,8 @@
 <?php
 
-require_once "../../models/Events/Fundraising.php";
+require_once  dirname(__DIR__, 2).'/models/Events/Fundraising.php';
+require_once dirname(__DIR__, 2).'/models/Events/NonVirtualEvent.php';
+require_once __DIR__.'/EventCreationTemplate.php';
 
 class FundraiserCreation extends EventCreationTemplate{
 

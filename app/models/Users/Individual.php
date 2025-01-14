@@ -9,7 +9,7 @@ class Individual extends Client{
     public function __construct(int $accountId) {
         
         $query = "SELECT a.account_id, a.username, a.password, a.email, at.account_type_name 
-                  FROM Accounts a 
+                  FROM Account a 
                   JOIN Account_Types at ON a.account_type_id = at.account_type_id 
                   WHERE a.account_id = ?";
         $result = run_select_query($query, [$accountId]);

@@ -54,21 +54,97 @@ class EmailNotifier {
     }
 
 
-    public function sendmessage($recieverEmail ,$recieverName , $subject  , $title , $message)
+//    public function sendmessage($recieverEmail ,$recieverName , $subject  , $title , $message)
+//    {
+//
+//        try {
+//            $this->mailer->addAddress($recieverEmail, $recieverName);
+//            $this->mailer->Subject = $subject;
+//            $this->mailer->isHTML(true);
+//            $this->mailer->Body = "
+//                <h1>$title </h1>
+//                <p>$message</p>
+//            ";
+//            $this->mailer->send();
+//            echo "message  sent to {$recieverName} ({$recieverEmail}).<br>";
+//        } catch (Exception $e) {
+//            echo "Error sending email: " . $this->mailer->ErrorInfo . "<br>";
+//        }
+//    }
+
+
+
+
+
+
+    public function sendmessage($recieverEmail, $recieverName, $subject  , $title , $message)
     {
+        $htmlContent = "
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kind Quest</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            width: 90%;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            background: #007bff;
+            color: #fff;
+            padding: 10px 0;
+            border-radius: 8px 8px 0 0;
+        }
+        .content {
+            margin: 20px 0;
+        }
+        .footer {
+            text-align: center;
+            font-size: 0.9em;
+            color: #888;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <div class='header'>
+            <h1>KindQuest</h1>
+        </div>
+        <div class='content'>
+            <p>Dear Volunteer,</p>
+            <p>$message</p>
+        </div>
+        <div class='footer'>
+            <p>&copy; 2024 CyberTools. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
+";
 
         try {
             $this->mailer->addAddress($recieverEmail, $recieverName);
             $this->mailer->Subject = $subject;
-            $this->mailer->isHTML(true);
-            $this->mailer->Body = "
-                <h1>$title </h1>
-                <p>$message</p>
-            ";
+            $this->mailer->isHTML(true); // Enable HTML formatting
+            $this->mailer->Body = $htmlContent; // Use full HTML content as email body
             $this->mailer->send();
-            echo "message  sent to {$recieverName} ({$recieverEmail}).<br>";
+            echo "Message sent to {$recieverName} ({$recieverEmail}).<br>";
         } catch (Exception $e) {
             echo "Error sending email: " . $this->mailer->ErrorInfo . "<br>";
         }
     }
+
 }

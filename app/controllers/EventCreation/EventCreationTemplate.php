@@ -7,10 +7,10 @@
 //insert event into db
 //send mail (Optiona)
 //check and award badge
-require_once __DIR__."../../models/Events/Event.php";
-require_once __DIR__."../../models/Badges/Badge.php";
-require_once __DIR__."../../enums/badgesTypes.php";
-require_once __DIR__."../../models/Users/BaseAccoount.php";
+require_once  dirname(__DIR__, 2).'/models/Events/Event.php';
+require_once  dirname(__DIR__, 2).'/models/Users/BaseAccoount.php';
+require_once  dirname(__DIR__, 2).'/models/Badges/Badge.php';
+require_once dirname(__DIR__, 2)."/enums/badgesTypes.php";
 abstract class EventCreationTemplate{
 
     protected Event $event;
