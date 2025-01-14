@@ -2,12 +2,9 @@
 
 
 // require_once(dirname(__FILE__) ."/../../../core/Router.php");
-require_once(__DIR__ . "/../../models/Auth/AuthStrategy.php");
-require_once(__DIR__ . "/../../models/Auth/IndividualAuth.php");
-require_once(__DIR__ . "/../../models/Auth/OrganizationAuth.php");
-require_once(__DIR__ . "/../../models/Auth/AdminAuth.php");
 
-require_once(__DIR__ . "/../../models/Auth/AuthLoginStrategyFactory.php");
+
+require_once(__DIR__ . "/../../models/AuthLoginStrategyFactory.php");
 require_once(__DIR__ . "/../Auth/RegisterController.php");
 
 

@@ -3,7 +3,9 @@
 
 require_once dirname(__DIR__, 2) . '/models/Badges/Badge.php';
 require_once dirname(__DIR__, 2) . '/enums/BadgesTypes.php';
-require_once(__DIR__ . "/../../models/Auth/AuthRegisterStrategyFactory.php");
+
+
+require_once(__DIR__ . "/../../models/AuthRegisterStrategyFactory.php");
 
 
 class RegisterController {
