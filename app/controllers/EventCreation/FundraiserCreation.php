@@ -5,7 +5,6 @@ require_once "../../models/Events/Fundraising.php";
 class FundraiserCreation extends EventCreationTemplate{
 
     private Fundraising $fundraiser;
-    private $org_id;
 
     public function __construct(Fundraising $fundraiser, $org_id){
         $this->fundraiser = $fundraiser;

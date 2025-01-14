@@ -96,6 +96,13 @@ abstract class Event{
         return $eventNames;
     }
 
+    public static function getEventsCountByCreator($org_id){
+        $query = "SELECT COUNT(*) FROM EVENT WHERE creator_id = ?";
+        $result = run_select_query($query, [$org_id]);
+        $count = $result->fetch_array()[0];
+        return $count; 
+    }
+
     public function getEventName(): string
     {
         return $this->event_name;
