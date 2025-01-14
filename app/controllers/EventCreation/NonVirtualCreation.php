@@ -1,12 +1,12 @@
 <?php
 
 
-require_once "../../models/Events/NonVirtualEvent.php";
+require_once __DIR__."../../models/Events/NonVirtualEvent.php";
+
 
 class NonVirtualCreation extends EventCreationTemplate{
 
     private NonVirtualEvent $nonVirtEvent;
-    private $org_id;
 
     public function __construct(NonVirtualEvent $event, $org_id){
         $this->nonVirtEvent = $event;

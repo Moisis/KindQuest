@@ -16,7 +16,7 @@ class EventCreationController{
 
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             if ($_POST['event_type_id'] == EventTypes::Fundraising->value){
-                $this->createFundraisingEvent($event, $_POST['event_type_id'], $_POST['event_name'], 
+                $this->createFundraisingEvent( $_POST['event_type_id'], $_POST['event_name'], 
                 $_POST['event_description'], $_POST['start_date'], 
                 $_POST['end_date'], $_POST['event_goal']);
             }
@@ -40,7 +40,7 @@ class EventCreationController{
     }
 
 
-    private function createFundraisingEvent($event, $event_type_id, $event_name, $event_description, $start_date, $end_date, $event_goal){
+    private function createFundraisingEvent($event_type_id, $event_name, $event_description, $start_date, $end_date, $event_goal){
        
 
         Fundraising::insertFundraiser(
