@@ -35,9 +35,9 @@ abstract class Event{
             );
             return $event;
                 // string $event_name, string $description, string $start_date, string $end_date, int $event_type_id, int $goal
-        }else if($result[0]["event_type_id"] == 2){
+        }else if($first_row["event_type_id"] == 2){
             //charity
-        }else if($result[0]["event_type_id"] == 1){
+        }else if($first_row["event_type_id"] == 1){
             //workshop
         }
     }

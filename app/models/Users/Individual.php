@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 require_once __DIR__ . '/../../../core/Database.php';
-require_once __DIR__. "Client.php";
+require_once "app\models\Users\Client.php";
 
 
 class Individual extends Client{
@@ -9,25 +9,24 @@ class Individual extends Client{
     public function __construct(int $accountId) {
         
         $query = "SELECT a.account_id, a.username, a.password, a.email, at.account_type_name 
-                  FROM Account a 
+                  FROM Accounts a 
                   JOIN Account_Types at ON a.account_type_id = at.account_type_id 
                   WHERE a.account_id = ?";
         $result = run_select_query($query, [$accountId]);
 
-        // If account exists, set the attributes, else do not create the object
-        if ($result !== null && !empty($result)) {
-            $this->userID = $result[0]['account_id'];  
-            $this->userName = $result[0]['username'];  
-            $this->password = $result[0]['password'];  
-            $this->email = $result[0]['email'];        
-            $this->accountType = $result[0]['account_type_name'];  
+        // Fetch the result as an associative array
+        $resultArray = $result->fetch_assoc();
 
-            
+        // If account exists, set the attributes, else do not create the object
+        if ($resultArray !== null && !empty($resultArray)) {
+            $this->userID = $resultArray['account_id'];  
+            $this->userName = $resultArray['username'];  
+            $this->password = $resultArray['password'];  
+            $this->email = $resultArray['email'];        
+            $this->accountType = $resultArray['account_type_name'];  
+
             $this->auth = new IndividualAuth();
             $this->suspended = false;
-        } else {
-            
-            return null;
         }
     }
 

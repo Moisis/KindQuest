@@ -33,7 +33,7 @@ class NonVirtualEvent extends Event{
 
 
      public static function insertNonVirtualEvent(
-        int $user_id,
+        string $user_id,
         string $event_name,
         string $description,
         string $registration_time,

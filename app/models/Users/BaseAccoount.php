@@ -86,7 +86,7 @@ abstract class BaseAccount{
     
         
         if ($result !== null && !empty($result)) {
-            return $result[0]; 
+            return $result->fetch_assoc(); 
         } else {
             return null; 
         }

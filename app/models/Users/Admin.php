@@ -12,21 +12,22 @@ class Admin extends BaseAccount{
                   JOIN Account_Types at ON a.account_type_id = at.account_type_id 
                   WHERE a.account_id = ?";
         $result = run_select_query($query, [$accountId]);
+        $row = $result->fetch_assoc();
 
         // If account exists, set the attributes, else do not create the object
-        if ($result !== null && !empty($result)) {
-            $this->userID = $result[0]['account_id'];  
-            $this->userName = $result[0]['username'];  
-            $this->password = $result[0]['password'];  
-            $this->email = $result[0]['email'];        
-            $this->accountType = $result[0]['account_type_name'];  
+        if ($row !== null && !empty($row)) {
+            $this->userID = $row['account_id'];  
+            $this->userName = $row['username'];  
+            $this->password = $row['password'];  
+            $this->email = $row['email'];        
+            $this->accountType = $row['account_type_name'];  
 
             
             $this->auth = new AdminAuth();
             $this->suspended = false;
         } else {
             
-            return null;
+            throw new Exception("Account not found.");
         }
     }
 

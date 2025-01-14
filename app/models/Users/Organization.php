@@ -10,7 +10,7 @@ class Organization extends Client{
                   FROM Account a 
                   JOIN Account_Types at ON a.account_type_id = at.account_type_id 
                   WHERE a.account_id = ?";
-        $result = run_select_query($query, [$accountId]);
+        $result = run_select_query($query, [$accountId])->fetch_assoc();
 
         // If account exists, set the attributes, else do not create the object
         if ($result !== null && !empty($result)) {
@@ -25,7 +25,7 @@ class Organization extends Client{
             $this->suspended = false;
         } else {
             
-            return null;
+            throw new Exception("Account not found.");
         }
     }
 
