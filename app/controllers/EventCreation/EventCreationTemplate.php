@@ -10,11 +10,20 @@
 require_once __DIR__."../../models/Events/Event.php";
 require_once __DIR__."../../models/Badges/Badge.php";
 require_once __DIR__."../../enums/badgesTypes.php";
+require_once __DIR__."../../models/Users/BaseAccoount.php";
 abstract class EventCreationTemplate{
 
     protected Event $event;
 
     protected $org_id;
+
+    public function checkIfLoggedIn(): bool{
+        if(array_key_exists("ID", $_SESSION)){
+            //TODO check if logged-in user is indeed an organization
+            return true;
+        }
+        return false;
+    }
     public function validateEventData(){
         if(date($this->event->getStartDate()) > date($this->event->getEndDate()) ){
             return false;
@@ -45,7 +54,7 @@ abstract class EventCreationTemplate{
     } 
 
     public function createEvent(){
-        $validRes = $this->validateEventData() && $this->validateEventChild();
+        $validRes = $this->checkIfLoggedIn() && $this->validateEventData() && $this->validateEventChild();
         if($validRes == true){
             $this->insertEventIntoDB();
             $this->checkAndAwardBadge();
