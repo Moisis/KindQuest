@@ -7,12 +7,14 @@ require_once(__DIR__ . "/../../models/Auth/IndividualAuth.php");
 require_once(__DIR__ . "/../../models/Auth/OrganizationAuth.php");
 require_once(__DIR__ . "/../../models/Auth/AdminAuth.php");
 
+require_once(__DIR__ . "/../../models/Auth/AuthLoginStrategyFactory.php");
 require_once(__DIR__ . "/../Auth/RegisterController.php");
 
 
 class LoginController
 {
     private AuthStrategy $authStrategy;
+    private AuthLoginStrategyFactory $authLoginStrategyFactory;
 
     // Method to load the default registration view
     public function index()
@@ -36,19 +38,13 @@ class LoginController
     // Method to handle login based on user type
     public function login(array $credentials)
     {
-//        echo "logging in...";
         // Set the appropriate auth strategy based on user type
-        if ($credentials['user_type'] === 'individual') {
-            $this->authStrategy = new IndividualAuth();
-        } elseif ($credentials['user_type'] === 'organization') {
-            $this->authStrategy = new OrganizationAuth();
-        }elseif ($credentials['user_type'] === 'admin') {
-            $this->authStrategy = new AdminAuth();
-        }
+
+        $this->authLoginStrategyFactory = new AuthLoginStrategyFactory();
+        $this->authStrategy = $this->authLoginStrategyFactory->createLoginStartegy($credentials['user_type']);
 
         $res = $this->authStrategy->login($credentials);
         if ($res === false) {
-//            echo 'failed';
             header('Location: /login');
             exit();
         } else if($res === true){
