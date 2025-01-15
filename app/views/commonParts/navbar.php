@@ -21,6 +21,7 @@
                             <ul class="rd-navbar-nav">
                                 <li class="rd-nav-item"><a class="rd-nav-link" href="/">Home</a></li>
                                 <li class="rd-nav-item"><a class="rd-nav-link" href="/events">Events</a></li>
+                                <li class="rd-nav-item"><a class="rd-nav-link" href="/merch">Merch </a></li>
                                 <li class="rd-nav-item"><a class="rd-nav-link" href="/about">About Us</a></li>
                             </ul>
                         </div>

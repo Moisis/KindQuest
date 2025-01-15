@@ -48,6 +48,12 @@ return (object) array(
 
         '/testmail'          => 'Mailtest@sendMail',
 
+        '/merch' => 'MerchController@index',
+
+
+        '/wizard' => 'WizardController@Index',
+        '/wizard/handleRequest/{action}' => 'WizardController@handleRequest',
+
 
         // '/test/{arg}'    => 'TestController@show',
         // '/login'         => 'LoginController@show',
