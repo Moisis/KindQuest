@@ -51,8 +51,8 @@ return (object) array(
         '/merch' => 'MerchController@index',
 
 
-        '/wizard' => 'WizardController@Index',
-        '/wizard/handleRequest/{action}' => 'WizardController@handleRequest',
+//        '/wizard' => 'WizardController@Index',
+//        '/wizard/handleRequest/{action}' => 'WizardController@handleRequest',
 
 
         // '/test/{arg}'    => 'TestController@show',
