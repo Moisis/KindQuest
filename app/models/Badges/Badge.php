@@ -19,7 +19,13 @@ class Badge{
                         break;
                     case 3:
                         $badge = new DonationMilestoneBadge($badge, $userID);
-                        break;                        
+                        break;        
+                    case 4:
+                        $badge = new DonationMilestoneBadge($badge, $userID);
+                        break;        
+                    case 5:
+                        $badge = new DonationMilestoneBadge($badge, $userID);
+                        break;                                                
                 }
                 $names[] = $badge->getName();
             }

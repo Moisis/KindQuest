@@ -32,7 +32,7 @@ class EventCreationController{
                     1,
                     $_POST["event_name"],
                     $_POST["event_description"],
-                    "10/10/2002",
+                    "10/10/2002", //TODO Get it from UI
                     $_POST["start_date"],
                     $_POST["end_date"],
                     $_POST["event_type_id"],

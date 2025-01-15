@@ -44,6 +44,7 @@ class RegisterController {
         } else if($res === true){
             // echo "Register success";
             $_SESSION["username"] = $data["username"];
+            $_SESSION["ID"] = BaseAccount::getUserIDByUsername($data["username"]);
 
             $user_id = $this->getUserId();
 

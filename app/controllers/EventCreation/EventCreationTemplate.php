@@ -20,8 +20,10 @@ abstract class EventCreationTemplate{
     public function checkIfLoggedIn(): bool{
         if(array_key_exists("ID", $_SESSION)){
             //TODO check if logged-in user is indeed an organization
+            echo "Hello";
             return true;
         }
+        echo "Hi";
         return false;
     }
     public function validateEventData(){
@@ -54,7 +56,7 @@ abstract class EventCreationTemplate{
     } 
 
     public function createEvent(){
-        $validRes = $this->checkIfLoggedIn() && $this->validateEventData() && $this->validateEventChild();
+        $validRes = $this->checkIfLoggedIn() && $this->validateEventData() && $this->validateEventChild();   
         if($validRes == true){
             $this->insertEventIntoDB();
             $this->checkAndAwardBadge();
