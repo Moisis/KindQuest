@@ -1,21 +1,22 @@
 <?php
 
+require_once __DIR__."/../Badge.php";
+require_once __DIR__."/../BadgeDecorator.php";
 //when user donates a single 100 pounds donation he gets this badge
-class DonationMilestoneBadge extends IndividualBadgeDecorator{
+class DonationMilestoneBadge extends BadgeDecorator{
 
     
-    public function __construct(IndividualBadge $badgeToDecorate, int $userID){
-        $this->individualBadge = $badgeToDecorate;
-        $this->badgeID = 3;
-        $badgeData = run_select_query("SELECT * from Badge where badge_id = $this->badgeID")->fetch_assoc();
-        $this->badgePoints = $badgeData['badge_points'];
-        $this->badgeName = $badgeData['badge_name'];
-        $this->badgeCount = run_select_query("SELECT badge_count 
-        from Account_Badges 
-        where account_id = $userID AND badge_id = $this->badgeID")->fetch_assoc()["badge_count"];
+    public function __construct(Badge $badgeToDecorate, int $userID){
+        parent::__construct($badgeToDecorate, $userID, BadgesTypes::DonoChamp->value);
     }
 
     public function getPoints(){
-        return $this->individualBadge->getPoints() + $this->badgePoints * $this->badgeCount;
+
+        $bonusPoints = 0;
+        if($this->badgeCount >= 5){
+            $bonusPoints += 50;
+        }
+
+        return $this->badge->getPoints() + $this->badgePoints * $this->badgeCount + $bonusPoints;
     }
 }

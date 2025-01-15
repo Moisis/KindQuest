@@ -1,7 +1,6 @@
 <?php
 
-require_once "IndividualBadge.php";
-class IndividualBaseBadge extends IndividualBadge{
+class BaseBadge extends Badge{
 
     public function __construct(){
         $this->badgeID = 1;

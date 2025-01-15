@@ -1,16 +1,35 @@
 <?php
-require_once "Individual/IndividualBaseBadge.php";
-require_once "Individual/JoinMilestoneBadge.php";
-require_once "Individual/DonationMilestoneBadge.php";
-require_once __DIR__."/../../../core/Database.php";
+require_once "BaseBadge.php";
 
+
+require_once __DIR__."/../../../core/Database.php";
+require_once __DIR__."/../Badges/Individual/JoinMilestoneBadge.php";
+require_once __DIR__."/../Badges/Individual/DonationMilestoneBadge.php";
+require_once __DIR__."/../Badges/Organization/FirstEventBadge.php";
+require_once __DIR__."/../Badges/Organization/HostingMilestoneBadge.php";
+require_once __DIR__."/../Badges/BaseBadge.php";
 class Badge{
 
+    protected int $badgeCount;
+    protected string $badgeName = "Nothing";
 
+    protected int $badgePoints = 0;
+
+    protected int $badgeID;
+
+    public function getPoints(){
+        return $this->badgePoints;
+    }
+
+    public function getName(){
+        return $this->badgeName;
+    }
+
+    
     public static function getBadgesByUserID($userID){
         $badgeData = run_select_query("SELECT * from Account_Badges WHERE account_id = $userID");
         $names = array();
-        $badge = new IndividualBaseBadge();
+        $badge = new BaseBadge();
         if ($badgeData->num_rows > 0) {
             while ($singleBadgeData = $badgeData->fetch_assoc()) {
                 switch($singleBadgeData["badge_id"]){
@@ -21,10 +40,10 @@ class Badge{
                         $badge = new DonationMilestoneBadge($badge, $userID);
                         break;        
                     case 4:
-                        $badge = new DonationMilestoneBadge($badge, $userID);
+                        $badge = new FirstEventBadge($badge, $userID);
                         break;        
                     case 5:
-                        $badge = new DonationMilestoneBadge($badge, $userID);
+                        $badge = new HostingMilestoneBadge($badge, $userID);
                         break;                                                
                 }
                 $names[] = $badge->getName();
@@ -56,5 +75,6 @@ class Badge{
 
 
     }
+
 
 }
