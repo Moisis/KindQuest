@@ -24,7 +24,7 @@ return (object) array(
     'ROUTES' => [
         // ' '               => 'HomeController@index',
          '/'              => 'HomeController@index',
-         '/suspend'      =>  
+         '/suspend'      =>  'ErrorController@suspended',
         '/test'          => 'HomeController@test',
         '/about'         => 'AboutController@index',
         '/register'    => 'RegisterController@index',
@@ -52,8 +52,8 @@ return (object) array(
         '/merch' => 'MerchController@index',
 
 
-//        '/wizard' => 'WizardController@Index',
-//        '/wizard/handleRequest/{action}' => 'WizardController@handleRequest',
+        '/wizard' => 'WizardController@Index',
+        '/wizard/handleRequest/{action}' => 'WizardController@handleRequest',
 
 
         // '/test/{arg}'    => 'TestController@show',

@@ -51,7 +51,7 @@ class DonationController
         $donoResult = $donation->makeDonation($donationData['amount'], $donationData['event_id'], $donationData['account_id']);
 
         if($donoResult == false){
-           
+           header('Location: /suspended');
         }
         if($donationData['amount'] > 100){
             Badge::addBadgeToUser($donationData['account_id'], BadgesTypes::DonoChamp->value);
