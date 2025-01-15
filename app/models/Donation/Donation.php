@@ -13,8 +13,9 @@ class Donation{
         $this->donationStrategy = $newDonationStrategy;
     }
 
-    public function makeDonation(float $amount, int $eventID, int $userID){
+    public function makeDonation(float $amount, int $eventID, int $userID):bool{
         $this->donationStrategy->donate($amount, $eventID, $userID);
+        return true;
     }
 
     public static function getAllDonations(){

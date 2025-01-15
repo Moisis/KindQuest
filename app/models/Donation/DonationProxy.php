@@ -34,12 +34,14 @@ class DonationProxy implements IDonation{
         $this->donation->setDonationStrategy($newDonationStrategy);
     }
 
-    public function makeDonation(float $amount, int $eventID, int $userID){
+    public function makeDonation(float $amount, int $eventID, int $userID): bool{
         if(isUserSuspendedStub($userID) == true){
-            echo "You are Suspended";
+            //echo "You are Suspended";
+            return false;
         }
         else{
             $this->donation->makeDonation($amount, $eventID, $userID);
+            return true;
         }
     }
 

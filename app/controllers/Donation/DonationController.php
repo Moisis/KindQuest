@@ -4,6 +4,7 @@ require_once  dirname(__DIR__, 2).'/models/Donation/Donation.php';
 require_once  dirname(__DIR__, 2).'/models/Donation/DonationByCash.php';
 require_once  dirname(__DIR__, 2).'/models/Donation/DonationByFawry.php';
 require_once  dirname(__DIR__, 2).'/models/Donation/DonationByVisa.php';
+require_once  dirname(__DIR__, 2).'/models/Donation/DonationProxy.php';
 
 require_once  dirname(__DIR__, 2).'/models/Users/BaseAccoount.php';
 require_once dirname(__DIR__, 2).'/enums/NotificationFor.php';
@@ -46,8 +47,12 @@ class DonationController
             $donationStrategy = new DonationByCash();
         }
 
-        $donation = new Donation($donationStrategy);
-        $donation->makeDonation($donationData['amount'], $donationData['event_id'], $donationData['account_id']);
+        $donation = new DonationProxy($donationStrategy);
+        $donoResult = $donation->makeDonation($donationData['amount'], $donationData['event_id'], $donationData['account_id']);
+
+        if($donoResult == false){
+           
+        }
         if($donationData['amount'] > 100){
             Badge::addBadgeToUser($donationData['account_id'], BadgesTypes::DonoChamp->value);
         }

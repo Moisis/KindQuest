@@ -24,6 +24,7 @@ return (object) array(
     'ROUTES' => [
         // ' '               => 'HomeController@index',
          '/'              => 'HomeController@index',
+         '/suspend'      =>  
         '/test'          => 'HomeController@test',
         '/about'         => 'AboutController@index',
         '/register'    => 'RegisterController@index',
