@@ -4,7 +4,13 @@ require_once "IDonation.php";
 require_once "Donation.php";
 
 function isUserSuspendedStub(int $userID){
-    if($userID % 2 == 0){
+    
+    $query = "select suspended from account where account_id = ?";
+    $result = run_select_query($query, [$userID]);
+    $result = $result->fetch_assoc();
+
+    
+    if($result['suspended'] == 1){
         return true;
     }
     else{
