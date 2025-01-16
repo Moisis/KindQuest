@@ -33,7 +33,17 @@ class Badge{
         return $this->badgeList;
     }
 
-
+    public function checkIfBadgeExistsAndIncrement($badge_class_name){
+        $badgeList = $this->badgeList;
+        foreach($badgeList as $badge){
+            echo "THis badge class name is " . get_class($badge);
+            if(get_class($badge) == $badge_class_name){
+                $badge->badgeCount += 1;
+                return true;
+            }
+        }
+        return false;
+    }
 
     
     public static function getBadgesByUserID($userID){
