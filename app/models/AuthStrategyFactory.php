@@ -8,8 +8,8 @@ require_once(__DIR__ . "/Auth/IndividualAuth.php");
 require_once(__DIR__ . "/Auth/OrganizationAuth.php");
 
 
-class AuthLoginStrategyFactory{
-    function createLoginStartegy(String $user_type){
+class AuthStrategyFactory{
+    function createStrategy(String $user_type){
         if ($user_type === 'individual') {
             return new IndividualAuth();
         } elseif ($user_type === 'organization') {

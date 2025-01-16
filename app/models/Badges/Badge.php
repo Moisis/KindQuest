@@ -8,7 +8,7 @@ require_once __DIR__."/../Badges/Individual/DonationMilestoneBadge.php";
 require_once __DIR__."/../Badges/Organization/FirstEventBadge.php";
 require_once __DIR__."/../Badges/Organization/HostingMilestoneBadge.php";
 require_once __DIR__."/../Badges/BaseBadge.php";
-class Badge{
+abstract class Badge{
 
     protected int $badgeCount;
     protected string $badgeName;
@@ -21,9 +21,7 @@ class Badge{
 
     protected $badgeList = array();
 
-    public function getPoints(){
-        return $this->badgePoints;
-    }
+    public abstract function getPoints();
 
     public function getName(){
         return $this->badgeName;
