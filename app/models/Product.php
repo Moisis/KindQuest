@@ -18,7 +18,7 @@ class Product
 
     static public function getProductById($id): Product | null
     {
-        $product_row = run_select_query("SELECT * FROM products WHERE id = '$id'");
+        $product_row = run_select_query("SELECT * FROM products WHERE product_id = '$id'");
 
         if ($product_row->num_rows > 0) {
             $product_data = $product_row->fetch_assoc();
