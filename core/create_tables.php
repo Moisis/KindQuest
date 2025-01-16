@@ -45,6 +45,7 @@ run_queries([
     creator_id INT NOT NULL,
     `event_name` VARCHAR(255) NOT NULL,
     `desc` VARCHAR(255) NULL,
+    created_at DATETIME,
     `start_date` DATETIME NOT NULL,
     `end_date` DATETIME NOT NULL,
     `registration_date` DATETIME NOT NULL,

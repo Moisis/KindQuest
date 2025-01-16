@@ -17,6 +17,8 @@ class Badge{
 
     protected int $badgeID;
 
+    protected int $badgeOwnerID;
+
     public function getPoints(){
         return $this->badgePoints;
     }

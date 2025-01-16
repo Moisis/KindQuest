@@ -14,6 +14,7 @@ abstract class Event{
     protected string $end_date;
     protected string $registration_time;
     protected int $event_type_id;
+
     
     public static function get_event($id){
         $query = "select * from event where event_id = $id";
@@ -54,7 +55,7 @@ abstract class Event{
     }
     public static function insertEvent($user_id, string $event_name, string $description,string $registration_time, string $start_date, string $end_date, int $event_type_id){
 
-        $query = "INSERT INTO event (creator_id, event_name, `desc`, `start_date`, end_date, registration_date, event_type_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO event (creator_id, event_name, `desc`,created_at ,`start_date`, end_date, registration_date, event_type_id) VALUES (?, ?, ?, NOW(),  ?, ?, ?, ?)";
         run_insert_query($query, [$user_id,$event_name, $description, $start_date, $end_date, $registration_time, $event_type_id]);
     }
     
@@ -101,6 +102,34 @@ abstract class Event{
         $result = run_select_query($query, [$org_id]);
         $count = $result->fetch_array()[0];
         return $count; 
+    }
+
+    public static function getEventsCreationDateByID($eventID){
+        $query = "SELECT created_at FROM EVENT WHERE event_id = ?";
+        $result = run_select_query($query, [$eventID]);
+        if($result->num_rows > 0){
+            return explode(" ", $result->fetch_assoc()["created_at"])[0];
+        }
+        else{
+            return null;
+        }
+    }
+
+    public static function getFirstEventCreationDateByUserID($creatorID){
+        $query = "SELECT created_at FROM EVENT WHERE creator_id = ? ORDER BY created_at ASC";
+        $result = run_select_query($query, [$creatorID]);
+        if($result->num_rows > 0){
+            $date = $result->fetch_assoc()["created_at"];
+            if($date != null){
+                return explode(" ", $date)[0];
+            }
+            else{
+                return null;
+            }
+        }
+        else{
+            return null;
+        }
     }
 
     public function getEventName(): string

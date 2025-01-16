@@ -7,6 +7,7 @@ abstract class BadgeDecorator extends Badge{
     public function __construct(Badge $badgeToDecorate, int $userID, int $badgeID){
         $this->badge = $badgeToDecorate;
         $this->badgeID = $badgeID;
+        $this->badgeOwnerID = $userID;
         $badgeData = run_select_query("SELECT * from Badge where badge_id = $this->badgeID")->fetch_assoc();
         $this->badgePoints = $badgeData['badge_points'];
         $this->badgeName = $badgeData['badge_name'];

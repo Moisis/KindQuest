@@ -8,9 +8,10 @@ class HostingMilestoneBadge extends BadgeDecorator{
     }
 
     public function getPoints(){
+        $bonusPoints = intdiv($this->badgeCount, 3) * 10; //Award 10 points for each 3 events created
+        
 
-
-        return $this->badge->getPoints() + $this->badgePoints * $this->badgeCount;
+        return $this->badge->getPoints() + $this->badgePoints * $this->badgeCount + $bonusPoints;
     }
 
 }
