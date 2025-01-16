@@ -1,13 +1,10 @@
 <?php
 require_once("Database.php");
 
-$configs = require_once("../config/config.php");
-
 run_queries([
 
 // Drop the database if it already exists, do nothing otherwise
 "DROP DATABASE IF EXISTS $configs->DB_NAME",
-
 // Create the database from scratch
 "CREATE DATABASE $configs->DB_NAME",
 
