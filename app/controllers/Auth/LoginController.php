@@ -50,7 +50,7 @@ class LoginController
             $_SESSION["ID"] = BaseAccount::getUserIDByUsername($credentials["username"]);
             $_SESSION['logged'] = true;
             $_SESSION["badge"] = Badge::getBadgesByUserID($_SESSION["ID"]);
-
+            $_SESSION['email'] = BaseAccount::getAccountEmail($_SESSION["ID"]);
             if ($credentials['user_type'] === 'admin') {
                 header('Location: /admin');
                 exit();

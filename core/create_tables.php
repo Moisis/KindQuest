@@ -122,7 +122,7 @@ run_queries([
     product_name VARCHAR(255) NOT NULL,
     description VARCHAR(255),
     price FLOAT NOT NULL,
-    img_path VARCHAR(255) NOT NULL,
+    img_path VARCHAR(255) NOT NULL
 )",
 
 "INSERT INTO Donation_Types(donation_type_name)
