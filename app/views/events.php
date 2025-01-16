@@ -115,6 +115,17 @@
         </div>
     </section>
 
+    <div class="row justify-content-center text-center">
+        <div class="col-md-9 col-lg-7 wow-outer">
+            <div class="wow slideInDown">
+                <h3>On Site  Events</h3>
+                <p>At Helper, there are various charity causes and projects, in which you can always take part. Feel free to learn about them below or browse our website for more information.</p>
+            </div>
+        </div>
+    </div>
+
+
+
 
 <!--    Past Events-->
 <!--    <section class="section section-lg bg-gray-1">-->
