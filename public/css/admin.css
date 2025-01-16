@@ -94,7 +94,7 @@
 }
 
 .dropdown-menu {
-    display: none;
+    display: block;
     background-color: #34495e;
     border-radius: 5px;
     margin-top: 10px;
