@@ -49,6 +49,7 @@ return (object) array(
         '/testmail'          => 'Mailtest@sendMail',
 
         '/merch' => 'MerchController@index',
+        '/merch/{id}' => 'MerchDetailsController@index',
 
 
         '/wizard' => 'WizardController@Index',

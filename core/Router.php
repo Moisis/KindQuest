@@ -37,6 +37,7 @@ require_once __DIR__ . '/../app/models/Email/mailtest.php';
 
 // Merch
 require_once __DIR__ . '/../app/controllers/Merch/MerchController.php';
+require_once __DIR__ . '/../app/controllers/Merch/MerchDetailsController.php';
 
 
 // ErrorController

@@ -20,10 +20,10 @@ abstract class EventCreationTemplate{
     public function checkIfLoggedIn(): bool{
         if(array_key_exists("ID", $_SESSION)){
             //TODO check if logged-in user is indeed an organization
-            echo "Hello";
+//            echo "Hello";
             return true;
         }
-        echo "Hi";
+//        echo "Hi";
         return false;
     }
     public function validateEventData(){

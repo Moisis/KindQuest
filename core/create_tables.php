@@ -125,6 +125,17 @@ run_queries([
     img_path VARCHAR(255) NOT NULL
 )",
 
+"INSERT INTO Products (product_name, description, price, img_path) VALUES ('Men\'s Shirt', 'A stylish men\'s shirt', 75.00, '/images/merch/tshirt_boy.png')",
+"INSERT INTO Products (product_name, description, price, img_path) VALUES ('Women\'s Shirt', 'A stylish women\'s shirt', 80.00, '/images/merch/tshirt_girl.png')",
+"INSERT INTO Products (product_name, description, price, img_path) VALUES ('Pillow', 'A comfortable pillow', 68.00, '/images/merch/pillow.png')",
+"INSERT INTO Products (product_name, description, price, img_path) VALUES ('Notebook', 'A handy notebook', 70.00, '/images/merch/notebook.png')",
+"INSERT INTO Products (product_name, description, price, img_path) VALUES ('Mug', 'A cool mug', 75.00, '/images/merch/mug.png')",
+"INSERT INTO Products (product_name, description, price, img_path) VALUES ('Hoodie', 'A warm hoodie', 58.00, '/images/merch/hoodie.jpg')",
+"INSERT INTO Products (product_name, description, price, img_path) VALUES ('Bottle', 'A water bottle', 80.00, '/images/merch/bottle.png')",
+"INSERT INTO Products (product_name, description, price, img_path) VALUES ('Cap', 'A stylish cap', 65.00, '/images/merch/cap.jpg')",
+
+
+
 "INSERT INTO Donation_Types(donation_type_name)
 VALUES ('VISA')",
 "INSERT INTO Donation_Types(donation_type_name)
