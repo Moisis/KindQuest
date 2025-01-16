@@ -5,12 +5,12 @@ require_once dirname(__DIR__, 2) . '/models/Badges/Badge.php';
 require_once dirname(__DIR__, 2) . '/enums/BadgesTypes.php';
 
 
-require_once(__DIR__ . "/../../models/AuthRegisterStrategyFactory.php");
+require_once(__DIR__ . "/../../models/AuthStrategyFactory.php");
 
 
 class RegisterController {
     private AuthStrategy $authStrategy;
-    private AuthRegisterStrategyFactory $authRegisterStrategyFactory;
+    private AuthStrategyFactory $authStrategyFactory;
 
     // Method to load the default registration view
     public function index() {
@@ -36,8 +36,8 @@ class RegisterController {
 
     // Method to handle registration based on user type
     private function register(array $data) {
-        $this->authRegisterStrategyFactory = new AuthRegisterStrategyFactory();
-        $this->authStrategy = $this->authRegisterStrategyFactory->createRegisterStrategy($data['user_type']);
+        $this->authStrategyFactory = new AuthStrategyFactory();
+        $this->authStrategy = $this->authStrategyFactory->createStrategy($data['user_type']);
         $res = $this->authStrategy->register($data);
         if ($res === false) {
             header('Location: /register');
