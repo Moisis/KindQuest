@@ -2371,6 +2371,7 @@ textarea.form-input {
 	left: 0;
 }
 
+/* Snackbar Visibility */
 #form-output-global {
 	position: fixed;
 	bottom: 30px;
@@ -2378,7 +2379,7 @@ textarea.form-input {
 	z-index: 2000;
 	visibility: hidden;
 	transform: translate3d(-500px, 0, 0);
-	transition: .3s all ease;
+	transition: 0.3s all ease;
 }
 
 #form-output-global.active {
@@ -2390,32 +2391,6 @@ textarea.form-input {
 	#form-output-global {
 		left: 30px;
 	}
-}
-
-.form-output {
-	position: absolute;
-	top: 100%;
-	left: 0;
-	font-size: 10px;
-	font-weight: 400;
-	line-height: 1.2;
-	margin-top: 2px;
-	transition: .3s;
-	opacity: 0;
-	visibility: hidden;
-}
-
-.form-output.active {
-	opacity: 1;
-	visibility: visible;
-}
-
-.form-output.error {
-	color: #f5543f;
-}
-
-.form-output.success {
-	color: #98bf44;
 }
 
 .radio .radio-custom,
@@ -3479,7 +3454,7 @@ ul.blog-post-meta li .icon {
 /*
 * Snackbars
 */
-.snackbars {
+.snackbar {
 	padding: 9px 16px;
 	margin-left: auto;
 	margin-right: auto;
@@ -3489,6 +3464,14 @@ ul.blog-post-meta li .icon {
 	border-radius: 0;
 	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.15);
 	font-size: 14px;
+}
+
+.snackbar.error {
+	background-color: #f5543f;
+}
+
+.snackbar.success {
+	background-color: #7FBC4E;
 }
 
 .snackbars .icon-xxs {

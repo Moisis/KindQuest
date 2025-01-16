@@ -51,7 +51,7 @@
                         <!-- User Type Selection -->
                         <div class="form-wrap">
                             <label class="form-label" for="user-type">I am signing up as:</label>
-                            <select class="form-input" id="user-type" name="user_type" data-constraints="@Required">
+                            <select class="form-input" id="user-type" name="user_type" data-constraints="@Required" required>
                                 <option value="select-here" selected disabled>Select Here</option>
                                 <option value="admin">Admin</option>
                                 <option value="individual">Individual</option>
@@ -66,7 +66,7 @@
                         </div>
                     </form>
                     <!-- Link to Login Page -->
-                    <p class="mt-3">Already have an account? <a href="login">Log in here</a></p>
+                    <p class="mt-3">Already have an account? <a href="/login">Log in here</a></p>
                 </div>
             </div>
         </div>
@@ -75,7 +75,7 @@
     <!-- Page Footer-->
     <?php include_once __DIR__ . '/../commonParts/footer.php'; ?>
 </div>
-<div class="snackbars" id="form-output-global"></div>
+<div class="snackbar" id="form-output-global"></div>
 <script src="js/core.min.js"></script>
 <script src="js/script.js"></script>
 </body>

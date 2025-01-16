@@ -1,17 +1,23 @@
 <?php
 
+// admin
+require_once __DIR__ . '/../app/controllers/admin/AdminController.php';
+require_once __DIR__ . '/../app/controllers/admin/AdminUsersController.php';
 
-require_once __DIR__ . '/../app/controllers/AdminController.php';
+require_once __DIR__ . '/../app/controllers/admin/AdminEventsController.php';
 
 
 require_once __DIR__ . '/../app/controllers/AboutController.php';
 require_once __DIR__ . '/../app/controllers/HomeController.php';
+
+//Events
 require_once __DIR__ . '/../app/controllers/EventController.php';
 require_once __DIR__ . '/../app/controllers/EventCreationController.php';
 require_once __DIR__ . '/../app/controllers/EventDetailsController.php';
 
 require_once __DIR__ . '/../app/controllers/ProfileController.php';
 require_once __DIR__ . '/../app/controllers/ErrorController.php';
+
 //Donation
 require_once __DIR__ . '/../app/controllers/Donation/DonationController.php';
 require_once __DIR__ . '/../app/controllers/Donation/DonationProcess.php';
@@ -20,7 +26,7 @@ require_once __DIR__ . '/../app/controllers/Donation/DonationProcess.php';
 require_once __DIR__ . '/../app/controllers/Auth/RegisterController.php';
 require_once __DIR__ . '/../app/controllers/Auth/LoginController.php';
 
-require_once __DIR__ . '/../app/controllers/AdminUsersController.php';
+
 
 //Email
 

@@ -1,13 +1,10 @@
 <?php
 require_once("Database.php");
 
-$configs = require_once("../config/config.php");
-
 run_queries([
 
 // Drop the database if it already exists, do nothing otherwise
 "DROP DATABASE IF EXISTS $configs->DB_NAME",
-
 // Create the database from scratch
 "CREATE DATABASE $configs->DB_NAME",
 
@@ -119,6 +116,15 @@ run_queries([
     FOREIGN KEY (account_id) REFERENCES Account(account_id)    
 
 );",
+
+"CREATE TABLE Products(
+    product_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    product_name VARCHAR(255) NOT NULL,
+    description VARCHAR(255),
+    price FLOAT NOT NULL,
+    img_path VARCHAR(255) NOT NULL,
+)",
+
 "INSERT INTO Donation_Types(donation_type_name)
 VALUES ('VISA')",
 "INSERT INTO Donation_Types(donation_type_name)
@@ -136,7 +142,7 @@ VALUES (4,'NewOrganizer', 10)",
 "INSERT INTO Badge(badge_id,badge_name,badge_points)
 VALUES (5,'OrganizeChamp', 70)",
 "INSERT INTO Account_Types(account_type_name)
-VALUES('Admin')",
+VALUES('admin')",
 "INSERT INTO Account_Types(account_type_name)
 VALUES('Individual')",
 "INSERT INTO Account_Types(account_type_name)

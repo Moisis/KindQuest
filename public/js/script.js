@@ -316,152 +316,71 @@
 
 		// RD Mailform
 		// if (plugins.rdMailForm.length) {
-		// 	var i, j, k,
-		// 		msg = {
-		// 			'MF000': 'Successfully sent!',
-		// 			'MF001': 'Recipients are not set!',
-		// 			'MF002': 'Form will not work locally!',
-		// 			'MF003': 'Please, define email field in your form!',
-		// 			'MF004': 'Please, define type of your form!',
-		// 			'MF254': 'Something went wrong with PHPMailer!',
-		// 			'MF255': 'Aw, snap! Something went wrong.'
-		// 		};
-
-		// 	for (i = 0; i < plugins.rdMailForm.length; i++) {
-		// 		var $form = $(plugins.rdMailForm[i]),
-		// 			formHasCaptcha = false;
-
+		// 	var msg = {
+		// 		'MF000': 'Successfully sent!',
+		// 		'MF001': 'Recipients are not set!',
+		// 		'MF002': 'Form will not work locally!',
+		// 		'MF003': 'Please, define email field in your form!',
+		// 		'MF004': 'Please, define type of your form!',
+		// 		'MF254': 'Something went wrong with PHPMailer!',
+		// 		'MF255': 'Aw, snap! Something went wrong.'
+		// 	};
+		//
+		// 	for (var i = 0; i < plugins.rdMailForm.length; i++) {
+		// 		var $form = $(plugins.rdMailForm[i]);
+		//
 		// 		$form.attr('novalidate', 'novalidate').ajaxForm({
 		// 			data: {
 		// 				"form-type": $form.attr("data-form-type") || "contact",
 		// 				"counter": i
 		// 			},
 		// 			beforeSubmit: function (arr, $form, options) {
-		// 				if (isNoviBuilder)
-		// 					return;
-
-		// 				var form = $(plugins.rdMailForm[this.extraData.counter]),
-		// 					inputs = form.find("[data-constraints]"),
-		// 					output = $("#" + form.attr("data-form-output")),
-		// 					captcha = form.find('.recaptcha'),
-		// 					captchaFlag = true;
-
+		// 				var output = $("#" + $form.attr("data-form-output"));
 		// 				output.removeClass("active error success");
-
-		// 				if (isValidated(inputs, captcha)) {
-
-		// 					// veify reCaptcha
-		// 					if (captcha.length) {
-		// 						var captchaToken = captcha.find('.g-recaptcha-response').val(),
-		// 							captchaMsg = {
-		// 								'CPT001': 'Please, setup you "site key" and "secret key" of reCaptcha',
-		// 								'CPT002': 'Something wrong with google reCaptcha'
-		// 							};
-
-		// 						formHasCaptcha = true;
-
-		// 						$.ajax({
-		// 							method: "POST",
-		// 							url: "bat/reCaptcha.php",
-		// 							data: {'g-recaptcha-response': captchaToken},
-		// 							async: false
-		// 						})
-		// 							.done(function (responceCode) {
-		// 								if (responceCode !== 'CPT000') {
-		// 									if (output.hasClass("snackbars")) {
-		// 										output.html('<p><span class="icon text-middle mdi mdi-check icon-xxs"></span><span>' + captchaMsg[responceCode] + '</span></p>')
-
-		// 										setTimeout(function () {
-		// 											output.removeClass("active");
-		// 										}, 3500);
-
-		// 										captchaFlag = false;
-		// 									} else {
-		// 										output.html(captchaMsg[responceCode]);
-		// 									}
-
-		// 									output.addClass("active");
-		// 								}
-		// 							});
-		// 					}
-
-		// 					if (!captchaFlag) {
-		// 						return false;
-		// 					}
-
-		// 					form.addClass('form-in-process');
-
-		// 					if (output.hasClass("snackbars")) {
-		// 						output.html('<p><span class="icon text-middle fa fa-circle-o-notch fa-spin icon-xxs"></span><span>Sending</span></p>');
-		// 						output.addClass("active");
-		// 					}
+		//
+		// 				if (isValidated($form.find("[data-constraints]"))) {
+		// 					$form.addClass('form-in-process');
+		//
+		// 					output.html('<p><span class="icon text-middle fa fa-circle-o-notch fa-spin icon-xxs"></span><span>Sending...</span></p>');
+		// 					output.addClass("active");
 		// 				} else {
 		// 					return false;
 		// 				}
 		// 			},
 		// 			error: function (result) {
-		// 				if (isNoviBuilder)
-		// 					return;
-
-		// 				var output = $("#" + $(plugins.rdMailForm[this.extraData.counter]).attr("data-form-output")),
-		// 					form = $(plugins.rdMailForm[this.extraData.counter]);
-
-		// 				output.text(msg[result]);
-		// 				form.removeClass('form-in-process');
-
-		// 				if (formHasCaptcha) {
-		// 					grecaptcha.reset();
-		// 				}
+		// 				var output = $("#" + $form.attr("data-form-output"));
+		//
+		// 				$form.removeClass('form-in-process');
+		// 				output.html('<p><span class="icon mdi mdi-alert-circle text-middle"></span><span>' + msg[result] + '</span></p>');
+		// 				output.addClass("active error");
+		//
+		// 				setTimeout(function () {
+		// 					output.removeClass("active error");
+		// 				}, 3500);
 		// 			},
 		// 			success: function (result) {
-		// 				if (isNoviBuilder)
-		// 					return;
-
-		// 				var form = $(plugins.rdMailForm[this.extraData.counter]),
-		// 					output = $("#" + form.attr("data-form-output")),
-		// 					select = form.find('select');
-
-		// 				form
-		// 					.addClass('success')
-		// 					.removeClass('form-in-process');
-
-		// 				if (formHasCaptcha) {
-		// 					grecaptcha.reset();
-		// 				}
-
+		// 				var output = $("#" + $form.attr("data-form-output"));
+		//
+		// 				$form.removeClass('form-in-process');
 		// 				result = result.length === 5 ? result : 'MF255';
-		// 				output.text(msg[result]);
-
+		//
+		// 				output.html('<p><span class="icon mdi mdi-check text-middle"></span><span>' + msg[result] + '</span></p>');
 		// 				if (result === "MF000") {
-		// 					if (output.hasClass("snackbars")) {
-		// 						output.html('<p><span class="icon text-middle mdi mdi-check icon-xxs"></span><span>' + msg[result] + '</span></p>');
-		// 					} else {
-		// 						output.addClass("active success");
-		// 					}
+		// 					output.addClass("active success");
 		// 				} else {
-		// 					if (output.hasClass("snackbars")) {
-		// 						output.html(' <p class="snackbars-left"><span class="icon icon-xxs mdi mdi-alert-outline text-middle"></span><span>' + msg[result] + '</span></p>');
-		// 					} else {
-		// 						output.addClass("active error");
-		// 					}
+		// 					output.addClass("active error");
 		// 				}
-
-		// 				form.clearForm();
-
-		// 				if (select.length) {
-		// 					select.select2("val", "");
-		// 				}
-
-		// 				form.find('input, textarea').trigger('blur');
-
+		//
 		// 				setTimeout(function () {
-		// 					output.removeClass("active error success");
-		// 					form.removeClass('success');
-		// 				}, 300);
+		// 					output.removeClass("active success error");
+		// 				}, 3500);
+		//
+		// 				$form.clearForm();
 		// 			}
 		// 		});
 		// 	}
 		// }
+
 
 		// parallax scroll
 		if ($('[data-parallax-scroll]').length && !isNoviBuilder && !isMobile) {
@@ -472,28 +391,56 @@
 }());
 
 
+document.addEventListener("DOMContentLoaded", function () {
+	var form = document.querySelector('.rd-mailform');
+	var snackbar = document.getElementById('form-output-global');
 
-// 	document.addEventListener("DOMContentLoaded", function() {
-// 	var preloader = document.querySelector('.preloader');
-// 	if (preloader) {
-// 	preloader.style.display = 'none';
-// }
-// });
-//
-// 	window.addEventListener('load', function() {
-// 	var preloader = document.querySelector('.preloader');
-// 	if (preloader) {
-// 	preloader.style.display = 'none';
-// }
-// });
-//
-// 	// Fallback to hide preloader after 5 seconds
-// 	setTimeout(function() {
-// 	var preloader = document.querySelector('.preloader');
-// 	if (preloader) {
-// 	preloader.style.display = 'none';
-// }
-// }, 5000);
+	if (form && snackbar) {
+		form.addEventListener('submit', function (event) {
+			var username = document.getElementById('contact-email')?.value.trim();
+			var password = document.getElementById('contact-password')?.value.trim();
+			var userType = document.getElementById('user-type')?.value;
+
+			if (!username || !password || userType === "select-here") {
+				event.preventDefault(); // Prevent form submission
+
+				// Update snackbar content and style
+				snackbar.textContent = "Please fill in all fields.";
+				snackbar.classList.add('active', 'error');
+
+				// Hide snackbar after 3.5 seconds
+				setTimeout(function () {
+					snackbar.classList.remove('active', 'error');
+				}, 3500);
+			}
+		});
+	}
+});
+
+
+
+
+	document.addEventListener("DOMContentLoaded", function() {
+	var preloader = document.querySelector('.preloader');
+	if (preloader) {
+	preloader.style.display = 'none';
+}
+});
+
+	window.addEventListener('load', function() {
+	var preloader = document.querySelector('.preloader');
+	if (preloader) {
+	preloader.style.display = 'none';
+}
+});
+
+	// Fallback to hide preloader after 5 seconds
+	setTimeout(function() {
+	var preloader = document.querySelector('.preloader');
+	if (preloader) {
+	preloader.style.display = 'none';
+}
+}, 50000);
 
 
 
