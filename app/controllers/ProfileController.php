@@ -1,10 +1,12 @@
 <?php
 
 require_once(__DIR__ . "/../models/Users/BaseAccoount.php");
+require_once __DIR__ . "/../models/AuthStrategyFactory.php";
 
 
 class ProfileController {
     private AuthStrategy $authStrategy;
+    private AuthStrategyFactory $authStrategyFactory;
 
     public function index(): void
     {
@@ -81,14 +83,10 @@ class ProfileController {
 
 
 
-        if ($data['account_type'] === 'Individual') {
-            $this->authStrategy = new IndividualAuth();
-        } elseif ($data['account_type'] === 'Organization') {
-            $this->authStrategy = new OrganizationAuth();
-        }
+        $authStrategy = $this->authStrategyFactory->createStrategy($data['account_type']);
 
 
-        $res = $this->authStrategy->update($data);
+        $res = $authStrategy->update($data);
         if ($res === false) {
             header('Location: /profile');
         } else if($res === true){
