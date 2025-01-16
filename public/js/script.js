@@ -420,27 +420,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-// 	document.addEventListener("DOMContentLoaded", function() {
-// 	var preloader = document.querySelector('.preloader');
-// 	if (preloader) {
-// 	preloader.style.display = 'none';
-// }
-// });
-//
-// 	window.addEventListener('load', function() {
-// 	var preloader = document.querySelector('.preloader');
-// 	if (preloader) {
-// 	preloader.style.display = 'none';
-// }
-// });
-//
-// 	// Fallback to hide preloader after 5 seconds
-// 	setTimeout(function() {
-// 	var preloader = document.querySelector('.preloader');
-// 	if (preloader) {
-// 	preloader.style.display = 'none';
-// }
-// }, 5000);
+	document.addEventListener("DOMContentLoaded", function() {
+	var preloader = document.querySelector('.preloader');
+	if (preloader) {
+	preloader.style.display = 'none';
+}
+});
+
+	window.addEventListener('load', function() {
+	var preloader = document.querySelector('.preloader');
+	if (preloader) {
+	preloader.style.display = 'none';
+}
+});
+
+	// Fallback to hide preloader after 5 seconds
+	setTimeout(function() {
+	var preloader = document.querySelector('.preloader');
+	if (preloader) {
+	preloader.style.display = 'none';
+}
+}, 50000);
 
 
 

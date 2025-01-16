@@ -42,6 +42,19 @@
     </section>
 
 
+
+
+    <div class="row justify-content-center text-center">
+        <div class="col-md-9 col-lg-7 wow-outer">
+            <div class="wow slideInDown">
+                <h3>Exclusive Merch Collection</h3>
+                <p>Explore our exclusive merch lineup! Every purchase supports meaningful events and makes a difference.</p>
+            </div>
+        </div>
+    </div>
+
+
+
     <!-- product section -->
     <section class="product_section layout_padding">
         <div class="container">

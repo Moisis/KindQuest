@@ -22,7 +22,6 @@ return (object) array(
 
     // Routes
     'ROUTES' => [
-        // ' '               => 'HomeController@index',
          '/'              => 'HomeController@index',
          '/suspend'      =>  'ErrorController@suspended',
         '/test'          => 'HomeController@test',

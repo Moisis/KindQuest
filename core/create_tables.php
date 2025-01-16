@@ -142,7 +142,7 @@ VALUES (4,'NewOrganizer', 10)",
 "INSERT INTO Badge(badge_id,badge_name,badge_points)
 VALUES (5,'OrganizeChamp', 70)",
 "INSERT INTO Account_Types(account_type_name)
-VALUES('Admin')",
+VALUES('admin')",
 "INSERT INTO Account_Types(account_type_name)
 VALUES('Individual')",
 "INSERT INTO Account_Types(account_type_name)
