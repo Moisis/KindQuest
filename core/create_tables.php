@@ -116,6 +116,15 @@ run_queries([
     FOREIGN KEY (account_id) REFERENCES Account(account_id)    
 
 );",
+
+"CREATE TABLE Products(
+    product_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    product_name VARCHAR(255) NOT NULL,
+    description VARCHAR(255),
+    price FLOAT NOT NULL,
+    img_path VARCHAR(255) NOT NULL,
+)",
+
 "INSERT INTO Donation_Types(donation_type_name)
 VALUES ('VISA')",
 "INSERT INTO Donation_Types(donation_type_name)
