@@ -45,7 +45,7 @@ class RegisterController {
             // echo "Register success";
             $_SESSION["username"] = $data["username"];
             $_SESSION["ID"] = BaseAccount::getUserIDByUsername($data["username"]);
-
+            $_SESSION["email"] = $data["email"];
             $user_id = $this->getUserId();
 
             Badge::addBadgeToUser($user_id, BadgesTypes::NewComer->value);

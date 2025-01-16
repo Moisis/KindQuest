@@ -14,6 +14,8 @@ require_once  dirname(__DIR__, 2).'/enums/DonationMethodTypes.php';
 require_once dirname(__DIR__, 2).'/models/DonoData.php';
 require_once dirname(__DIR__, 2).'/models/Subject.php';
 require_once dirname(__DIR__, 2).'/models/EmailListener.php';
+require_once dirname(__DIR__, 2).'/models/LoggingListener.php';
+
 
 require_once dirname(__DIR__, 2).'/models/Badges/Badge.php';
 
@@ -54,8 +56,9 @@ class DonationController
 
         if($donoResult == false){
            header('Location: /suspend');
+           exit();
         }
-        if($donationData['amount'] > 100){
+        if($donationData['amount'] >= 100){
             Badge::addBadgeToUser($donationData['account_id'], BadgesTypes::DonoChamp->value);
             if(array_key_exists("badge" , $_SESSION)){
                 if($_SESSION["badge"] -> checkIfBadgeExistsAndIncrement("DonationMilestoneBadge") == false){
@@ -68,9 +71,13 @@ class DonationController
     //    self::$donation_observer->notify($donation);
     
         $observer = BaseAccount::getPreferencesObserver(NotificationFor::Donation->value, $_SESSION['username']);
-        $observer->notify($donation);
+        //$observer->subscribe(new LoggingListener())
+        $logging_listener = new LoggingListener($observer, __DIR__ . "/../../../logFile.txt");
+        $observer->notify($donationData['amount']);
+
+        // echo "Donation Success";
         // sleep(3);
-        // header('Location: /');
+        header('Location: /');
         exit();
     }
 

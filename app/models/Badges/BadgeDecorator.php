@@ -41,7 +41,7 @@ abstract class BadgeDecorator extends Badge{
     public function checkIfBadgeExistsAndIncrement($badge_class_name){
         $badgeList = $this->getBadgeList();
         foreach($badgeList as $badge){
-            echo "THis badge class name is " . get_class($badge);
+            // echo "THis badge class name is " . get_class($badge);
             if(get_class($badge) == $badge_class_name){
                 $badge->badgeCount += 1;
                 return true;

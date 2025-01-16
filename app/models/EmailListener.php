@@ -1,9 +1,11 @@
 <?php
 
 require_once 'IListener.php';
+require_once __DIR__ . "/Users/BaseAccoount.php";
+
 class EmailListener implements IListener{
 
-    protected int $account_id = 1;
+    // protected int $account_id = 1;
 
     public function __construct($subject){
         $subject->subscribe($this);
@@ -11,7 +13,9 @@ class EmailListener implements IListener{
 
     public function update($data){
         //Email the person with data
-        echo "<script>alert(\"Email Sent Successfuly\")</script>";
+        $emailNotifier = new EmailNotifier();
+        $emailNotifier->sendDonationReceipt($_SESSION['email'], $_SESSION["username"], $data);
+        // echo "<script>alert(\"Email Sent Successfuly\")</script>";
 
     }
 

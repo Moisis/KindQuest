@@ -121,7 +121,13 @@ abstract class BaseAccount{
         }
     }
 
+    public static function getAccountEmail($id){
+        $query = "SELECT email FROM Account WHERE account_id = ?";
+        $result = run_select_query($query, [$id]);
 
+        $row = $result->fetch_assoc();
+        return $row['email'];
+    }
     
 
     
