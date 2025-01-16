@@ -11,13 +11,15 @@ require_once __DIR__."/../Badges/BaseBadge.php";
 class Badge{
 
     protected int $badgeCount;
-    protected string $badgeName = "Nothing";
+    protected string $badgeName;
 
     protected int $badgePoints = 0;
 
     protected int $badgeID;
 
     protected int $badgeOwnerID;
+
+    protected $badgeList = array();
 
     public function getPoints(){
         return $this->badgePoints;
@@ -27,10 +29,15 @@ class Badge{
         return $this->badgeName;
     }
 
+    public function getBadgeList(){
+        return $this->badgeList;
+    }
+
+
+
     
     public static function getBadgesByUserID($userID){
         $badgeData = run_select_query("SELECT * from Account_Badges WHERE account_id = $userID");
-        $names = array();
         $badge = new BaseBadge();
         if ($badgeData->num_rows > 0) {
             while ($singleBadgeData = $badgeData->fetch_assoc()) {
@@ -48,14 +55,10 @@ class Badge{
                         $badge = new HostingMilestoneBadge($badge, $userID);
                         break;                                                
                 }
-                $names[] = $badge->getName();
             }
         }
-        $returnedBadgeData = [
-            "names" => $names,
-            "points" => $badge->getPoints()
-        ];
-        return $returnedBadgeData;
+
+        return $badge;
     }
 
 

@@ -6,7 +6,7 @@
 
 require_once(__DIR__ . "/../../models/AuthLoginStrategyFactory.php");
 require_once(__DIR__ . "/../Auth/RegisterController.php");
-
+require_once __DIR__."/../../models/Badges/Badge.php";
 
 class LoginController
 {
@@ -49,6 +49,7 @@ class LoginController
             $_SESSION["username"] = $credentials["username"];
             $_SESSION["ID"] = BaseAccount::getUserIDByUsername($credentials["username"]);
             $_SESSION['logged'] = true;
+            $_SESSION["badge"] = Badge::getBadgesByUserID($_SESSION["ID"]);
 
             if ($credentials['user_type'] === 'admin') {
                 header('Location: /admin');

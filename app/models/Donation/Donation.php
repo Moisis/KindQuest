@@ -1,5 +1,5 @@
 <?php
-require "DonationStrategy.php";
+require_once "DonationStrategy.php";
 require_once __DIR__."/../../../core/Database.php";
 class Donation{
 

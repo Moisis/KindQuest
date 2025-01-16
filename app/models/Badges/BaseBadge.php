@@ -9,6 +9,7 @@ class BaseBadge extends Badge{
         $this->badgePoints = $badgeData['badge_points'];
         $this->badgeName = $badgeData['badge_name'];
         $this->badgeCount = 1;
+        $this->badgeList[] = $this;
     }
 
     public function getPoints(){

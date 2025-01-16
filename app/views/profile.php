@@ -73,7 +73,7 @@
                             <!-- Example Badges -->
                             <?php
                             // Loop through each event and display it dynamically
-                            $userBadges  = $badges['names'] ?? [];
+                            $userBadges  = explode("#", $badges->getName()) ?? [];
                             foreach ($userBadges as $badge) {
                             ?>
                             <span class="badge bg-primary"><?php echo $badge ?></span>
@@ -87,7 +87,7 @@
                             <p>Here are your Points :</p>
                             <h5>Points </h5>
                             <ul>
-                                <li><?php  echo $userpoints  = $badges['points'] ?? []; ?> </li>
+                                <li><?php  echo $userpoints  = $badges->getPoints() ?? []; ?> </li>
 
                             </ul>
                         </div>

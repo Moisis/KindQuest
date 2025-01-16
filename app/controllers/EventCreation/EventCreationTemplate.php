@@ -44,13 +44,24 @@ abstract class EventCreationTemplate{
         //so we check if the new event count is divisible by 5 to award the badge
 
         $creatorEventCount = Event::getEventsCountByCreator($this->org_id);
+        $currentUserBadges = $_SESSION["badge"];
         if ($creatorEventCount % 5 == 0){
+
             Badge::addBadgeToUser($this->org_id, BadgesTypes::OrganizeChamp->value);
+
+            if(!$currentUserBadges->checkIfBadgeExistsAndIncrement("HostingMilestoneBadge")){
+                $_SESSION["badge"] = new HostingMilestoneBadge($_SESSION["badge"], $_SESSION["ID"]);
+            }
         }
 
         //first event
         if($creatorEventCount == 1){
+
+
             Badge::addBadgeToUser($this->org_id, BadgesTypes::NewOrganizer->value);
+            if(!$currentUserBadges->checkIfBadgeExistsAndIncrement("FirstEventBadge")){
+                $_SESSION["badge"] = new FirstEventBadge($_SESSION["badge"], $_SESSION["ID"]);
+            }
         }
 
     } 

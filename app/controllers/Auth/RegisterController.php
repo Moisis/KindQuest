@@ -49,6 +49,7 @@ class RegisterController {
             $user_id = $this->getUserId();
 
             Badge::addBadgeToUser($user_id, BadgesTypes::NewComer->value);
+            $_SESSION["badge"] = new BaseBadge();
 
             $_SESSION['logged'] = true;
 

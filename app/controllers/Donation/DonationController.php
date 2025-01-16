@@ -15,6 +15,8 @@ require_once dirname(__DIR__, 2).'/models/DonoData.php';
 require_once dirname(__DIR__, 2).'/models/Subject.php';
 require_once dirname(__DIR__, 2).'/models/EmailListener.php';
 
+require_once dirname(__DIR__, 2).'/models/Badges/Badge.php';
+
 
 class DonationController
 {
@@ -55,6 +57,11 @@ class DonationController
         }
         if($donationData['amount'] > 100){
             Badge::addBadgeToUser($donationData['account_id'], BadgesTypes::DonoChamp->value);
+            if(array_key_exists("badge" , $_SESSION)){
+                if($_SESSION["badge"] -> checkIfBadgeExistsAndIncrement("DonationMilestoneBadge") == false){
+                    $_SESSION["badge"] = new DonationMilestoneBadge($_SESSION["badge"], $_SESSION["ID"]);
+                }
+            }
         }
 
         // TODO : we need to notify the observer (#null exception)

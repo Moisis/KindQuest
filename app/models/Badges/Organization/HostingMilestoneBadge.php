@@ -5,6 +5,7 @@ class HostingMilestoneBadge extends BadgeDecorator{
 
     public function __construct(Badge $badgeToDecorate, int $userID){
         parent::__construct($badgeToDecorate, $userID, BadgesTypes::OrganizeChamp->value);
+        $this->badgeList[] = $this; //add the badge to the list
     }
 
     public function getPoints(){

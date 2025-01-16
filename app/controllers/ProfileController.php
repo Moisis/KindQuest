@@ -24,7 +24,8 @@ class ProfileController {
     }
 
     public function getallbadges($user_id) {
-        return Badge::getBadgesByUserID($user_id);
+        //return Badge::getBadgesByUserID($user_id);
+        return $_SESSION["badge"];
     }
 
 
