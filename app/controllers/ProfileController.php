@@ -70,25 +70,27 @@ class ProfileController {
             'account_id' => $user_id,
             'account_type' => $user_data['account_type']
         ];
-
+        echo $data["account_type"];
         $this->updateUser($data);
+        header('Location: /profile');
         }else{
             header('Location: /profile');
         }
 
     }
 
-    public function updateUser(array $data): void
+    public function updateUser($data): void
     {
 
 
+        $this->authStrategyFactory = new AuthStrategyFactory();
+        $this->authStrategy = $this->authStrategyFactory->createStrategy($data['account_type']);
 
-        $authStrategy = $this->authStrategyFactory->createStrategy($data['account_type']);
-
-
-        $res = $authStrategy->update($data);
+        
+        $res = $this->authStrategy->update($data);
         if ($res === false) {
             header('Location: /profile');
+            exit();
         } else if($res === true){
             $_SESSION["username"] = $data["username"];
             $_SESSION['logged'] = true;

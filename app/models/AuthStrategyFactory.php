@@ -9,12 +9,15 @@ require_once(__DIR__ . "/Auth/OrganizationAuth.php");
 
 
 class AuthStrategyFactory{
+    public function __construct(){
+
+    }
     function createStrategy(String $user_type){
-        if ($user_type === 'individual') {
+        if ($user_type === 'individual' || $user_type == "Individual") {
             return new IndividualAuth();
-        } elseif ($user_type === 'organization') {
+        } elseif ($user_type === 'organization' || $user_type == "Organization") {
             return new OrganizationAuth();
-        }elseif ($user_type === 'admin') {
+        }elseif ($user_type === 'admin' || $user_type == "Admin") {
             return new AdminAuth();
         }
     }
