@@ -10,6 +10,21 @@
     <link rel="stylesheet" href="/css/bootstrap.css">
     <link rel="stylesheet" href="/css/fonts.css">
     <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .icon-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+        .icon-container i {
+            font-size: 40px;
+            color: #dcdcdc; /* Empty icon color */
+        }
+        .icon-container i.filled {
+            color: #4caf50; /* Filled icon color */
+        }
+    </style>
 </head>
 <body>
 <div class="preloader">
@@ -77,8 +92,6 @@
                         $current_organizers = $current_event->get_current_organizers();
                         $volunteers_required = $current_event->get_required_volunteers();
                         $organizers_required = $current_event->get_required_organizers();
-                        $volunteer_progress = ($current_volunteers / $volunteers_required) * 100;
-                        $organizer_progress = ($current_organizers / $organizers_required) * 100;
                         ?>
                         <h3><?php echo htmlspecialchars($current_event->getEventName()); ?></h3>
                         <div class="text-with-divider">
@@ -90,19 +103,27 @@
 
                         <p>Location: <?php echo htmlspecialchars($current_event->get_location()); ?></p>
 
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width: <?php echo $volunteer_progress; ?>%;" aria-valuenow="<?php echo $volunteer_progress; ?>" aria-valuemin="0" aria-valuemax="100">
-                                <?php echo round($volunteer_progress); ?>% Volunteers Joined
-                            </div>
+                        <!-- Volunteers Section -->
+                        <h5>Volunteers:</h5>
+                        <div class="icon-container">
+                            <?php
+                            for ($i = 0; $i < $volunteers_required; $i++) {
+                                echo '<i class="fas fa-user' . ($i < $current_volunteers ? ' filled' : '') . '"></i>';
+                            }
+                            ?>
                         </div>
-                        <p>Volunteers: <?php echo $current_volunteers; ?> of <?php echo $volunteers_required; ?> needed</p>
+                        <p><?php echo $current_volunteers; ?> of <?php echo $volunteers_required; ?> volunteers joined</p>
 
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width: <?php echo $organizer_progress; ?>%;" aria-valuenow="<?php echo $organizer_progress; ?>" aria-valuemin="0" aria-valuemax="100">
-                                <?php echo round($organizer_progress); ?>% Organizers Joined
-                            </div>
+                        <!-- Organizers Section -->
+                        <h5>Organizers:</h5>
+                        <div class="icon-container">
+                            <?php
+                            for ($i = 0; $i < $organizers_required; $i++) {
+                                echo '<i class="fas fa-user' . ($i < $current_organizers ? ' filled' : '') . '"></i>';
+                            }
+                            ?>
                         </div>
-                        <p>Organizers: <?php echo $current_organizers; ?> of <?php echo $organizers_required; ?> needed</p>
+                        <p><?php echo $current_organizers; ?> of <?php echo $organizers_required; ?> organizers joined</p>
                     <?php } ?>
 
                     <form method="post" action="/event/join/<?php echo $current_event->getEventId(); ?>" class="rd-form">
