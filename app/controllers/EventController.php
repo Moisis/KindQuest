@@ -14,9 +14,9 @@ class EventController {
 
         $fundraising_events = $this->getAllEvents();
         $onSite_events = NonVirtualEvent::getAllNonVirtualEvents();
-        $registered_events = $this->getRegisteredEvents();
+        //$registered_events = $this->getRegisteredEvents();
         require_once dirname(__DIR__, 1)."/views/events.php";
-        require_once dirname(__DIR__, 1)."/views/profile.php";
+        //require_once dirname(__DIR__, 1)."/views/profile.php";
     }
 
     public function getAllEvents() {

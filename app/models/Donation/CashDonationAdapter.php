@@ -7,7 +7,7 @@ class CashDonationAdapter implements DonationAdapterInterface {
     public function processDonation(float $amount, int $eventID, int $userID) {
         // Simulate issuing a receipt
         $receiptNumber = $this->generateReceipt();
-        run_query("INSERT INTO Donation(amount, event_id, account_id, donation_method, donation_date, receipt_number)
+        run_query("INSERT INTO Donation(amount, event_id, account_id, donation_method, donation_date, voucher_code)
                    VALUES ($amount, $eventID, $userID, 3, NOW(), '$receiptNumber')");
     }
 

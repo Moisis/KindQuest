@@ -12,7 +12,7 @@ class ProfileController {
     {
         session_regenerate_id();
 
-        $user_id = $this->getUserId();
+        $user_id = $_SESSION["ID"];
         $user_data = $this->getUserDetails($user_id);
 
         if (!isset($_SESSION['logged']) || !$_SESSION['logged']) {

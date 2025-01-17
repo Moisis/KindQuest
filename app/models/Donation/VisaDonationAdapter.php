@@ -12,7 +12,7 @@ class VisaDonationAdapter implements DonationAdapterInterface {
             $transactionID = $this->generateTransactionID();
 
             // Insert the donation record into the database
-            run_query("INSERT INTO Donation(amount, event_id, account_id, donation_method, donation_date, transaction_id)
+            run_query("INSERT INTO Donation(amount, event_id, account_id, donation_method, donation_date, voucher_code)
                        VALUES ($amount, $eventID, $userID, 1, NOW(), '$transactionID')");
         } else {
             throw new Exception("Visa payment failed: Bank approval not granted.");
