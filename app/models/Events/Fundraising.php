@@ -5,8 +5,9 @@ require_once "Event.php";
 class Fundraising extends Event {
 
     private int $goal;
-    public function __construct(int $event_id, string $event_name, string $description,string $registration_time, string $start_date, string $end_date, int $event_type_id, int $goal) {
-        parent::__construct($event_id ,$event_name, $description, $registration_time, $start_date, $end_date, $event_type_id);
+    private int $creator_id;
+    public function __construct(int $event_id, string $event_name, string $description,string $registration_time, string $start_date, string $end_date, int $event_type_id, int $goal, $creatorID) {
+        parent::__construct($event_id ,$event_name, $description, $registration_time,$event_type_id, $creatorID);
         $this->goal = $goal;
     }
 
@@ -61,6 +62,7 @@ class Fundraising extends Event {
                 $row["end_date"],
                 $row["event_type_id"],
                 $row["goal"],
+                $row["creator_id"]
             );
         }
 
