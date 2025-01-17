@@ -8,7 +8,7 @@ require_once  dirname(__DIR__, 1).'/models/JoinAsOrganizer.php';
 
 
 class EventDetailsController{
-
+    
     public function index($id){
         $current_event = Event::get_event((int)$id);
         require_once dirname(__DIR__, 1)."/views/event_details.php";

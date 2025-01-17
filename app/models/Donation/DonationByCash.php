@@ -1,12 +1,17 @@
 <?php
 
 require_once "DonationStrategy.php";
+require_once "CashDonationAdapter.php";
 
-class DonationByCash implements DonationStrategy{
+class DonationByVisa implements DonationStrategy {
 
-    public function donate(float $amount, int $eventID, int $userID){
-        run_query("INSERT INTO Donation(amount, event_id,account_id,donation_method,donation_date)
-                   VALUES ($amount, $eventID, $userID,3,NOW())");
+    private CashDonationAdapter $adapter;
+
+    public function __construct() {
+        $this->adapter = new CashDonationAdapter();
     }
 
+    public function donate(float $amount, int $eventID, int $userID) {
+        $this->adapter->processDonation($amount, $eventID, $userID);
+    }
 }
