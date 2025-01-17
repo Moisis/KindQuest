@@ -96,7 +96,7 @@ run_queries([
 );",
 "CREATE TABLE `Non_Virtual_Events`(
     `event_id` INT  NOT NULL PRIMARY KEY,
-    `location` VARCHAR(255) NOT NULL COMMENT 'change to composite attr',
+    `location` VARCHAR(255) NOT NULL,
     `vol_required` INT NOT NULL,
     `org_required` INT NOT NULL,
     `current_volunteers` INT NOT NULL DEFAULT 0,

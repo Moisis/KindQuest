@@ -141,7 +141,8 @@
                     <?php } ?>
                     <?php if ($current_event && $current_event->getEventTypeId() == 2): ?>
                     <div style="display: flex; flex-direction: row; align-items: center; gap: 50px;">
-                        <?php if (isset($_SESSION['ID']) && !($current_event->isUserRegisteredToEvent($current_event->getEventId(),$_SESSION['ID']))): ?>
+                        <?php if (isset($_SESSION['ID']) && !($current_event->isUserRegisteredToEvent($current_event->getEventId(),$_SESSION['ID']))
+                        && $userType != AccountTypes::Organization->name): ?>
                             <form method="post" action="/event/join/<?php echo $current_event->getEventId(); ?>" class="rd-form">
                                 <input type="hidden" name="role" value="1">
                                 <input type="hidden" name="event_id" value="<?php echo $current_event->getEventId(); ?>">

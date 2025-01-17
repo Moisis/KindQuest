@@ -33,7 +33,7 @@
                     <h3>SUSPENDED!</h3>
                     <p>Your Account has been suspended for breaking our code of conduct. Contact the admin for further details</p>
                     <br>
-                    <p>You can't donate or join/create any events</p>
+                    <p>You can't donate</p>
                     <a class="button button-block button-lg button-primary" href="/">Go to Home</a>
                 </div>
             </div>

@@ -4,13 +4,16 @@ require_once  dirname(__DIR__, 1).'/models/Events/Event.php';
 require_once  dirname(__DIR__, 1).'/models/JoinStrategy.php';
 require_once  dirname(__DIR__, 1).'/models/JoinAsVolunteer.php';
 require_once  dirname(__DIR__, 1).'/models/JoinAsOrganizer.php';
-
+require_once  dirname(__DIR__, 1).'/models/Users/BaseAccoount.php';
+require_once dirname(__DIR__, 1).'/enums/AccountTypes.php';
 
 
 class EventDetailsController{
     
     public function index($id){
         $current_event = Event::get_event((int)$id);
+        $user = BaseAccount::getUserById($_SESSION["ID"]);
+        $userType = $user['account_type'];
         require_once dirname(__DIR__, 1)."/views/event_details.php";
     }
 
