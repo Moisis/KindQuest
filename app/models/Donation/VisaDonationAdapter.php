@@ -21,7 +21,8 @@ class VisaDonationAdapter implements DonationAdapterInterface {
 
     private function simulateBankApproval(): bool {
         // Randomly approve or deny for simulation
-        return rand(0, 1) === 1;
+        //return rand(0, 1) === 1;
+        return 1;
     }
 
     private function generateTransactionID(): string {
