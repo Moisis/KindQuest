@@ -139,6 +139,7 @@
                         </div>
                         <p><?php echo $current_organizers; ?> of <?php echo $organizers_required; ?> organizers joined</p>
                     <?php } ?>
+                    <?php if($current_event-> getEventTypeId() == 2): ?>
                     <div style="display: flex; flex-direction: row; align-items: center; gap: 50px;">
                         <form method="post" action="/event/join/<?php echo $current_event->getEventId(); ?>" class="rd-form">
                             <input type="hidden" name="role" value="1">
@@ -152,6 +153,7 @@
                             <button type="submit" class="button button-primary button-sm">Join as Organizer</button>
                         </form>
                     </div>
+                    <?php endif ?>
                 </div>
             </div>
         </div>
