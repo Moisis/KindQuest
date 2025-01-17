@@ -45,7 +45,7 @@ abstract class EventCreationTemplate{
 
         $creatorEventCount = Event::getEventsCountByCreator($this->org_id);
         $currentUserBadges = $_SESSION["badge"];
-        if ($creatorEventCount % 5 == 0){
+        if ($creatorEventCount % 2 == 0){
 
             Badge::addBadgeToUser($this->org_id, BadgesTypes::OrganizeChamp->value);
 
