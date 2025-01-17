@@ -70,7 +70,7 @@ class ProfileController {
             'account_id' => $user_id,
             'account_type' => $user_data['account_type']
         ];
-        echo $data["account_type"];
+        // echo $data["account_type"];
         $this->updateUser($data);
         header('Location: /profile');
         }else{

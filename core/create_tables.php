@@ -64,6 +64,7 @@ run_queries([
     `amount` FLOAT(53) NOT NULL,
     `donation_method` INT NOT NULL,
     donation_date DATETIME NOT NULL,
+    `voucher_code` VARCHAR(255) NOT NULL,
     FOREIGN KEY (account_id) REFERENCES Account(account_id),
     FOREIGN KEY (event_id) REFERENCES Event(event_id),
     FOREIGN KEY (donation_method) REFERENCES Donation_Types(donation_type_id)
