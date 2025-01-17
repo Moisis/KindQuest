@@ -1,6 +1,8 @@
 <?php
 
 require_once "Event.php";
+require_once  __DIR__ . "/../Iterator/EventIterator.php";
+require_once __DIR__ . "/../Iterator/EventCollection.php";
 
 class Fundraising extends Event {
 
@@ -50,23 +52,26 @@ class Fundraising extends Event {
         $result = run_select_query($query);
         // return $result;
 
-        $fundraising_events = [];
+        $eventsCollection = new EventCollection();
 
         foreach ($result as $row) {
-            $fundraising_events[] = new Fundraising(
-                $row["event_id"],
-                $row["event_name"],
-                $row["desc"],
-                $row["registration_date"],
-                $row["start_date"],
-                $row["end_date"],
-                $row["event_type_id"],
-                $row["goal"],
-                $row["creator_id"]
+            $eventsCollection->addEvent(
+                new Fundraising(
+                    $row["event_id"],
+                    $row["event_name"],
+                    $row["desc"],
+                    $row["registration_date"],
+                    $row["start_date"],
+                    $row["end_date"],
+                    $row["event_type_id"],
+                    $row["goal"],
+                )
             );
         }
 
-        return $fundraising_events;
+        $iterator = $eventsCollection->createIterator();
+
+        return $iterator;
     }
 }
 

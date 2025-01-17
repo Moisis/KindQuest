@@ -58,12 +58,15 @@
     <section class="product_section layout_padding">
         <div class="container">
             <div class="row">
-                <?php foreach ($products as $product): ?>
+                <?php
+                while ($products->hasNext()) {
+                    $product = $products->next();
+                    ?>
                     <div class="col-sm-6 col-md-4 col-lg-3">
                         <div class="box">
                             <div class="option_container">
                                 <div class="options">
-                                    <a class="button button-sm button-primary" href="/merch/<?php echo htmlspecialchars($product->getProductId()); ?>" >
+                                    <a class="button button-sm button-primary" href="/merch/<?php echo htmlspecialchars($product->getProductId()); ?>">
                                         View Details
                                     </a>
                                     <a href="" class="option2">
@@ -84,7 +87,7 @@
                             </div>
                         </div>
                     </div>
-                <?php endforeach; ?>
+                <?php } ?>
             </div>
         </div>
     </section>

@@ -9,7 +9,6 @@ require_once(__DIR__ . "/../../models/AuthStrategyFactory.php");
 
 
 class RegisterController {
-    private AuthStrategy $authStrategy;
     private AuthStrategyFactory $authStrategyFactory;
 
     // Method to load the default registration view
@@ -37,8 +36,8 @@ class RegisterController {
     // Method to handle registration based on user type
     private function register(array $data) {
         $this->authStrategyFactory = new AuthStrategyFactory();
-        $this->authStrategy = $this->authStrategyFactory->createStrategy($data['user_type']);
-        $res = $this->authStrategy->register($data);
+        $authStrategy = $this->authStrategyFactory->createStrategy($data['user_type']);
+        $res = $authStrategy->register($data);
         if ($res === false) {
             header('Location: /register');
         } else if($res === true){

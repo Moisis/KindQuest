@@ -10,7 +10,6 @@ require_once __DIR__."/../../models/Badges/Badge.php";
 
 class LoginController
 {
-    private AuthStrategy $authStrategy;
     private AuthStrategyFactory $authLoginStrategyFactory;
 
     // Method to load the default registration view
@@ -38,9 +37,9 @@ class LoginController
         // Set the appropriate auth strategy based on user type
 
         $this->authLoginStrategyFactory = new AuthStrategyFactory();
-        $this->authStrategy = $this->authLoginStrategyFactory->createStrategy($credentials['user_type']);
+        $authStrategy = $this->authLoginStrategyFactory->createStrategy($credentials['user_type']);
 
-        $res = $this->authStrategy->login($credentials);
+        $res = $authStrategy->login($credentials);
         if ($res === false) {
             header('Location: /login');
             exit();
