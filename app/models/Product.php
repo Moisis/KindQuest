@@ -1,5 +1,7 @@
 <?php
-require_once "../../core/Database.php";
+require_once dirname(__DIR__, 2) . '/core/Database.php';
+require_once  __DIR__ . "/Iterator/ProductIterator.php";
+require_once __DIR__ . "/Iterator/ProductCollection.php";
 class Product
 {
     private int $productId;
@@ -32,6 +34,32 @@ class Product
             );
         }
         return null;
+    }
+
+
+    public static function getProducts() : ProductIterator
+    {
+        $product_rows = run_select_query("SELECT * FROM products");
+
+        $productsCollection = new ProductCollection();
+
+        if ($product_rows->num_rows > 0) {
+            while ($product_data = $product_rows->fetch_assoc()) {
+                $productsCollection->addProduct(
+                    new Product(
+                        $product_data['product_id'],
+                        $product_data['product_name'],
+                        $product_data['description'],
+                        $product_data['price'],
+                        $product_data['img_path']
+                    )
+                );
+            }
+        }
+
+        $iterator = $productsCollection->createIterator();
+
+        return $iterator;
     }
 
     public function getProductId(): int

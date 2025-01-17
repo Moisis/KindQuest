@@ -4,14 +4,13 @@
 // require_once(dirname(__FILE__) ."/../../../core/Router.php");
 
 
-require_once(__DIR__ . "/../../models/AuthLoginStrategyFactory.php");
+require_once(__DIR__ . "/../../models/AuthStrategyFactory.php");
 require_once(__DIR__ . "/../Auth/RegisterController.php");
 require_once __DIR__."/../../models/Badges/Badge.php";
 
 class LoginController
 {
-    private AuthStrategy $authStrategy;
-    private AuthLoginStrategyFactory $authLoginStrategyFactory;
+    private AuthStrategyFactory $authLoginStrategyFactory;
 
     // Method to load the default registration view
     public function index()
@@ -37,10 +36,10 @@ class LoginController
     {
         // Set the appropriate auth strategy based on user type
 
-        $this->authLoginStrategyFactory = new AuthLoginStrategyFactory();
-        $this->authStrategy = $this->authLoginStrategyFactory->createLoginStartegy($credentials['user_type']);
+        $this->authLoginStrategyFactory = new AuthStrategyFactory();
+        $authStrategy = $this->authLoginStrategyFactory->createStrategy($credentials['user_type']);
 
-        $res = $this->authStrategy->login($credentials);
+        $res = $authStrategy->login($credentials);
         if ($res === false) {
             header('Location: /login');
             exit();

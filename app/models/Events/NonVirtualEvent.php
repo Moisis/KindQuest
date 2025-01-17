@@ -22,12 +22,16 @@ class NonVirtualEvent extends Event{
         int $event_type_id,
         string $location,
         int $volunteers_required,
-        int $organizers_required
+        int $organizers_required,
+        int $current_volunteers=0,
+        int $current_organizers=0
     ) {
         parent::__construct($event_id, $event_name, $description, $registration_time, $start_date, $end_date, $event_type_id);
         $this->location = $location;
         $this->volunteers_required = $volunteers_required;
         $this->organizers_required = $organizers_required;
+        $this->current_volunteers = $current_volunteers;
+        $this->current_organizers = $current_organizers;
     }
 
 
@@ -42,7 +46,9 @@ class NonVirtualEvent extends Event{
         int $event_type_id,
         string $location,
         int $volunteers_required,
-        int $organizers_required
+        int $organizers_required,
+        int $current_volunteers,
+        int $current_organizers
     ): bool {
         // Get the next auto-incremented ID for the event
         $event_id = run_select_query("SHOW TABLE STATUS LIKE 'Event'")->fetch_assoc()["Auto_increment"];
@@ -52,10 +58,10 @@ class NonVirtualEvent extends Event{
         
         // Insert into the NonVirtualEvents table
         $query = "
-            INSERT INTO non_virtual_events (event_id, location, vol_required, org_required)
-            VALUES (?, ?, ?, ?)
+            INSERT INTO non_virtual_events (event_id, location, vol_required, org_required, current_volunteers, current_organizers)
+            VALUES (?, ?, ?, ?, ?, ?)
         ";
-        return run_insert_query($query, [$event_id, $location, $volunteers_required, $organizers_required]);
+        return run_insert_query($query, [$event_id, $location, $volunteers_required, $organizers_required, $current_volunteers, $current_organizers]);
     }
 
     public function insertIntoDB($user_id){
@@ -66,10 +72,10 @@ class NonVirtualEvent extends Event{
         
         // Insert into the NonVirtualEvents table
         $query = "
-            INSERT INTO non_virtual_events (event_id, location, vol_required, org_required)
-            VALUES (?, ?, ?, ?)
+            INSERT INTO non_virtual_events (event_id, location, vol_required, org_required, current_volunteers, current_organizers)
+            VALUES (?, ?, ?, ?, ?, ?)
         ";
-        return run_insert_query($query, [$event_id, $this->location, $this->volunteers_required, $this->organizers_required]);        
+        return run_insert_query($query, [$event_id, $this->location, $this->volunteers_required, $this->organizers_required, $this->current_volunteers, $this->current_organizers]);        
     }
 
 
@@ -130,15 +136,32 @@ class NonVirtualEvent extends Event{
     public function get_required_volunteers(){
         return $this->volunteers_required;
     }
-
+    public function get_location(){
+        return $this->location;
+    }
     public function get_required_organizers(){
         return $this->organizers_required;
     }
-    public function searchVolunteers($name): bool{
-        $query = "SELECT username FROM account WHERE account_id = (SELECT account_id FROM event_registration WHERE event_id = ? AND `role` = ?) ";
-        $result = run_select_query($query,[$this->event_id, 'Volunteer']);
-        return $result;
-    } 
+    public function isUserRegisteredToEvent($event_id, $user_id): bool {
+        error_log("Checking registration: event_id={$event_id}, user_id={$user_id}");
+    
+        $query = "SELECT 1 FROM event_registration WHERE event_id = ? AND account_id = ?";
+        $result = run_select_query($query, [$event_id, $user_id]);
+    
+        // Check if $result is a mysqli_result object and if it contains any rows
+        $is_registered = ($result instanceof mysqli_result) && ($result->num_rows > 0);
+        error_log("Query executed: {$query} with params: event_id={$event_id}, user_id={$user_id}");
+        error_log("Query result: " . print_r($result, true));
+        error_log("User registration status: " . ($is_registered ? "Registered" : "Not registered"));
+    
+        return $is_registered;
+    }
+    
+    
+    
+    
+
+    
     public function getVolunteers($event_id) {
         $query = "SELECT account_id FROM event_registration WHERE event_id = ? AND role = ?";
         $result = run_select_query($query, [$event_id, 'Volunteer']);
@@ -238,7 +261,37 @@ class NonVirtualEvent extends Event{
         return "success"; 
     }
     
-    
+    public static function getAllNonVirtualEvents(){
+        $query = "SELECT * from non_virtual_events inner join event on non_virtual_events.event_id = event.event_id";
+        $result = run_select_query($query);
+        // return $result;
+
+        $eventsCollection = new EventCollection();
+
+        foreach ($result as $row) {
+            $eventsCollection->addEvent(
+                new NonVirtualEvent(
+                    $row["event_id"],
+                    $row["event_name"],
+                    $row["desc"],
+                    $row["registration_date"],
+                    $row["start_date"],
+                    $row["end_date"],
+                    $row["event_type_id"],
+                    $row["location"],
+                    $row["vol_required"],
+                    $row["org_required"],
+                    $row["current_volunteers"],
+                    $row["current_organizers"]
+                )
+            );
+        }
+
+        $iterator = $eventsCollection->createIterator();
+
+        return $iterator;
+    }
+
     
     
 

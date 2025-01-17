@@ -13,6 +13,7 @@ class EventController {
         $user_data = $user_id ? $this->getUserDetails($user_id) : null;
 
         $fundraising_events = $this->getAllEvents();
+        $onSite_events = NonVirtualEvent::getAllNonVirtualEvents();
         require_once dirname(__DIR__, 1)."/views/events.php";
     }
 

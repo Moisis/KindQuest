@@ -55,218 +55,54 @@
 
 
 
-    <!-- product section -->
     <section class="product_section layout_padding">
         <div class="container">
             <div class="row">
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="box">
-                        <div class="option_container">
-                            <div class="options">
-                                <a href="" class="option1">
-                                    Men's Shirt
-                                </a>
-                                <a href="" class="option2">
-                                    Buy Now
-                                </a>
+                <?php
+                while ($products->hasNext()) {
+                    $product = $products->next();
+                    ?>
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="box">
+                            <div class="option_container">
+                                <div class="options">
+                                    <?php if (isset($_SESSION['ID'])): ?>
+                                        <a class="button button-sm button-primary" href="/merch/<?php echo htmlspecialchars($product->getProductId()); ?>">
+                                            View Details
+                                        </a>
+                                        <a href="/merch/checkout/<?php echo htmlspecialchars($product->getProductId()); ?>" class="option2">
+                                            Buy Now
+                                        </a>
+                                    <?php else: ?>
+                                        <a class="button button-sm button-primary" href="/login">
+                                            View Details
+                                        </a>
+                                        <a href="/login" class="option2">
+                                            Buy Now
+                                        </a>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            <div class="img-box">
+                                <img src="<?php echo $product->getImagePath(); ?>" alt="">
+                            </div>
+                            <div class="detail-box">
+                                <h5>
+                                    <?php echo $product->getProductName(); ?>
+                                </h5>
+                                <h6>
+                                    $<?php echo $product->getPrice(); ?>
+                                </h6>
                             </div>
                         </div>
-                        <div class="img-box">
-                            <img src="/images/merch/tshirt_boy.png" alt="">
-                        </div>
-                        <div class="detail-box">
-                            <h5>
-                                Men's Shirt
-                            </h5>
-                            <h6>
-                                $75
-                            </h6>
-                        </div>
                     </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="box">
-                        <div class="option_container">
-                            <div class="options">
-                                <a href="" class="option1">
-                                    Add To Cart
-                                </a>
-                                <a href="" class="option2">
-                                    Buy Now
-                                </a>
-                            </div>
-                        </div>
-                        <div class="img-box">
-                            <img src="/images/merch/tshirt_girl.png" alt="">
-                        </div>
-                        <div class="detail-box">
-                            <h5>
-                                Men's Shirt
-                            </h5>
-                            <h6>
-                                $80
-                            </h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="box">
-                        <div class="option_container">
-                            <div class="options">
-                                <a href="" class="option1">
-                                    Add To Cart
-                                </a>
-                                <a href="" class="option2">
-                                    Buy Now
-                                </a>
-                            </div>
-                        </div>
-                        <div class="img-box">
-                            <img src="images/merch/pillow.png" alt="">
-                        </div>
-                        <div class="detail-box">
-                            <h5>
-                                Women's Dress
-                            </h5>
-                            <h6>
-                                $68
-                            </h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="box">
-                        <div class="option_container">
-                            <div class="options">
-                                <a href="" class="option1">
-                                    Add To Cart
-                                </a>
-                                <a href="" class="option2">
-                                    Buy Now
-                                </a>
-                            </div>
-                        </div>
-                        <div class="img-box">
-                            <img src="/images/merch/notebook.png" alt="">
-                        </div>
-                        <div class="detail-box">
-                            <h5>
-                                Women's Dress
-                            </h5>
-                            <h6>
-                                $70
-                            </h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="box">
-                        <div class="option_container">
-                            <div class="options">
-                                <a href="" class="option1">
-                                    Add To Cart
-                                </a>
-                                <a href="" class="option2">
-                                    Buy Now
-                                </a>
-                            </div>
-                        </div>
-                        <div class="img-box">
-                            <img src="/images/merch/mug.png" alt="">
-                        </div>
-                        <div class="detail-box">
-                            <h5>
-                                Women's Dress
-                            </h5>
-                            <h6>
-                                $75
-                            </h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="box">
-                        <div class="option_container">
-                            <div class="options">
-                                <a href="" class="option1">
-                                    Add To Cart
-                                </a>
-                                <a href="" class="option2">
-                                    Buy Now
-                                </a>
-                            </div>
-                        </div>
-                        <div class="img-box">
-                            <img src="/images/merch/hoodie.jpg" alt="">
-                        </div>
-                        <div class="detail-box">
-                            <h5>
-                                Women's Dress
-                            </h5>
-                            <h6>
-                                $58
-                            </h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="box">
-                        <div class="option_container">
-                            <div class="options">
-                                <a href="" class="option1">
-                                    Add To Cart
-                                </a>
-                                <a href="" class="option2">
-                                    Buy Now
-                                </a>
-                            </div>
-                        </div>
-                        <div class="img-box">
-                            <img src="/images/merch/bottle.png" alt="">
-                        </div>
-                        <div class="detail-box">
-                            <h5>
-                                Women's Dress
-                            </h5>
-                            <h6>
-                                $80
-                            </h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="box">
-                        <div class="option_container">
-                            <div class="options">
-                                <a href="" class="option1">
-                                    Add To Cart
-                                </a>
-                                <a href="" class="option2">
-                                    Buy Now
-                                </a>
-                            </div>
-                        </div>
-                        <div class="img-box">
-                            <img src="/images/merch/cap.jpg" alt="">
-                        </div>
-                        <div class="detail-box">
-                            <h5>
-                                Men's Shirt
-                            </h5>
-                            <h6>
-                                $65
-                            </h6>
-                        </div>
-                    </div>
-                </div>
-
-
+                <?php } ?>
             </div>
-
         </div>
     </section>
 
-
+    
+    <img src="../images/decor-wave-bottom.png"  alt="separator"/>
 
 
     <!--        footer-->

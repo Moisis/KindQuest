@@ -1,10 +1,12 @@
 <?php
 
 require_once(__DIR__ . "/../models/Users/BaseAccoount.php");
+require_once __DIR__ . "/../models/AuthStrategyFactory.php";
 
 
 class ProfileController {
     private AuthStrategy $authStrategy;
+    private AuthStrategyFactory $authStrategyFactory;
 
     public function index(): void
     {
@@ -68,29 +70,27 @@ class ProfileController {
             'account_id' => $user_id,
             'account_type' => $user_data['account_type']
         ];
-
+        echo $data["account_type"];
         $this->updateUser($data);
+        header('Location: /profile');
         }else{
             header('Location: /profile');
         }
 
     }
 
-    public function updateUser(array $data): void
+    public function updateUser($data): void
     {
 
 
+        $this->authStrategyFactory = new AuthStrategyFactory();
+        $this->authStrategy = $this->authStrategyFactory->createStrategy($data['account_type']);
 
-        if ($data['account_type'] === 'Individual') {
-            $this->authStrategy = new IndividualAuth();
-        } elseif ($data['account_type'] === 'Organization') {
-            $this->authStrategy = new OrganizationAuth();
-        }
-
-
+        
         $res = $this->authStrategy->update($data);
         if ($res === false) {
             header('Location: /profile');
+            exit();
         } else if($res === true){
             $_SESSION["username"] = $data["username"];
             $_SESSION['logged'] = true;

@@ -3,6 +3,6 @@
 enum Preference: int
 {
     case Email = 1;
-    case SMS = 2;
+    case Logging = 2;
 
 }

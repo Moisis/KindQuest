@@ -4,6 +4,7 @@ declare(strict_types=1);
 require_once __DIR__ . "/../../../core/Database.php";
 require __DIR__ ."/../DonoData.php";
 require __DIR__ ."/../EmailListener.php";
+require __DIR__ ."/../LoggingListener.php";
 abstract class BaseAccount{
 
     protected AuthStrategy $auth;
@@ -50,7 +51,8 @@ abstract class BaseAccount{
                 case 1:
                     $listener = new EmailListener($subject);
                     break;
-
+                case 2:
+                    $listener = new LoggingListener($subject, __DIR__ . "/../../../logFile.txt");
             }
         }
 

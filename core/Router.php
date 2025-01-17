@@ -3,8 +3,7 @@
 // admin
 require_once __DIR__ . '/../app/controllers/admin/AdminController.php';
 require_once __DIR__ . '/../app/controllers/admin/AdminUsersController.php';
-
-require_once __DIR__ . '/../app/controllers/admin/AdminEventsController.php';
+require_once __DIR__ . '/../app/controllers/admin/AdminDonationsController.php';
 
 
 require_once __DIR__ . '/../app/controllers/AboutController.php';
@@ -33,10 +32,11 @@ require_once __DIR__ . '/../app/controllers/Auth/LoginController.php';
 require_once __DIR__ . '/../app/models/Email/mailtest.php';
 
 // wizard
-//require_once __DIR__ . '/../app/controllers/wizard/WizardController.php';
+require_once __DIR__ . '/../app/controllers/wizard/WizardController.php';
 
 // Merch
 require_once __DIR__ . '/../app/controllers/Merch/MerchController.php';
+require_once __DIR__ . '/../app/controllers/Merch/MerchDetailsController.php';
 
 
 // ErrorController

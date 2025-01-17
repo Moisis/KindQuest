@@ -42,16 +42,18 @@ return (object) array(
         '/admin/users/suspend' => 'AdminUsersController@suspend',
         '/admin/users/unsuspend' => 'AdminUsersController@unsuspend',
         '/admin/users'   => 'AdminUsersController@index',
-        '/admin/events'   => 'AdminEventsController@index',
+        '/admin/donations'   => 'AdminDonationsController@index',
         
 
 
         '/testmail'          => 'Mailtest@sendMail',
 
         '/merch' => 'MerchController@index',
+        '/merch/{id}' => 'MerchDetailsController@index',
 
-
+        '/merch/checkout/{id}' => 'WizardController@index',
         '/wizard' => 'WizardController@Index',
+
         '/wizard/handleRequest/{action}' => 'WizardController@handleRequest',
 
 

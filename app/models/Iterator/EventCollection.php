@@ -3,6 +3,8 @@ require_once "EventIterator.php";
 //require_once "../Events/Event.php";
 require_once dirname(__DIR__, 1).'/Events/Event.php';
 
+require_once "IIterableCollection.php";
+
 class EventCollection implements IIterableCollection {
     private $events = [];
 

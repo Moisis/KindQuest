@@ -47,9 +47,10 @@ class EmailNotifier {
                 <p>Thank you for supporting our mission.</p>
             ";
             $this->mailer->send();
-            echo "Donation receipt sent to {$donorName} ({$donorEmail}).<br>";
+
+            // echo "Donation receipt sent to {$donorName} ({$donorEmail}).<br>";
         } catch (Exception $e) {
-            echo "Error sending email: " . $this->mailer->ErrorInfo . "<br>";
+           // echo "Error sending email: " . $this->mailer->ErrorInfo . "<br>";
         }
     }
 
@@ -128,7 +129,7 @@ class EmailNotifier {
             <p>$message</p>
         </div>
         <div class='footer'>
-            <p>&copy; 2024 CyberTools. All rights reserved.</p>
+            <p>&copy; 2024 All rights reserved.</p>
         </div>
     </div>
 </body>
