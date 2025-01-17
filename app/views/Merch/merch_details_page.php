@@ -30,10 +30,10 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-12 col-lg-9">
-                        <h2 class="breadcrumbs-custom-title">Event Details </h2>
+                        <h2 class="breadcrumbs-custom-title">Merch Details </h2>
                         <ul class="breadcrumbs-custom-path">
                             <li><a href="/">Home</a></li>
-                            <li class="active"> Event Details </li>
+                            <li class="active"> Merch Details </li>
 
                         </ul>
                     </div>
@@ -42,9 +42,7 @@
         </div>
     </section>
 
-
     <!--    Body Content-->
-
 
     <section class="section section-lg bg-gray-1 bg-gray-1-decor">
         <div class="container">
@@ -60,7 +58,7 @@
                     </div>
                     <p><?php echo htmlspecialchars($merch->getDescription()); ?></p>
                     <h5>Price: $<?php echo htmlspecialchars($merch->getPrice()); ?></h5>
-                    <a href="/cart/add/<?php echo htmlspecialchars($merch->getProductId()); ?>" class="button button-primary button-sm">Add to Cart</a>
+                    <a href="/merch/checkout/<?php echo htmlspecialchars($merch->getProductId()); ?>" class="button button-primary button-sm">Add to Cart</a>
                 </div>
             </div>
         </div>

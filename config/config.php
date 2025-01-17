@@ -51,8 +51,9 @@ return (object) array(
         '/merch' => 'MerchController@index',
         '/merch/{id}' => 'MerchDetailsController@index',
 
-
+        '/merch/checkout/{id}' => 'WizardController@index',
         '/wizard' => 'WizardController@Index',
+
         '/wizard/handleRequest/{action}' => 'WizardController@handleRequest',
 
 

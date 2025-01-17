@@ -66,12 +66,21 @@
                         <div class="box">
                             <div class="option_container">
                                 <div class="options">
-                                    <a class="button button-sm button-primary" href="/merch/<?php echo htmlspecialchars($product->getProductId()); ?>">
-                                        View Details
-                                    </a>
-                                    <a href="" class="option2">
-                                        Buy Now
-                                    </a>
+                                    <?php if (isset($_SESSION['user_id'])): ?>
+                                        <a class="button button-sm button-primary" href="/merch/<?php echo htmlspecialchars($product->getProductId()); ?>">
+                                            View Details
+                                        </a>
+                                        <a href="/merch/checkout/<?php echo htmlspecialchars($product->getProductId()); ?>" class="option2">
+                                            Buy Now
+                                        </a>
+                                    <?php else: ?>
+                                        <a class="button button-sm button-primary" href="/login">
+                                            View Details
+                                        </a>
+                                        <a href="/login" class="option2">
+                                            Buy Now
+                                        </a>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                             <div class="img-box">
