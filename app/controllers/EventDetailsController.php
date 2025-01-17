@@ -16,7 +16,7 @@ class EventDetailsController{
 
     public function join_event($event_id) {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            $userId = 1; // Replace with actual logged-in user ID
+            $userId = $_SESSION["ID"];
             $join_strategy = null;
     
             if ($_POST['role'] == 1) {

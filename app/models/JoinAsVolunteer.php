@@ -5,12 +5,12 @@ require_once __DIR__ . '/../../core/Database.php';
 class JoinAsVolunteer implements JoinStrategy {
     public function join($event_id, $account_id): void {
         // Check if the user is already registered as a volunteer for the event
-        $check_query = "SELECT COUNT(*) AS count FROM event_registration WHERE event_id = ? AND account_id = ? AND role = 1";
+        $check_query = "SELECT COUNT(*) AS count FROM event_registration WHERE event_id = ? AND account_id = ?";
         $result = run_select_query($check_query, [$event_id, $account_id])->fetch_assoc();
 
         // If the user is already a volunteer, do not proceed
         if ($result['count'] > 0) {
-            echo "You are already registered as a volunteer for this event.";
+            echo "You are already registered for this event.";
             return;
         }
 

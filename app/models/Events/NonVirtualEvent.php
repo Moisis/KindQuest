@@ -265,7 +265,9 @@ class NonVirtualEvent extends Event{
                     $row["event_type_id"],
                     $row["location"],
                     $row["vol_required"],
-                    $row["org_required"]
+                    $row["org_required"],
+                    $row["current_volunteers"],
+                    $row["current_organizers"]
                 )
             );
         }

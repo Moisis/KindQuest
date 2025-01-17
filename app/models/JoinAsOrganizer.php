@@ -5,12 +5,12 @@ require_once __DIR__ . '/../../core/Database.php';
 class JoinAsOrganizer implements JoinStrategy {
     public function join($event_id, $account_id): void {
         // Check if the user is already registered as an organizer for the event
-        $check_query = "SELECT COUNT(*) FROM event_registration WHERE event_id = ? AND account_id = ? AND role = 2";
+        $check_query = "SELECT COUNT(*) FROM event_registration WHERE event_id = ? AND account_id = ?";
         $result = run_select_query($check_query, [$event_id, $account_id])->fetch_assoc();
 
         // If the user is already an organizer, do not proceed
         if ($result['COUNT(*)'] > 0) {
-            echo "You are already registered as an organizer for this event.";
+            echo "You are already registered  for this event.";
             return;
         }
 

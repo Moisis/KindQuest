@@ -132,7 +132,8 @@
                         <a class="button button-sm button-primary" href="/event/<?php echo htmlspecialchars($event->getEventId()); ?>">View</a>
                     </div>
                     <h4 class="font-weight-medium"><a href="#"><?php echo htmlspecialchars($event->getEventName()); ?></a></h4>
-                    <p class="box-causes-donate"><span class="box-causes-donate-complete"> REQUIRED VOLUNTEERS <?php echo htmlspecialchars($event->get_required_volunteers()); ?></span></p>
+                    <p class="box-causes-donate"><span class="box-causes-donate-complete"> REQUIRED VOLUNTEERS <?php echo htmlspecialchars($event->get_required_volunteers() - $event->get_currentVolunteers()); ?></span></p>
+                    <p class="box-causes-donate"><span class="box-causes-donate-complete"> REQUIRED ORGANIZERS <?php echo htmlspecialchars($event->get_required_organizers() - $event->get_current_organizers()); ?></span></p>
                 </article>
             </div>
         </div>

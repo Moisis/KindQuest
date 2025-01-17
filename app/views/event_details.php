@@ -139,12 +139,19 @@
                         </div>
                         <p><?php echo $current_organizers; ?> of <?php echo $organizers_required; ?> organizers joined</p>
                     <?php } ?>
-
-                    <form method="post" action="/event/join/<?php echo $current_event->getEventId(); ?>" class="rd-form">
-                        <input type="hidden" name="role" value="1">
-                        <input type="hidden" name="event_id" value="<?php echo $current_event->getEventId(); ?>">
-                        <button type="submit" class="button button-primary button-sm">Join as Volunteer</button>
-                    </form>
+                    <div style="display: flex; flex-direction: row; align-items: center; gap: 50px;">
+                        <form method="post" action="/event/join/<?php echo $current_event->getEventId(); ?>" class="rd-form">
+                            <input type="hidden" name="role" value="1">
+                            <input type="hidden" name="event_id" value="<?php echo $current_event->getEventId(); ?>">
+                            <button type="submit" class="button button-primary button-sm">Join as Volunteer</button>
+                        </form>
+                        
+                        <form method="post" action="/event/join/<?php echo $current_event->getEventId(); ?>" class="rd-form">
+                            <input type="hidden" name="role" value="2">
+                            <input type="hidden" name="event_id" value="<?php echo $current_event->getEventId(); ?>">
+                            <button type="submit" class="button button-primary button-sm">Join as Organizer</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
