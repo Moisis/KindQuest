@@ -18,7 +18,7 @@
                             <ul class="rd-sidebar-nav">
                                 <li class="rd-nav-item"><a class="rd-nav-link" href="/admin">Dashboard</a></li>
                                 <li class="rd-nav-item"><a class="rd-nav-link" href="/admin/users">Users</a></li>
-                                <li class="rd-nav-item"><a class="rd-nav-link" href="/admin/events">Events </a></li>
+                                <li class="rd-nav-item"><a class="rd-nav-link" href="/admin/donations">Donations</a></li>
                             </ul>
                         </div>
                     </div>
