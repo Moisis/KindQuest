@@ -3,7 +3,7 @@
 require_once "DonationStrategy.php";
 require_once "CashDonationAdapter.php";
 
-class DonationByVisa implements DonationStrategy {
+class DonationByCash implements DonationStrategy {
 
     private CashDonationAdapter $adapter;
 
