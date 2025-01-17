@@ -1,5 +1,7 @@
 <?php
 require_once dirname(__DIR__, 2) . '/core/Database.php';
+require_once  __DIR__ . "/Iterator/ProductIterator.php";
+require_once __DIR__ . "/Iterator/ProductCollection.php";
 class Product
 {
     private int $productId;
