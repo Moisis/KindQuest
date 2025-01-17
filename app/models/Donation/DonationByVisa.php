@@ -1,12 +1,17 @@
 <?php
 require_once "DonationStrategy.php";
+require_once "VisaDonationAdapter.php";
 
 
-class DonationByVisa implements DonationStrategy{
+class DonationByVisa implements DonationStrategy {
 
-    public function donate(float $amount, int $eventID, int $userID){
-        run_query("INSERT INTO Donation(amount, event_id,account_id,donation_method,donation_date)
-                   VALUES ($amount, $eventID, $userID,1,NOW())");
+    private VisaDonationAdapter $adapter;
+
+    public function __construct() {
+        $this->adapter = new VisaDonationAdapter();
     }
 
+    public function donate(float $amount, int $eventID, int $userID) {
+        $this->adapter->processDonation($amount, $eventID, $userID);
+    }
 }
