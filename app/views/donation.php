@@ -51,41 +51,36 @@ require_once dirname(__DIR__) . "/enums/DonationMethodTypes.php";
             <h3 class="text-center">Choose a Fundraising Event to Donate To</h3>
             <div class="row row-50">
                 <?php
-                // Loop through each event and display it dynamically
-                $fundraising_events = $fundraising_events ?? [];
-                foreach ($fundraising_events as $event) {
-                ?>
-                <!-- Event 1 -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="box-icon-modern">
-                        <div class="box-icon-inner decorate-triangle"><span class="icon-xl linearicons-umbrella2 icon-primary"></span></div>
-                        <div class="box-icon-caption">
-                            <h4>Event #<?php echo htmlspecialchars($event ->getEventId()) ;  echo " ". htmlspecialchars($event -> getEventName())?> </h4>
-                            <p> <?php echo htmlspecialchars($event ->getDescription()) ?>.</p>
-                            <form action="/donate" method="post">
-                                <input type="hidden" name="event_id" value="<?php echo htmlspecialchars($event ->getEventId()) ;?>" id="event_id">
-                                <input type="hidden" name="account_id" value="1" id="account_id">
+                while ($fundraising_events->hasNext()) {
+                    $event = $fundraising_events->next();
+                    ?>
+                    <!-- Event 1 -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="box-icon-modern">
+                            <div class="box-icon-inner decorate-triangle"><span class="icon-xl linearicons-umbrella2 icon-primary"></span></div>
+                            <div class="box-icon-caption">
+                                <h4>Event #<?php echo htmlspecialchars($event->getEventId()); echo " ". htmlspecialchars($event->getEventName()); ?></h4>
+                                <p><?php echo htmlspecialchars($event->getDescription()); ?>.</p>
+                                <form action="/donate" method="post">
+                                    <input type="hidden" name="event_id" value="<?php echo htmlspecialchars($event->getEventId()); ?>" id="event_id">
+                                    <input type="hidden" name="account_id" value="1" id="account_id">
 
-                                <label for="amount">Amount:</label>
-                                <input type="number" id="amount" name="amount" min="5" placeholder="USD" required>
+                                    <label for="amount">Amount:</label>
+                                    <input type="number" id="amount" name="amount" min="5" placeholder="USD" required>
 
-                                <label for="payment1">Payment Method:</label>
-                                <select id="payment1" name="donation_method" required>
-                                    <option value="<?php echo DonationMethodTypes::Visa ->value  ?>">Visa</option>
-                                    <option value="<?php echo DonationMethodTypes::Fawry -> value ?> ">Fawry</option>
-                                    <option value="<?php echo DonationMethodTypes::Cash -> value ?>">Cash</option>
-                                </select>
+                                    <label for="payment1">Payment Method:</label>
+                                    <select id="payment1" name="donation_method" required>
+                                        <option value="<?php echo DonationMethodTypes::Visa->value; ?>">Visa</option>
+                                        <option value="<?php echo DonationMethodTypes::Fawry->value; ?>">Fawry</option>
+                                        <option value="<?php echo DonationMethodTypes::Cash->value; ?>">Cash</option>
+                                    </select>
 
-                                <button type="submit" class="btn btn-primary mt-2">Donate</button>
-                            </form>
+                                    <button type="submit" class="btn btn-primary mt-2">Donate</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                    <?php
-                }
-                ?>
-
+                <?php } ?>
             </div>
         </div>
     </section>
