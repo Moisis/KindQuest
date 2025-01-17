@@ -7,7 +7,7 @@ $configs = require '../config/config.php';
 
 // Populate the database with some data
 // require_once '../core/db-populate.php';
-//require_once '../core/create_tables.php';
+ //require_once '../core/create_tables.php';
 
 session_start(); // Start the session
 $router = new Router();
