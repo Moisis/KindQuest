@@ -72,19 +72,20 @@ class OrganizationAuth implements AuthStrategy
 
     public function update(array $data): bool
     {
+        $id = $data['account_id'];
         $username = $data['username'];
         $password = password_hash($data['password'], PASSWORD_BCRYPT);
         $email = $data['email'];
 
 
 
-        $checkQuery = "SELECT * FROM Account WHERE username = '$username' AND account_type_id = 3";
+        $checkQuery = "SELECT * FROM Account WHERE account_id = '$id' AND account_type_id = 3";
         $checkResult = run_select_query($checkQuery);
 
 
         if ($checkResult && mysqli_num_rows($checkResult) > 0) {
 
-            $insertQuery = "UPDATE Account SET username = '$username', email = '$email', password = '$password', account_type_id = 3 WHERE account_id = {$data['account_id']}";
+            $insertQuery = "UPDATE Account SET username = '$username', email = '$email', password = '$password' WHERE account_id = $id";
 
             $insertResult = run_update_query($insertQuery);
     
