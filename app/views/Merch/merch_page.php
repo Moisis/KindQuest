@@ -66,7 +66,7 @@
                         <div class="box">
                             <div class="option_container">
                                 <div class="options">
-                                    <?php if (isset($_SESSION['user_id'])): ?>
+                                    <?php if (isset($_SESSION['ID'])): ?>
                                         <a class="button button-sm button-primary" href="/merch/<?php echo htmlspecialchars($product->getProductId()); ?>">
                                             View Details
                                         </a>
