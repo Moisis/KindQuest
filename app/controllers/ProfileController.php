@@ -2,7 +2,7 @@
 
 require_once(__DIR__ . "/../models/Users/BaseAccoount.php");
 require_once __DIR__ . "/../models/AuthStrategyFactory.php";
-
+require_once dirname(__DIR__, 1).'/models/Events/Event.php';
 
 class ProfileController {
     private AuthStrategy $authStrategy;
@@ -11,8 +11,8 @@ class ProfileController {
     public function index(): void
     {
         session_regenerate_id();
-
-        $user_id = $_SESSION["ID"];
+        $registered_events = $this->getRegisteredEvents();
+        $user_id = $this->getUserId();
         $user_data = $this->getUserDetails($user_id);
 
         if (!isset($_SESSION['logged']) || !$_SESSION['logged']) {
@@ -29,7 +29,9 @@ class ProfileController {
         //return Badge::getBadgesByUserID($user_id);
         return $_SESSION["badge"];
     }
-
+    public function getRegisteredEvents() {
+        return Event::getAllRegisteredEvents($this->getUserId());
+    }
 
     //TODO Remove Duplicate Code
     public static function getUserDetails($user_id): ?array
