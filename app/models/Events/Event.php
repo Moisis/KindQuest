@@ -37,9 +37,16 @@ abstract class Event{
             return $event;
                 // string $event_name, string $description, string $start_date, string $end_date, int $event_type_id, int $goal
         }else if($first_row["event_type_id"] == 2){
-            //charity
-        }else if($first_row["event_type_id"] == 1){
-            //workshop
+            //non virtual event
+            $query = "select * from non_virtual_events where event_id = $id";
+            $result1 = run_select_query($query);
+            $result1_first_row = mysqli_fetch_assoc($result1);
+            $event = new NonVirtualEvent($id,
+                $first_row["event_name"], $first_row["desc"], $first_row["registration_date"],
+                $first_row["start_date"],$first_row["end_date"], $first_row["event_type_id"], 
+                $result1_first_row["location"], $result1_first_row["vol_required"], $result1_first_row["org_required"]
+            );
+            return $event;
         }
     }
 

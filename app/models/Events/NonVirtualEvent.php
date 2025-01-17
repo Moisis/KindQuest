@@ -130,7 +130,9 @@ class NonVirtualEvent extends Event{
     public function get_required_volunteers(){
         return $this->volunteers_required;
     }
-
+    public function get_location(){
+        return $this->location;
+    }
     public function get_required_organizers(){
         return $this->organizers_required;
     }
@@ -238,7 +240,35 @@ class NonVirtualEvent extends Event{
         return "success"; 
     }
     
-    
+    public static function getAllNonVirtualEvents(){
+        $query = "SELECT * from non_virtual_events inner join event on non_virtual_events.event_id = event.event_id";
+        $result = run_select_query($query);
+        // return $result;
+
+        $eventsCollection = new EventCollection();
+
+        foreach ($result as $row) {
+            $eventsCollection->addEvent(
+                new NonVirtualEvent(
+                    $row["event_id"],
+                    $row["event_name"],
+                    $row["desc"],
+                    $row["registration_date"],
+                    $row["start_date"],
+                    $row["end_date"],
+                    $row["event_type_id"],
+                    $row["location"],
+                    $row["vol_required"],
+                    $row["org_required"]
+                )
+            );
+        }
+
+        $iterator = $eventsCollection->createIterator();
+
+        return $iterator;
+    }
+
     
     
 

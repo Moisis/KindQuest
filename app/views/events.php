@@ -118,7 +118,26 @@
             </div>
         </div>
     </div>
-
+    <div class="row row-50">
+    <?php
+    // Loop through each event using the non_virtualevents iterator
+    while ($onSite_events->hasNext()) {
+        $event = $onSite_events->next();
+    ?>
+        <div class="col-md-6 col-lg-4 wow-outer">
+            <div class="wow fadeInUp">
+                <article class="box-causes">
+                    <div class="box-causes-img">
+                        <img src="images/favicon.png" alt="" width="372" height="396"/>
+                        <a class="button button-sm button-primary" href="/event/<?php echo htmlspecialchars($event->getEventId()); ?>">View</a>
+                    </div>
+                    <h4 class="font-weight-medium"><a href="#"><?php echo htmlspecialchars($event->getEventName()); ?></a></h4>
+                    <p class="box-causes-donate"><span class="box-causes-donate-complete"> REQUIRED VOLUNTEERS <?php echo htmlspecialchars($event->get_required_volunteers()); ?></span></p>
+                </article>
+            </div>
+        </div>
+    <?php } ?>
+</div>
 
 
 

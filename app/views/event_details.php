@@ -24,7 +24,7 @@
     <!-- Page Header-->
     <?php require_once dirname(__DIR__) . "/views/commonParts/navbar.php"; ?>
 
-    <!--        Parallax Container-->
+    <!-- Parallax Container-->
     <section class="parallax-container" data-parallax-img="/public/images/events/bg-breadcrumbs-events.jpg">
         <div class="parallax-content breadcrumbs-custom context-dark">
             <div class="container">
@@ -34,7 +34,6 @@
                         <ul class="breadcrumbs-custom-path">
                             <li><a href="/">Home</a></li>
                             <li class="active"> Event Details </li>
-
                         </ul>
                     </div>
                 </div>
@@ -42,10 +41,7 @@
         </div>
     </section>
 
-
-    <!--    Body Content-->
-
-
+    <!-- Body Content-->
     <section class="section section-lg bg-gray-1 bg-gray-1-decor">
         <div class="container">
             <div class="row row-50">
@@ -54,24 +50,60 @@
                 <div class="col-lg-6">
                     <?php
                     $current_event = $current_event ?? " ";
-                    $current_donation = $current_event -> getCurrDonations();
-                    $donation_goal = $current_event ->getGoal();
-                    $progress_percentage = ($current_donation / $donation_goal) * 100;
-                    ?>
-                    <h3><?php echo htmlspecialchars($current_event->getEventName()); ?></h3>
-                    <div class="text-with-divider">
-                        <div class="divider"></div>
-                        <h4 class="text-opacity-70">Join us for our next big event!</h4>
-                    </div>
-
-                    <p><?php echo htmlspecialchars($current_event->getDescription()); ?></p>
-
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: <?php echo $progress_percentage; ?>%;" aria-valuenow="<?php echo $progress_percentage; ?>" aria-valuemin="0" aria-valuemax="100">
-                            <?php echo round($progress_percentage); ?>%
+                    if ($current_event->getEventTypeId() == 1) {
+                        // Fundraising Event
+                        $current_donation = $current_event->getCurrDonations();
+                        $donation_goal = $current_event->getGoal();
+                        $progress_percentage = ($current_donation / $donation_goal) * 100;
+                        ?>
+                        <h3><?php echo htmlspecialchars($current_event->getEventName()); ?></h3>
+                        <div class="text-with-divider">
+                            <div class="divider"></div>
+                            <h4 class="text-opacity-70">Join us for our next big event!</h4>
                         </div>
-                    </div>
-                    <p>Raised: $<?php echo $current_donation; ?> of $<?php echo $donation_goal; ?></p>
+
+                        <p><?php echo htmlspecialchars($current_event->getDescription()); ?></p>
+
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: <?php echo $progress_percentage; ?>%;" aria-valuenow="<?php echo $progress_percentage; ?>" aria-valuemin="0" aria-valuemax="100">
+                                <?php echo round($progress_percentage); ?>%
+                            </div>
+                        </div>
+                        <p>Raised: $<?php echo $current_donation; ?> of $<?php echo $donation_goal; ?></p>
+
+                    <?php } elseif ($current_event->getEventTypeId() == 2) {
+                        // Non-Fundraising Event
+                        $current_volunteers = $current_event->get_currentVolunteers();
+                        $current_organizers = $current_event->get_current_organizers();
+                        $volunteers_required = $current_event->get_required_volunteers();
+                        $organizers_required = $current_event->get_required_organizers();
+                        $volunteer_progress = ($current_volunteers / $volunteers_required) * 100;
+                        $organizer_progress = ($current_organizers / $organizers_required) * 100;
+                        ?>
+                        <h3><?php echo htmlspecialchars($current_event->getEventName()); ?></h3>
+                        <div class="text-with-divider">
+                            <div class="divider"></div>
+                            <h4 class="text-opacity-70">Join us for our next big event!</h4>
+                        </div>
+
+                        <p><?php echo htmlspecialchars($current_event->getDescription()); ?></p>
+
+                        <p>Location: <?php echo htmlspecialchars($current_event->get_location()); ?></p>
+
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: <?php echo $volunteer_progress; ?>%;" aria-valuenow="<?php echo $volunteer_progress; ?>" aria-valuemin="0" aria-valuemax="100">
+                                <?php echo round($volunteer_progress); ?>% Volunteers Joined
+                            </div>
+                        </div>
+                        <p>Volunteers: <?php echo $current_volunteers; ?> of <?php echo $volunteers_required; ?> needed</p>
+
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: <?php echo $organizer_progress; ?>%;" aria-valuenow="<?php echo $organizer_progress; ?>" aria-valuemin="0" aria-valuemax="100">
+                                <?php echo round($organizer_progress); ?>% Organizers Joined
+                            </div>
+                        </div>
+                        <p>Organizers: <?php echo $current_organizers; ?> of <?php echo $organizers_required; ?> needed</p>
+                    <?php } ?>
 
                     <form method="post" action="/event/join/<?php echo $current_event->getEventId(); ?>" class="rd-form">
                         <input type="hidden" name="role" value="1">
@@ -83,18 +115,13 @@
         </div>
     </section>
 
-
-    <!--        footer-->
+    <!-- Footer -->
     <?php require_once dirname(__DIR__) . "/views/commonParts/footer.php"; ?>
 
 </div>
 
-
-
-
-
 <div class="snackbars" id="form-output-global"></div>
-<script src= "/js/core.min.js"></script>
+<script src="/js/core.min.js"></script>
 <script src="/js/script.js"></script>
 </body>
 </html>
