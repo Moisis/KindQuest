@@ -134,6 +134,41 @@
             </div>
         </div>
     </section>
+    <section class="registered-events-section pt-5 pb-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Registered Events</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <!-- Placeholder for dynamically generated events -->
+                            <?php 
+                            // Loop through registered events and display them
+                            // Example placeholder for dynamic content
+                            $registeredEvents = Event::getAllRegisteredEvents($_SESSION['ID']); // Replace with actual data
+                            foreach ($registeredEvents as $event) { 
+                            ?>
+                            <div class="col-md-6 mb-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><?php echo $event->getEventName(); ?></h5>
+                                        <p class="card-text"><?php echo $event->getDescription(); ?></p>
+                                        <a href="/event/<?php echo $event->getEventId(); ?>" class="btn btn-primary">View Event</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php } ?>
+                            <!-- End of static placeholders -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 
 
