@@ -1,10 +1,13 @@
 <?php
-
 declare(strict_types=1);
+require_once "app\models\Users\Client.php";
+require_once "app\models\Auth\OrganizationAuth.php";
+
+
 class Organization extends Client{
 
 
-    public function __construct(int $accountId) {
+    public function __construct(int $accountId, string $userName, string $password, string $email, int $accountType) {
         
         $query = "SELECT a.account_id, a.username, a.password, a.email, at.account_type_name 
                   FROM Account a 
@@ -12,7 +15,7 @@ class Organization extends Client{
                   WHERE a.account_id = ?";
         $result = run_select_query($query, [$accountId])->fetch_assoc();
 
-        // If account exists, set the attributes, else do not create the object
+        // If account exists, set the attributes, else create a new object with given parameters
         if ($result !== null && !empty($result)) {
             $this->userID = $result[0]['account_id'];  
             $this->userName = $result[0]['username'];  
@@ -24,8 +27,11 @@ class Organization extends Client{
             $this->auth = new OrganizationAuth();
             $this->suspended = false;
         } else {
-            
-            throw new Exception("Account not found.");
+            $this->auth = new OrganizationAuth();
+            $this->userID = $accountId;
+            $this->userName = $userName;
+            $this->password = $password;
+            $this->email = $email;
         }
     }
 

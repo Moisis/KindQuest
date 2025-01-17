@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
-require "app\models\Events\Event.php";
-require "app\models\BaseAccount.php";
+require_once "app\models\Events\Event.php";
+require_once "app\models\Users\BaseAccount.php";
 
 abstract class Client extends BaseAccount{
 
