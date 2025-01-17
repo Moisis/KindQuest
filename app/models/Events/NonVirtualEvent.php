@@ -5,6 +5,7 @@ require_once 'Event.php';
 
 
 class NonVirtualEvent extends Event{
+
     private string $location;
     private int $volunteers_required;
     private int $organizers_required;
@@ -12,73 +13,43 @@ class NonVirtualEvent extends Event{
     private int $current_organizers=0;
 
     public function __construct(
+        int $event_id,
         string $event_name,
         string $description,
+        string $registration_time,
         string $start_date,
         string $end_date,
         int $event_type_id,
         string $location,
         int $volunteers_required,
-        int $organizers_required,
-        int $creatorID
+        int $organizers_required
     ) {
-        $this->event_name = $event_name;
-        if($this->eventExists($this->event_name)){
-            $id = $this->get_event_id_by_name($this->event_name);
-            $result = $this->fetchEventById($id);
-            $this->event_name = $result['event_name'];
-            $this->description = $result['desc'];
-            $this->start_date = $result['start_date'];
-            $this->end_date = $result['end_date'];
-            $this->registration_time = $result['registration_date'];
-            $this->event_type_id = $result['event_type_id'];
-            $this->creatorID = $result['creator_id'];
-        }
-        else{
-            $this->description = $description;
-            $this->start_date = $start_date;
-            $this->end_date = $end_date;
-            $this->registration_time = date("Y-m-d H:i:s");
-            $this->event_type_id = $event_type_id;
-            $this->creatorID = $creatorID;
-            $this->insertEvent($creatorID, $event_name, $description, $this->registration_time, $start_date, $end_date, $event_type_id);
-        }
-        if($this->nonVirtualEventExists($this->event_name)){
-            $result = $this->fetchNonVirtualEventById($this->event_id);
-            
-            $this->location = $result['location'];
-            $this->volunteers_required = $result['vol_required'];
-            $this->organizers_required = $result['org_required'];
-        }
-        else{
-            $this->location = $location;
-            $this->volunteers_required = $volunteers_required;
-            $this->organizers_required = $organizers_required;
-            $id = $this->get_event_id_by_name($this->event_name);
-            $this->insertNonVirtualEvent($id,$location, $volunteers_required, $organizers_required);
-        }
-        
+        parent::__construct($event_id, $event_name, $description, $registration_time, $start_date, $end_date, $event_type_id);
+        $this->location = $location;
+        $this->volunteers_required = $volunteers_required;
+        $this->organizers_required = $organizers_required;
     }
 
 
 
-    public static function insertNonVirtualEvent(
-        int $event_id,
+     public static function insertNonVirtualEvent(
+        string $user_id,
+        string $event_name,
+        string $description,
+        string $registration_time,
+        string $start_date,
+        string $end_date,
+        int $event_type_id,
         string $location,
         int $volunteers_required,
         int $organizers_required
     ): bool {
-        // Check if the event_id already exists in the non_virtual_events table
-        $check_query = "SELECT COUNT(*) FROM non_virtual_events WHERE event_id = ?";
-        $result = run_select_query($check_query, [$event_id]);
-        $count = $result->fetch_row()[0];
+        // Get the next auto-incremented ID for the event
+        $event_id = run_select_query("SHOW TABLE STATUS LIKE 'Event'")->fetch_assoc()["Auto_increment"];
         
-        if ($count > 0) {
-            // Event already exists, so don't insert again
-            echo "Event ID $event_id already exists in non_virtual_events.";
-            return false;
-        }
-    
+        // Insert into the parent Event table
+        parent::insertEvent($user_id, $event_name, $description, $registration_time, $start_date, $end_date, $event_type_id);
+        
         // Insert into the NonVirtualEvents table
         $query = "
             INSERT INTO non_virtual_events (event_id, location, vol_required, org_required)
@@ -86,19 +57,12 @@ class NonVirtualEvent extends Event{
         ";
         return run_insert_query($query, [$event_id, $location, $volunteers_required, $organizers_required]);
     }
-    
-    public function nonVirtualEventExists($event_name): bool {
-        $query = "SELECT * FROM Non_Virtual_Events WHERE event_id = ?";
-        $result = run_select_query($query, [$event_name]);
-        return $result->num_rows > 0;
-    }
-    public function fetchNonVirtualEventById(int $event_id): array {
-        $query = "SELECT * FROM Non_Virtual_Events WHERE event_id = ?";
-        $result = run_select_query($query, [$event_id]);
-        return $result->fetch_assoc();
-    }
+
     public function insertIntoDB($user_id){
         $event_id = run_select_query("SHOW TABLE STATUS LIKE 'Event'")->fetch_assoc()["Auto_increment"];
+        
+        // Insert into the parent Event table
+        parent::insertEvent($user_id, $this->event_name, $this->description, $this->registration_time, $this->start_date, $this->end_date, $this->event_type_id);
         
         // Insert into the NonVirtualEvents table
         $query = "

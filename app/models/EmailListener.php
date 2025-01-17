@@ -1,7 +1,7 @@
 <?php
 
 require_once 'IListener.php';
-require_once "app\models\Users\BaseAccount.php";
+require_once __DIR__ . "/Users/BaseAccoount.php";
 
 class EmailListener implements IListener{
 

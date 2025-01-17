@@ -14,37 +14,13 @@ abstract class Event{
     protected string $end_date;
     protected string $registration_time;
     protected int $event_type_id;
-    protected int $creatorID;
 
-    public function save() {
-        $db = DatabaseManager::getInstance()->get_connection();
-        $query = "INSERT INTO event (event_name, `desc`, `start_date`, end_date, registration_date, event_type_id) VALUES (?, ?, ?, ?, ?, ?)";
-        $stmt = $db->prepare($query);
-        $stmt->bind_param("sssssi", $this->event_name, $this->description, $this->start_date, $this->end_date, $this->registration_time, $this->event_type_id);
-        $stmt->execute();
-        $this->event_id = $db->insert_id;
-        $stmt->close();
-    }
-
-    public static function fetchEventById($event_id) {
-        $db = DatabaseManager::getInstance()->get_connection();
-        $query = "SELECT * FROM event WHERE event_id = ?";
-        $stmt = $db->prepare($query);
-        $stmt->bind_param("i", $event_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($result->num_rows > 0) {
-            return $result->fetch_assoc();
-        } else {
-            return null;
-        }
-    }
-
+    
     public static function get_event($id){
         $query = "select * from event where event_id = $id";
         $result = run_select_query($query);
-        $first_row = $result->fetch_assoc()($result);
-        if($result->num_rows == 0){
+        $first_row = mysqli_fetch_assoc($result);
+        if(mysqli_num_rows($result) == 0){
             return 0;
         }else if($first_row["event_type_id"] == 1){
             //fundraising
@@ -52,11 +28,11 @@ abstract class Event{
 //            echo $first_row['event_name'];
             $query = "select * from fundraising where event_id = $id";
             $result1 = run_select_query($query);
-            $result1_first_row = $result->fetch_assoc()($result1);
+            $result1_first_row = mysqli_fetch_assoc($result1);
             $event = new Fundraising($id,
                 $first_row["event_name"], $first_row["desc"], $first_row["registration_date"],
                 $first_row["start_date"],$first_row["end_date"], $first_row["event_type_id"], 
-                $result1_first_row["goal"], $first_row["creator_id"]
+                $result1_first_row["goal"]
             );
             return $event;
                 // string $event_name, string $description, string $start_date, string $end_date, int $event_type_id, int $goal
@@ -66,22 +42,17 @@ abstract class Event{
             //workshop
         }
     }
-    public static function get_event_id_by_name($name) {
-        // Prepare the query with a placeholder
-        $query = "SELECT event_id FROM event WHERE event_name = ?";
-        
-        // Execute the query securely using prepared statements
-        $result = run_select_query($query, [$name]);
-        
-        // Check if a row is returned
-        if ($result && $row = $result->fetch_assoc()) {
-            return $row["event_id"]; // Return the event_id
-        }
-        
-        // Return null if no matching event is found
-        return null;
+
+    public function __construct(int $eventID, string $event_name, string $description,string $reg_time, string $start_date, string $end_date, int $event_type_id){
+        $this->event_id = $eventID;
+        $this->event_name = $event_name;
+        $this->description = $description;
+        $this->start_date = $start_date;
+        $this->end_date = $end_date;
+        $this->registration_time = $reg_time;
+        $this->event_type_id = $event_type_id;
+
     }
-    
     public static function insertEvent($user_id, string $event_name, string $description,string $registration_time, string $start_date, string $end_date, int $event_type_id){
 
         $query = "INSERT INTO event (creator_id, event_name, `desc`,created_at ,`start_date`, end_date, registration_date, event_type_id) VALUES (?, ?, ?, NOW(),  ?, ?, ?, ?)";
@@ -125,17 +96,7 @@ abstract class Event{
     
         return $eventNames;
     }
-    public function eventExists($event_name): bool {
-        $query = "SELECT * FROM event WHERE event_name = ?";
-        $result = run_select_query($query, [$event_name]);
-    
-        // Check if the result has rows
-        if ($result && $result->num_rows > 0) {
-            return true; // Event exists
-        }
-        return false; // Event does not exist
-    }
-    
+
     public static function getEventsCountByCreator($org_id){
         $query = "SELECT COUNT(*) FROM EVENT WHERE creator_id = ?";
         $result = run_select_query($query, [$org_id]);

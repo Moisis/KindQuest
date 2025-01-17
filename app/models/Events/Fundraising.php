@@ -7,9 +7,8 @@ require_once __DIR__ . "/../Iterator/EventCollection.php";
 class Fundraising extends Event {
 
     private int $goal;
-    private int $creator_id;
-    public function __construct(int $event_id, string $event_name, string $description,string $registration_time, string $start_date, string $end_date, int $event_type_id, int $goal, $creatorID) {
-        parent::__construct($event_id ,$event_name, $description, $registration_time,$event_type_id, $creatorID);
+    public function __construct(int $event_id, string $event_name, string $description,string $registration_time, string $start_date, string $end_date, int $event_type_id, int $goal) {
+        parent::__construct($event_id ,$event_name, $description, $registration_time, $start_date, $end_date, $event_type_id);
         $this->goal = $goal;
     }
 

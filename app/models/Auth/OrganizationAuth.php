@@ -1,6 +1,6 @@
 <?php
-require_once "AuthStrategy.php";
-require_once dirname(__DIR__,2) . "/models/Users/BaseAccount.php";
+
+require_once dirname(__DIR__,2) . "/models/Users/BaseAccoount.php";
 require_once dirname(__DIR__,2) ."/enums/NotificationFor.php";
 require_once dirname(__DIR__,2) ."/enums/Preference.php";
 
