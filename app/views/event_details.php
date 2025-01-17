@@ -107,8 +107,15 @@
                         <h5>Volunteers:</h5>
                         <div class="icon-container">
                             <?php
-                            for ($i = 0; $i < $volunteers_required; $i++) {
-                                echo '<i class="fas fa-user' . ($i < $current_volunteers ? ' filled' : '') . '"></i>';
+                            // Display filled icons for current volunteers
+                            for ($i = 0; $i < $current_volunteers; $i++) {
+                                echo '<i class="fas fa-user filled"></i>';
+                            }
+
+                            // Display empty icons for remaining volunteers
+                            $remaining_volunteers = $volunteers_required - $current_volunteers;
+                            for ($i = 0; $i < $remaining_volunteers; $i++) {
+                                echo '<i class="fas fa-user"></i>';
                             }
                             ?>
                         </div>
@@ -118,8 +125,15 @@
                         <h5>Organizers:</h5>
                         <div class="icon-container">
                             <?php
-                            for ($i = 0; $i < $organizers_required; $i++) {
-                                echo '<i class="fas fa-user' . ($i < $current_organizers ? ' filled' : '') . '"></i>';
+                            // Display filled icons for current organizers
+                            for ($i = 0; $i < $current_organizers; $i++) {
+                                echo '<i class="fas fa-user filled"></i>';
+                            }
+
+                            // Display empty icons for remaining organizers
+                            $remaining_organizers = $organizers_required - $current_organizers;
+                            for ($i = 0; $i < $remaining_organizers; $i++) {
+                                echo '<i class="fas fa-user"></i>';
                             }
                             ?>
                         </div>

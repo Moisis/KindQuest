@@ -44,7 +44,11 @@ abstract class Event{
             $event = new NonVirtualEvent($id,
                 $first_row["event_name"], $first_row["desc"], $first_row["registration_date"],
                 $first_row["start_date"],$first_row["end_date"], $first_row["event_type_id"], 
-                $result1_first_row["location"], $result1_first_row["vol_required"], $result1_first_row["org_required"]
+                $result1_first_row["location"],
+                 $result1_first_row["vol_required"],
+                  $result1_first_row["org_required"],
+                   $result1_first_row["current_volunteers"],
+                    $result1_first_row["current_organizers"]
             );
             return $event;
         }

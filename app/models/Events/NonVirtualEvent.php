@@ -22,12 +22,16 @@ class NonVirtualEvent extends Event{
         int $event_type_id,
         string $location,
         int $volunteers_required,
-        int $organizers_required
+        int $organizers_required,
+        int $current_volunteers=0,
+        int $current_organizers=0
     ) {
         parent::__construct($event_id, $event_name, $description, $registration_time, $start_date, $end_date, $event_type_id);
         $this->location = $location;
         $this->volunteers_required = $volunteers_required;
         $this->organizers_required = $organizers_required;
+        $this->current_volunteers = $current_volunteers;
+        $this->current_organizers = $current_organizers;
     }
 
 
@@ -42,7 +46,9 @@ class NonVirtualEvent extends Event{
         int $event_type_id,
         string $location,
         int $volunteers_required,
-        int $organizers_required
+        int $organizers_required,
+        int $current_volunteers,
+        int $current_organizers
     ): bool {
         // Get the next auto-incremented ID for the event
         $event_id = run_select_query("SHOW TABLE STATUS LIKE 'Event'")->fetch_assoc()["Auto_increment"];
@@ -52,10 +58,10 @@ class NonVirtualEvent extends Event{
         
         // Insert into the NonVirtualEvents table
         $query = "
-            INSERT INTO non_virtual_events (event_id, location, vol_required, org_required)
-            VALUES (?, ?, ?, ?)
+            INSERT INTO non_virtual_events (event_id, location, vol_required, org_required, current_volunteers, current_organizers)
+            VALUES (?, ?, ?, ?, ?, ?)
         ";
-        return run_insert_query($query, [$event_id, $location, $volunteers_required, $organizers_required]);
+        return run_insert_query($query, [$event_id, $location, $volunteers_required, $organizers_required, $current_volunteers, $current_organizers]);
     }
 
     public function insertIntoDB($user_id){
@@ -66,10 +72,10 @@ class NonVirtualEvent extends Event{
         
         // Insert into the NonVirtualEvents table
         $query = "
-            INSERT INTO non_virtual_events (event_id, location, vol_required, org_required)
-            VALUES (?, ?, ?, ?)
+            INSERT INTO non_virtual_events (event_id, location, vol_required, org_required, current_volunteers, current_organizers)
+            VALUES (?, ?, ?, ?, ?, ?)
         ";
-        return run_insert_query($query, [$event_id, $this->location, $this->volunteers_required, $this->organizers_required]);        
+        return run_insert_query($query, [$event_id, $this->location, $this->volunteers_required, $this->organizers_required, $this->current_volunteers, $this->current_organizers]);        
     }
 
 

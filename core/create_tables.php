@@ -97,7 +97,9 @@ run_queries([
     `event_id` INT  NOT NULL PRIMARY KEY,
     `location` VARCHAR(255) NOT NULL COMMENT 'change to composite attr',
     `vol_required` INT NOT NULL,
-    `org_required` INT NOT NULL COMMENT 'wtf',
+    `org_required` INT NOT NULL,
+    `current_volunteers` INT NOT NULL DEFAULT 0,
+    `current_organizers` INT NOT NULL DEFAULT 0,
     FOREIGN KEY (event_id) REFERENCES Event(event_id)
 );",
 
