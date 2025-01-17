@@ -35,7 +35,6 @@
                     <form class="rd-form rd-mailform" method="post" action="/wizard/handleRequest/next">
                         <div class="form-wrap">
                             <label class="form-label" for="event">Select an Event</label>
-
                             <select class="form-input" id="event" name="event">
                                 <option value="" disabled <?php echo !isset($data['event']) ? 'selected' : ''; ?>>Choose an event</option>
                                 <?php if (isset($fundraising_events) && $fundraising_events->hasNext()) : ?>
@@ -45,6 +44,8 @@
                                             <?php echo htmlspecialchars($event->getEventName()); ?>
                                         </option>
                                     <?php endwhile; ?>
+                                <?php else : ?>
+                                    <option value="" disabled>No events available</option>
                                 <?php endif; ?>
                             </select>
 

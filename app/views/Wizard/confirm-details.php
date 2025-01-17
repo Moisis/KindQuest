@@ -20,7 +20,7 @@
         <p>Loading...</p>
     </div>
 </div>
-`
+
 <div class="page">
     <!-- Page Header-->
     <?php include_once __DIR__ . '/../commonParts/navbar.php'; ?>
@@ -67,7 +67,7 @@
                     <?php endif; ?>
 
                     <h3>Event  Details</h3>
-                    <?php if (isset($product)): ?>
+                    <?php if (isset($current_event) && $data['event'] != 'null'): ?>
                         <div class="product-summary bg-light p-4 rounded shadow-sm">
                             <p><strong>Event Name:</strong> <?php echo htmlspecialchars($current_event->getEventName() ?: 'N/A'); ?></p>
                             <p><strong>Description:</strong> <?php echo htmlspecialchars($current_event->getDescription() ?: 'No description available.'); ?></p>
@@ -75,7 +75,7 @@
                         </div>
                     <?php else: ?>
                         <div class="alert alert-warning">
-                            <p>Product details are not available at the moment.</p>
+                            <p>Event details are not available at the moment.</p>
                         </div>
                     <?php endif; ?>
                 </div>

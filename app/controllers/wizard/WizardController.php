@@ -18,6 +18,27 @@ require_once  dirname(__DIR__, 2).'/models/Events/Event.php';
 require_once dirname(__DIR__, 2) . '/models/wizard/command/CommandFactory.php';
 
 
+//donate
+require_once  dirname(__DIR__, 2).'/models/Donation/Donation.php';
+require_once  dirname(__DIR__, 2).'/models/Donation/DonationByCash.php';
+require_once  dirname(__DIR__, 2).'/models/Donation/DonationByFawry.php';
+require_once  dirname(__DIR__, 2).'/models/Donation/DonationByVisa.php';
+require_once  dirname(__DIR__, 2).'/models/Donation/DonationProxy.php';
+
+require_once  dirname(__DIR__, 2).'/models/Users/BaseAccoount.php';
+require_once dirname(__DIR__, 2).'/enums/NotificationFor.php';
+
+require_once  dirname(__DIR__, 2).'/enums/DonationMethodTypes.php';
+
+require_once dirname(__DIR__, 2).'/models/DonoData.php';
+require_once dirname(__DIR__, 2).'/models/Subject.php';
+require_once dirname(__DIR__, 2).'/models/EmailListener.php';
+require_once dirname(__DIR__, 2).'/models/LoggingListener.php';
+
+
+require_once dirname(__DIR__, 2).'/models/Badges/Badge.php';
+
+
 class WizardController
 {
     private WizardContext $wizard;
@@ -44,6 +65,12 @@ class WizardController
         $this->wizard = new WizardContext(new EnterDetailsIState());
         $data = ['product_id' => $id];
 
+        if (!isset($fundraising_events) ) {
+            $data['event'] = 'null';
+        } else {
+            $data['event'] = $_POST['event'] ?? '';
+        }
+
         // save data
         $this->wizard->setData($data);
         $this->renderView();
@@ -61,10 +88,11 @@ class WizardController
 
             // set the data Every time the request is made
             $data = $_POST;
+
             $this->wizard->setData($data);
 
             // Debugging
-            $axx = $this->wizard->getData();
+//            $axx = $this->wizard->getData();
 //            print "<pre>";
 //            print_r($axx);
 //            print "</pre>";
@@ -72,8 +100,8 @@ class WizardController
 
             // Finish the Wizard
             if ($action === 'finish') {
-                $this->wizard->resetData();
                 $this->finishWizard();
+                $this->wizard->resetData();
                 return;
             }
 
@@ -111,9 +139,66 @@ class WizardController
 
     private function finishWizard(): void
     {
-      require_once dirname(__DIR__, 2) . '/views/Wizard/complete.php';
+        $check = self::donate($this->wizard->getData());
+
+        if ($check == false) {
+            require_once dirname(__DIR__, 2) . '/views/Suspended.php';
+
+        }else{
+            require_once dirname(__DIR__, 2) . '/views/Wizard/complete.php';
+        }
     }
 
+
+    public static function donate(array $donationData)  : bool  {
+
+        if (isset($donationData['event']) && $donationData['event'] != 'null') {
+            $donationStrategy = null;
+
+            // Set the appropriate auth strategy based on user type
+            if ($donationData['donation_method'] == DonationMethodTypes::Visa->value) {
+                $donationStrategy = new DonationByVisa();
+            } elseif ($donationData['donation_method'] == DonationMethodTypes::Fawry->value) {
+                $donationStrategy = new DonationByFawry();
+            } elseif ($donationData['donation_method'] == DonationMethodTypes::Cash->value) {
+                $donationStrategy = new DonationByCash();
+            }
+
+            $product = Product::getProductById($donationData['product_id']);
+
+
+            $donation = new DonationProxy($donationStrategy);
+            $donoResult = $donation->makeDonation($product -> getPrice(), $donationData['event'], $_SESSION['ID']  );
+
+            if($donoResult == false){
+                return false;
+            }
+            if($product -> getPrice() >= 100){
+                Badge::addBadgeToUser($_SESSION['ID'], BadgesTypes::DonoChamp->value);
+                if(array_key_exists("badge" , $_SESSION)){
+                    if($_SESSION["badge"] -> checkIfBadgeExistsAndIncrement("DonationMilestoneBadge") == false){
+                        $_SESSION["badge"] = new DonationMilestoneBadge($_SESSION["badge"], $_SESSION["ID"]);
+                    }
+                }
+            }
+
+
+            $observer = BaseAccount::getPreferencesObserver(NotificationFor::Donation->value, $_SESSION['username']);
+            //$observer->subscribe(new LoggingListener())
+            // $logging_listener = new LoggingListener($observer, __DIR__ . "/../../../logFile.txt");
+
+            $observer->notify($product->getPrice());
+
+            // echo "Donation Success";
+            // sleep(3);
+//            header('Location: /');
+//            exit();
+
+            return true;
+
+        }
+        return false;
+    }
 
     public function getAllEvents(): EventIterator
     {
