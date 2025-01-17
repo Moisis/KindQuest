@@ -142,11 +142,26 @@ class NonVirtualEvent extends Event{
     public function get_required_organizers(){
         return $this->organizers_required;
     }
-    public function searchVolunteers($name): bool{
-        $query = "SELECT username FROM account WHERE account_id = (SELECT account_id FROM event_registration WHERE event_id = ? AND `role` = ?) ";
-        $result = run_select_query($query,[$this->event_id, 'Volunteer']);
-        return $result;
-    } 
+    public function isUserRegisteredToEvent($event_id, $user_id): bool {
+        error_log("Checking registration: event_id={$event_id}, user_id={$user_id}");
+    
+        $query = "SELECT 1 FROM event_registration WHERE event_id = ? AND account_id = ?";
+        $result = run_select_query($query, [$event_id, $user_id]);
+    
+        // Check if $result is a mysqli_result object and if it contains any rows
+        $is_registered = ($result instanceof mysqli_result) && ($result->num_rows > 0);
+        error_log("Query executed: {$query} with params: event_id={$event_id}, user_id={$user_id}");
+        error_log("Query result: " . print_r($result, true));
+        error_log("User registration status: " . ($is_registered ? "Registered" : "Not registered"));
+    
+        return $is_registered;
+    }
+    
+    
+    
+    
+
+    
     public function getVolunteers($event_id) {
         $query = "SELECT account_id FROM event_registration WHERE event_id = ? AND role = ?";
         $result = run_select_query($query, [$event_id, 'Volunteer']);
