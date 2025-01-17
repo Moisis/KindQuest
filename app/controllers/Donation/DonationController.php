@@ -72,7 +72,7 @@ class DonationController
     
         $observer = BaseAccount::getPreferencesObserver(NotificationFor::Donation->value, $_SESSION['username']);
         //$observer->subscribe(new LoggingListener())
-        $logging_listener = new LoggingListener($observer, __DIR__ . "/../../../logFile.txt");
+        // $logging_listener = new LoggingListener($observer, __DIR__ . "/../../../logFile.txt");
         $observer->notify($donationData['amount']);
 
         // echo "Donation Success";

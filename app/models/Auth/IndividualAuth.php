@@ -31,6 +31,10 @@ class IndividualAuth implements AuthStrategy
         $account_id = BaseAccount::getAccountId($username);
         run_insert_query($query, [$account_id, NotificationFor::Donation->value,Preference::Email->value]);
 
+        $query = "INSERT INTO Preferences (account_id, notification_for, preference) VALUES (?, ?, ?)";
+        $account_id = BaseAccount::getAccountId($username);
+        run_insert_query($query, [$account_id, NotificationFor::Donation->value,Preference::Logging->value]);
+
         return $insertResult; 
     }
 

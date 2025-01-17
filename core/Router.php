@@ -3,8 +3,7 @@
 // admin
 require_once __DIR__ . '/../app/controllers/admin/AdminController.php';
 require_once __DIR__ . '/../app/controllers/admin/AdminUsersController.php';
-
-require_once __DIR__ . '/../app/controllers/admin/AdminEventsController.php';
+require_once __DIR__ . '/../app/controllers/admin/AdminDonationsController.php';
 
 
 require_once __DIR__ . '/../app/controllers/AboutController.php';
